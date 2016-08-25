@@ -157,19 +157,13 @@ class RootCollectionViewController: UICollectionViewController {
 		switch sender.tag {
 		
 			default:
-				let vc = DefaultViewController(nibName: "DefaultViewController", bundle: nil)
+				let defaultController = DefaultViewController(nibName: "DefaultViewController", bundle: nil)
 			
-				vc.zeroLabelText = rootItems[sender.tag - 1].resourceUrlString
+				defaultController.zeroLabelText = rootItems[sender.tag - 1].resourceUrlString
 				
-				childController = vc
+				childController = defaultController
 			
-			
-			}
-			
-			
-			
-			
-		
+		}
 		
 		if let vc = childController {
 			
