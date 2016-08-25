@@ -12,6 +12,8 @@
 		2C6ABEF31D6F440300341C03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C6ABEF11D6F440300341C03 /* Main.storyboard */; };
 		2C6ABEF51D6F440300341C03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C6ABEF41D6F440300341C03 /* Assets.xcassets */; };
 		2C6ABEF81D6F440300341C03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C6ABEF61D6F440300341C03 /* LaunchScreen.storyboard */; };
+		2C6ABF001D6F44C700341C03 /* RootCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABEFF1D6F44C700341C03 /* RootCollectionViewController.swift */; };
+		2C6ABF021D6F450700341C03 /* RootDataCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF011D6F450700341C03 /* RootDataCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		2C6ABEF41D6F440300341C03 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C6ABEF71D6F440300341C03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C6ABEF91D6F440300341C03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C6ABEFF1D6F44C700341C03 /* RootCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootCollectionViewController.swift; sourceTree = "<group>"; };
+		2C6ABF011D6F450700341C03 /* RootDataCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootDataCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 				2C6ABEF41D6F440300341C03 /* Assets.xcassets */,
 				2C6ABEF61D6F440300341C03 /* LaunchScreen.storyboard */,
 				2C6ABEF91D6F440300341C03 /* Info.plist */,
+				2C6ABEFF1D6F44C700341C03 /* RootCollectionViewController.swift */,
+				2C6ABF011D6F450700341C03 /* RootDataCollectionViewCell.swift */,
 			);
 			path = StarWarsDirectory;
 			sourceTree = "<group>";
@@ -135,6 +141,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C6ABF021D6F450700341C03 /* RootDataCollectionViewCell.swift in Sources */,
+				2C6ABF001D6F44C700341C03 /* RootCollectionViewController.swift in Sources */,
 				2C6ABEF01D6F440300341C03 /* ViewController.swift in Sources */,
 				2C6ABEEE1D6F440300341C03 /* AppDelegate.swift in Sources */,
 			);
@@ -286,6 +294,7 @@
 				2C6ABEFE1D6F440300341C03 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
