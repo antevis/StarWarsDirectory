@@ -8,24 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		2C6ABEEE1D6F440300341C03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABEED1D6F440300341C03 /* AppDelegate.swift */; };
-		2C6ABEF01D6F440300341C03 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABEEF1D6F440300341C03 /* ViewController.swift */; };
 		2C6ABEF31D6F440300341C03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C6ABEF11D6F440300341C03 /* Main.storyboard */; };
 		2C6ABEF51D6F440300341C03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C6ABEF41D6F440300341C03 /* Assets.xcassets */; };
 		2C6ABEF81D6F440300341C03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C6ABEF61D6F440300341C03 /* LaunchScreen.storyboard */; };
 		2C6ABF001D6F44C700341C03 /* RootCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABEFF1D6F44C700341C03 /* RootCollectionViewController.swift */; };
 		2C6ABF021D6F450700341C03 /* RootDataCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF011D6F450700341C03 /* RootDataCollectionViewCell.swift */; };
+		2C6ABF061D6F463C00341C03 /* RootResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF051D6F463C00341C03 /* RootResource.swift */; };
+		2C6ABF091D6F681A00341C03 /* DefaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF071D6F681A00341C03 /* DefaultViewController.swift */; };
+		2C6ABF0A1D6F681A00341C03 /* DefaultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C6ABF081D6F681A00341C03 /* DefaultViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2C6ABEEA1D6F440300341C03 /* StarWarsDirectory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarWarsDirectory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C6ABEED1D6F440300341C03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2C6ABEEF1D6F440300341C03 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2C6ABEF21D6F440300341C03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C6ABEF41D6F440300341C03 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C6ABEF71D6F440300341C03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C6ABEF91D6F440300341C03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C6ABEFF1D6F44C700341C03 /* RootCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootCollectionViewController.swift; sourceTree = "<group>"; };
 		2C6ABF011D6F450700341C03 /* RootDataCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootDataCollectionViewCell.swift; sourceTree = "<group>"; };
+		2C6ABF051D6F463C00341C03 /* RootResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootResource.swift; sourceTree = "<group>"; };
+		2C6ABF071D6F681A00341C03 /* DefaultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultViewController.swift; sourceTree = "<group>"; };
+		2C6ABF081D6F681A00341C03 /* DefaultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DefaultViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,14 +62,16 @@
 		2C6ABEEC1D6F440300341C03 /* StarWarsDirectory */ = {
 			isa = PBXGroup;
 			children = (
+				2C6ABF051D6F463C00341C03 /* RootResource.swift */,
 				2C6ABEED1D6F440300341C03 /* AppDelegate.swift */,
-				2C6ABEEF1D6F440300341C03 /* ViewController.swift */,
 				2C6ABEF11D6F440300341C03 /* Main.storyboard */,
 				2C6ABEF41D6F440300341C03 /* Assets.xcassets */,
 				2C6ABEF61D6F440300341C03 /* LaunchScreen.storyboard */,
 				2C6ABEF91D6F440300341C03 /* Info.plist */,
 				2C6ABEFF1D6F44C700341C03 /* RootCollectionViewController.swift */,
 				2C6ABF011D6F450700341C03 /* RootDataCollectionViewCell.swift */,
+				2C6ABF071D6F681A00341C03 /* DefaultViewController.swift */,
+				2C6ABF081D6F681A00341C03 /* DefaultViewController.xib */,
 			);
 			path = StarWarsDirectory;
 			sourceTree = "<group>";
@@ -130,6 +136,7 @@
 			files = (
 				2C6ABEF81D6F440300341C03 /* LaunchScreen.storyboard in Resources */,
 				2C6ABEF51D6F440300341C03 /* Assets.xcassets in Resources */,
+				2C6ABF0A1D6F681A00341C03 /* DefaultViewController.xib in Resources */,
 				2C6ABEF31D6F440300341C03 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,9 +148,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C6ABF091D6F681A00341C03 /* DefaultViewController.swift in Sources */,
 				2C6ABF021D6F450700341C03 /* RootDataCollectionViewCell.swift in Sources */,
+				2C6ABF061D6F463C00341C03 /* RootResource.swift in Sources */,
 				2C6ABF001D6F44C700341C03 /* RootCollectionViewController.swift in Sources */,
-				2C6ABEF01D6F440300341C03 /* ViewController.swift in Sources */,
 				2C6ABEEE1D6F440300341C03 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -261,6 +269,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lt.antevis.StarWarsDirectory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -272,6 +281,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = lt.antevis.StarWarsDirectory;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

@@ -10,19 +10,39 @@ import UIKit
 
 private let reuseIdentifier = "RootDataCell"
 
-class RootCollectionViewController: UICollectionViewController {
+private let sideMargin: CGFloat = 8
+private let edgeInset: CGFloat = 8
+private let itemsPerRow: Int = 2
 
+class RootCollectionViewController: UICollectionViewController {
+	
+	var rootItems = [RootResource]()
+
+	@IBOutlet var cellCollectionView: UICollectionView!
+	
     override func viewDidLoad() {
         super.viewDidLoad()
+		
+		//self.navigationController?.navigationBarHidden = true
+		
+		rootItems = getRootItems()
+		
+		setupCollectionViewCellsFor(cellCollectionView, itemsPerRow: itemsPerRow, verticalEdgeInset: edgeInset, sideMargin: sideMargin)
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        //self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
     }
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		self.navigationController?.navigationBarHidden = true
+	}
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -42,20 +62,23 @@ class RootCollectionViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+		
+        return 1
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 0
+        return rootItems.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! RootDataCollectionViewCell
     
         // Configure the cell
+		
+		cell.rootItem = rootItems[indexPath.row]
+		cell.rootCellButton.tag = indexPath.row + 1
     
         return cell
     }
@@ -90,5 +113,69 @@ class RootCollectionViewController: UICollectionViewController {
     
     }
     */
+	
+	// MARK: Aux
+	func getRootItems() -> [RootResource] {
+		
+		
+		var items = [RootResource]()
+		
+		items.append(RootResource(resourceName: "films", resourceUrlString: "http://swapi.co/api/films/"))
+		items.append(RootResource(resourceName: "people", resourceUrlString: "http://swapi.co/api/people/"))
+		items.append(RootResource(resourceName: "planets", resourceUrlString: "http://swapi.co/api/planets/"))
+		items.append(RootResource(resourceName: "species", resourceUrlString: "http://swapi.co/api/species/"))
+		items.append(RootResource(resourceName: "starships", resourceUrlString: "http://swapi.co/api/starships/"))
+		items.append(RootResource(resourceName: "vehicles", resourceUrlString: "http://swapi.co/api/vehicles/"))
+		
+		return items
+	}
+	
+	func setupCollectionViewCellsFor(collectionView: UICollectionView, itemsPerRow: Int, verticalEdgeInset: CGFloat, sideMargin: CGFloat) {
+		
+		let screenWidth = UIScreen.mainScreen().bounds.width
+		
+		let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+		layout.sectionInset = UIEdgeInsets(top: verticalEdgeInset, left: sideMargin, bottom: verticalEdgeInset, right: sideMargin)
+		
+		let padding = sideMargin
+		
+		let width = ((screenWidth - sideMargin * 2 - padding * (CGFloat(itemsPerRow) - 1)) / CGFloat(itemsPerRow))
+		
+		layout.itemSize = CGSize(width: width, height: width + 48)
+		layout.minimumInteritemSpacing = sideMargin
+		layout.minimumLineSpacing = sideMargin
+		
+		collectionView.collectionViewLayout = layout
+	}
+	
+	// MARK: Event Handlers
+	
+	@IBAction func rootCellButtonTapped(sender: UIButton) {
+		
+		var childController: UIViewController?
+		
+		switch sender.tag {
+		
+			default:
+				let vc = DefaultViewController(nibName: "DefaultViewController", bundle: nil)
+			
+				vc.zeroLabelText = rootItems[sender.tag - 1].resourceUrlString
+				
+				childController = vc
+			
+			
+			}
+			
+			
+			
+			
+		
+		
+		if let vc = childController {
+			
+			navigationController?.pushViewController(vc, animated: true)
+		}
+	}
+	
 
 }
