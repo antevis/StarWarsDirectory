@@ -78,7 +78,7 @@ class RootCollectionViewController: UICollectionViewController {
         // Configure the cell
 		
 		cell.rootItem = rootItems[indexPath.row]
-		cell.rootCellButton.tag = indexPath.row + 1
+		cell.rootCellButton.tag = indexPath.row
     
         return cell
     }
@@ -159,7 +159,7 @@ class RootCollectionViewController: UICollectionViewController {
 			default:
 				let defaultController = DefaultViewController(nibName: "DefaultViewController", bundle: nil)
 			
-				defaultController.zeroLabelText = rootItems[sender.tag - 1].resourceUrlString
+				defaultController.zeroLabelText = rootItems[sender.tag].resourceUrlString
 				
 				childController = defaultController
 			
