@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C6A667F1D805920009624C3 /* MovieCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6A667D1D805920009624C3 /* MovieCharacterViewController.swift */; };
+		2C6A66801D805920009624C3 /* MovieCharacterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C6A667E1D805920009624C3 /* MovieCharacterViewController.xib */; };
 		2C6ABEEE1D6F440300341C03 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABEED1D6F440300341C03 /* AppDelegate.swift */; };
 		2C6ABEF31D6F440300341C03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C6ABEF11D6F440300341C03 /* Main.storyboard */; };
 		2C6ABEF51D6F440300341C03 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C6ABEF41D6F440300341C03 /* Assets.xcassets */; };
@@ -16,9 +18,17 @@
 		2C6ABF061D6F463C00341C03 /* RootResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF051D6F463C00341C03 /* RootResource.swift */; };
 		2C6ABF091D6F681A00341C03 /* DefaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF071D6F681A00341C03 /* DefaultViewController.swift */; };
 		2C6ABF0A1D6F681A00341C03 /* DefaultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C6ABF081D6F681A00341C03 /* DefaultViewController.xib */; };
+		2C6ABF0C1D7016A600341C03 /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF0B1D7016A600341C03 /* Film.swift */; };
+		2C6ABF0E1D70194400341C03 /* Species.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF0D1D70194400341C03 /* Species.swift */; };
+		2C6ABF101D704D8D00341C03 /* MovieCharacter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF0F1D704D8D00341C03 /* MovieCharacter.swift */; };
+		2C6ABF121D704E1600341C03 /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF111D704E1600341C03 /* Planet.swift */; };
+		2C6ABF141D70531400341C03 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF131D70531400341C03 /* Vehicle.swift */; };
+		2C6ABF161D7054D600341C03 /* Starship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF151D7054D600341C03 /* Starship.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C6A667D1D805920009624C3 /* MovieCharacterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCharacterViewController.swift; sourceTree = "<group>"; };
+		2C6A667E1D805920009624C3 /* MovieCharacterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieCharacterViewController.xib; sourceTree = "<group>"; };
 		2C6ABEEA1D6F440300341C03 /* StarWarsDirectory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarWarsDirectory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C6ABEED1D6F440300341C03 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C6ABEF21D6F440300341C03 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -30,6 +40,12 @@
 		2C6ABF051D6F463C00341C03 /* RootResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootResource.swift; sourceTree = "<group>"; };
 		2C6ABF071D6F681A00341C03 /* DefaultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultViewController.swift; sourceTree = "<group>"; };
 		2C6ABF081D6F681A00341C03 /* DefaultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DefaultViewController.xib; sourceTree = "<group>"; };
+		2C6ABF0B1D7016A600341C03 /* Film.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
+		2C6ABF0D1D70194400341C03 /* Species.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Species.swift; sourceTree = "<group>"; };
+		2C6ABF0F1D704D8D00341C03 /* MovieCharacter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCharacter.swift; sourceTree = "<group>"; };
+		2C6ABF111D704E1600341C03 /* Planet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
+		2C6ABF131D70531400341C03 /* Vehicle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
+		2C6ABF151D7054D600341C03 /* Starship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Starship.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +88,14 @@
 				2C6ABF011D6F450700341C03 /* RootDataCollectionViewCell.swift */,
 				2C6ABF071D6F681A00341C03 /* DefaultViewController.swift */,
 				2C6ABF081D6F681A00341C03 /* DefaultViewController.xib */,
+				2C6ABF0B1D7016A600341C03 /* Film.swift */,
+				2C6ABF0D1D70194400341C03 /* Species.swift */,
+				2C6ABF0F1D704D8D00341C03 /* MovieCharacter.swift */,
+				2C6ABF111D704E1600341C03 /* Planet.swift */,
+				2C6ABF131D70531400341C03 /* Vehicle.swift */,
+				2C6ABF151D7054D600341C03 /* Starship.swift */,
+				2C6A667D1D805920009624C3 /* MovieCharacterViewController.swift */,
+				2C6A667E1D805920009624C3 /* MovieCharacterViewController.xib */,
 			);
 			path = StarWarsDirectory;
 			sourceTree = "<group>";
@@ -138,6 +162,7 @@
 				2C6ABEF51D6F440300341C03 /* Assets.xcassets in Resources */,
 				2C6ABF0A1D6F681A00341C03 /* DefaultViewController.xib in Resources */,
 				2C6ABEF31D6F440300341C03 /* Main.storyboard in Resources */,
+				2C6A66801D805920009624C3 /* MovieCharacterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,9 +174,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C6ABF091D6F681A00341C03 /* DefaultViewController.swift in Sources */,
+				2C6A667F1D805920009624C3 /* MovieCharacterViewController.swift in Sources */,
+				2C6ABF161D7054D600341C03 /* Starship.swift in Sources */,
+				2C6ABF0E1D70194400341C03 /* Species.swift in Sources */,
+				2C6ABF0C1D7016A600341C03 /* Film.swift in Sources */,
+				2C6ABF121D704E1600341C03 /* Planet.swift in Sources */,
 				2C6ABF021D6F450700341C03 /* RootDataCollectionViewCell.swift in Sources */,
+				2C6ABF101D704D8D00341C03 /* MovieCharacter.swift in Sources */,
 				2C6ABF061D6F463C00341C03 /* RootResource.swift in Sources */,
 				2C6ABF001D6F44C700341C03 /* RootCollectionViewController.swift in Sources */,
+				2C6ABF141D70531400341C03 /* Vehicle.swift in Sources */,
 				2C6ABEEE1D6F440300341C03 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
