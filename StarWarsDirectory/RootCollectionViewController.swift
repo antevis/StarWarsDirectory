@@ -155,6 +155,11 @@ class RootCollectionViewController: UICollectionViewController {
 		var childController: UIViewController?
 		
 		switch sender.tag {
+			
+			case 1:
+				
+				let characterController = MovieCharacterViewController(nibName: "MovieCharacterViewController", bundle: nil)
+				childController = characterController
 		
 			default:
 				let defaultController = DefaultViewController(nibName: "DefaultViewController", bundle: nil)

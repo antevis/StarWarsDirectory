@@ -14,6 +14,12 @@ class MovieCharacterViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+		
+		// Status bar white font
+		self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
+		self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+		
+
     }
 
     override func didReceiveMemoryWarning() {

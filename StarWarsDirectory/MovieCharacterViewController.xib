@@ -14,7 +14,29 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <subviews>
+                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c9r-ds-hfa">
+                    <rect key="frame" x="0.0" y="299" width="600" height="216"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="216" id="feR-Fm-0Or"/>
+                    </constraints>
+                </pickerView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Luke Skywalker" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ovy-NX-Qjg">
+                    <rect key="frame" x="213" y="31" width="174.5" height="29"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.082352941176470587" green="0.094117647058823528" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="Ovy-NX-Qjg" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Apx-6s-NZp"/>
+                <constraint firstAttribute="bottom" secondItem="c9r-ds-hfa" secondAttribute="bottom" constant="85" id="LO6-j4-jwp"/>
+                <constraint firstItem="Ovy-NX-Qjg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="31" id="PAt-pH-K9r"/>
+                <constraint firstAttribute="trailing" secondItem="c9r-ds-hfa" secondAttribute="trailing" id="n9u-rM-71A"/>
+                <constraint firstItem="c9r-ds-hfa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="y9O-qv-Iw7"/>
+            </constraints>
         </view>
     </objects>
 </document>
