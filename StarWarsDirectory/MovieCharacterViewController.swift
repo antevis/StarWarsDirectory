@@ -20,6 +20,15 @@ class MovieCharacterViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		self.navigationController?.navigationBarHidden = false
+		self.navigationController?.navigationBar.topItem?.title = "Characters"
+		
+		//zeroLabel.text = zeroLabelText
+	}
     
 
     /*
