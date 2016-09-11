@@ -25,6 +25,7 @@
 		2C6ABF121D704E1600341C03 /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF111D704E1600341C03 /* Planet.swift */; };
 		2C6ABF141D70531400341C03 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF131D70531400341C03 /* Vehicle.swift */; };
 		2C6ABF161D7054D600341C03 /* Starship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF151D7054D600341C03 /* Starship.swift */; };
+		2CDA1CA61D85AD7F00EEF4A7 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA1CA51D85AD7F00EEF4A7 /* APIClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		2C6ABF111D704E1600341C03 /* Planet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
 		2C6ABF131D70531400341C03 /* Vehicle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
 		2C6ABF151D7054D600341C03 /* Starship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Starship.swift; sourceTree = "<group>"; };
+		2CDA1CA51D85AD7F00EEF4A7 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 		2C6ABEEC1D6F440300341C03 /* StarWarsDirectory */ = {
 			isa = PBXGroup;
 			children = (
+				2CDA1CA51D85AD7F00EEF4A7 /* APIClient.swift */,
 				2C6ABF051D6F463C00341C03 /* RootResource.swift */,
 				2C6ABEED1D6F440300341C03 /* AppDelegate.swift */,
 				2C6ABEF11D6F440300341C03 /* Main.storyboard */,
@@ -177,6 +180,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C6ABF091D6F681A00341C03 /* DefaultViewController.swift in Sources */,
+				2CDA1CA61D85AD7F00EEF4A7 /* APIClient.swift in Sources */,
 				2C6A667F1D805920009624C3 /* MovieCharacterViewController.swift in Sources */,
 				2C6ABF161D7054D600341C03 /* Starship.swift in Sources */,
 				2C6ABF0E1D70194400341C03 /* Species.swift in Sources */,
