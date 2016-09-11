@@ -8,8 +8,7 @@
 
 import Foundation
 
-typealias DescriptiveInt = (intValue: Int?, stringValue: String)
-typealias DescriptiveDouble = (value: Double?, description: String)
+
 
 struct Species {
 	

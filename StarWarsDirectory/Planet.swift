@@ -20,8 +20,8 @@ struct Planet {
 	let terrain: String // The terrain of this planet. Comma-seperated if diverse.
 	let surface_water: DescriptiveDouble // The percentage of the planet surface that is naturally occuring water or bodies of water.
 	let population: DescriptiveInt // The average population of sentient beings inhabiting this planet.
-	let residents: [MovieCharacter] // An array of People URL Resources that live on this planet.
-	let films: [Film] // An array of Film URL Resources that this planet has appeared in.
+	let residents: [String] // An array of People URL Resources that live on this planet.
+	let films: [String] // An array of Film URL Resources that this planet has appeared in.
 	let url: String // the hypermedia URL of this resource.
 	
 	//Optional (marked required for planets, though. But still)
