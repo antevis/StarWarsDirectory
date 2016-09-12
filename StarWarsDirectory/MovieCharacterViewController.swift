@@ -20,6 +20,8 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 	@IBOutlet weak var hairColorLabel: UILabel!
 	
 	var movieCharacters = [MovieCharacter]()
+	
+	let characterAPIClient = MovieCharacterAPIClient()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,43 +34,64 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 		self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
 		self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
 		
-		let lukePlanet = Planet(name: "Tatooine", rotation_period: "23".descriptiveDouble, orbital_period: "34".descriptiveDouble, diameter: "10465".descriptiveDouble, climate: "arid", gravity: "1".descriptiveDouble, terrain: "desert", surface_water: "1".descriptiveDouble, population: "200000".descriptiveInt, residents: [
-			"http://swapi.co/api/people/1/",
-			"http://swapi.co/api/people/2/",
-			"http://swapi.co/api/people/4/",
-			"http://swapi.co/api/people/6/",
-			"http://swapi.co/api/people/7/",
-			"http://swapi.co/api/people/8/",
-			"http://swapi.co/api/people/9/",
-			"http://swapi.co/api/people/11/",
-			"http://swapi.co/api/people/43/",
-			"http://swapi.co/api/people/62/"], films: [
-				"http://swapi.co/api/films/5/",
-				"http://swapi.co/api/films/4/",
-				"http://swapi.co/api/films/6/",
-				"http://swapi.co/api/films/3/",
-				"http://swapi.co/api/films/1/"], url: "http://swapi.co/api/planets/1/", created: nil, edited: nil)
+		characterAPIClient.fetchMovieCharacters() { result in
+			
+			switch result {
+				
+				case .Success(let characters):
+					
+					self.movieCharacters = characters
+				
+					self.displayCharacterData()
+				
+				case .Failure(let error as NSError):
+					
+					self.showAlert("Unable to retrieve movie characters", message: error.localizedDescription)
+				
+				default: break
+			}
+			
+			
+			
+		}
 		
-		let luke = MovieCharacter(name: "Luke Skywalker", height: "172".descriptiveInt, mass: "77".descriptiveInt, hair_color: "Blond", skin_color: "Caucasian", eye_color: "Blue", birth_year: "19 BBY", gender: "Male", homeworld: lukePlanet, films: [
-			"http://swapi.co/api/films/1/",
-			"http://swapi.co/api/films/2/",
-			"http://swapi.co/api/films/3/"], species: ["http://swapi.co/api/species/1/"], vehicles: [
-				"http://swapi.co/api/vehicles/14/",
-				"http://swapi.co/api/vehicles/30/"], starships: [
-					"http://swapi.co/api/starships/12/",
-					"http://swapi.co/api/starships/22/"], url: "http://swapi.co/api/people/1/", created: nil, edited: nil)
+//		let lukePlanet = Planet(name: "Tatooine", rotation_period: "23".descriptiveDouble, orbital_period: "34".descriptiveDouble, diameter: "10465".descriptiveDouble, climate: "arid", gravity: "1".descriptiveDouble, terrain: "desert", surface_water: "1".descriptiveDouble, population: "200000".descriptiveInt, residents: [
+//			"http://swapi.co/api/people/1/",
+//			"http://swapi.co/api/people/2/",
+//			"http://swapi.co/api/people/4/",
+//			"http://swapi.co/api/people/6/",
+//			"http://swapi.co/api/people/7/",
+//			"http://swapi.co/api/people/8/",
+//			"http://swapi.co/api/people/9/",
+//			"http://swapi.co/api/people/11/",
+//			"http://swapi.co/api/people/43/",
+//			"http://swapi.co/api/people/62/"], films: [
+//				"http://swapi.co/api/films/5/",
+//				"http://swapi.co/api/films/4/",
+//				"http://swapi.co/api/films/6/",
+//				"http://swapi.co/api/films/3/",
+//				"http://swapi.co/api/films/1/"], url: "http://swapi.co/api/planets/1/", created: nil, edited: nil)
 		
-		let c3po = MovieCharacter(name: "C-3PO", height: "167".descriptiveInt, mass: "75".descriptiveInt, hair_color: "n/a", skin_color: "gold", eye_color: "yellow", birth_year: "112BBY", gender: "n/a", homeworld: lukePlanet, films: [
-			"http://swapi.co/api/films/5/",
-			"http://swapi.co/api/films/4/",
-			"http://swapi.co/api/films/6/",
-			"http://swapi.co/api/films/3/",
-			"http://swapi.co/api/films/2/",
-			"http://swapi.co/api/films/1/"], species: ["http://swapi.co/api/species/2/"], vehicles: [], starships: [], url: "http://swapi.co/api/people/2/", created: nil, edited: nil)
+//		let luke = MovieCharacter(name: "Luke Skywalker", height: "172".descriptiveInt, mass: "77".descriptiveInt, hair_color: "Blond", skin_color: "Caucasian", eye_color: "Blue", birth_year: "19 BBY", gender: "Male", homeworld: lukePlanet, films: [
+//			"http://swapi.co/api/films/1/",
+//			"http://swapi.co/api/films/2/",
+//			"http://swapi.co/api/films/3/"], species: ["http://swapi.co/api/species/1/"], vehicles: [
+//				"http://swapi.co/api/vehicles/14/",
+//				"http://swapi.co/api/vehicles/30/"], starships: [
+//					"http://swapi.co/api/starships/12/",
+//					"http://swapi.co/api/starships/22/"], url: "http://swapi.co/api/people/1/", created: nil, edited: nil)
+//		
+//		let c3po = MovieCharacter(name: "C-3PO", height: "167".descriptiveInt, mass: "75".descriptiveInt, hair_color: "n/a", skin_color: "gold", eye_color: "yellow", birth_year: "112BBY", gender: "n/a", homeworld: lukePlanet, films: [
+//			"http://swapi.co/api/films/5/",
+//			"http://swapi.co/api/films/4/",
+//			"http://swapi.co/api/films/6/",
+//			"http://swapi.co/api/films/3/",
+//			"http://swapi.co/api/films/2/",
+//			"http://swapi.co/api/films/1/"], species: ["http://swapi.co/api/species/2/"], vehicles: [], starships: [], url: "http://swapi.co/api/people/2/", created: nil, edited: nil)
+//		
+//		movieCharacters += [luke, c3po]
 		
-		movieCharacters += [luke, c3po]
-		
-		displayCharacterData()
+		//displayCharacterData()
 		
 
     }
@@ -115,10 +138,21 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 		
 		self.nameLabel.text = currentCharacter.name
 		self.dobLabel.text = currentCharacter.birth_year
-		self.homePlanetLabel.text = currentCharacter.homeworld.name
+		self.homePlanetLabel.text = currentCharacter.homeworld
 		self.heightLabel.text = currentCharacter.height.description
 		self.hairColorLabel.text = currentCharacter.hair_color
 		self.eyeColorLabel.text = currentCharacter.eye_color
+	}
+	
+	func showAlert(title: String, message: String?, style: UIAlertControllerStyle = .Alert) {
+		
+		let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
+		
+		let dismissAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+		
+		alertController.addAction(dismissAction)
+		
+		presentViewController(alertController, animated: true, completion: nil)
 	}
 	
 
