@@ -41,6 +41,8 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 				case .Success(let characters):
 					
 					self.movieCharacters = characters
+					
+					self.characterPicker.reloadAllComponents()
 				
 					self.displayCharacterData()
 				
