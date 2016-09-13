@@ -14,14 +14,15 @@ enum MovieCharacters: Endpoint {
 	
 	var baseURL: NSURL {
 		
-		return NSURL(string: "http://swapi.co")!
+		return NSURL(string: "http://swapi.co/api/")!
 	}
 	
 	//var baseURL = NSURL(string: "http://swapi.co/api")!
 	
 	
 	var path: String {
-		return "/api/people/"
+		
+		return "people/"
 	}
 	
 	var request: NSURLRequest {
