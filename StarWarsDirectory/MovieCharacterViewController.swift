@@ -46,6 +46,8 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 				
 					self.displayCharacterData()
 				
+					//print("\(self.movieCharacters.count)")
+				
 				case .Failure(let error as NSError):
 					
 					self.showAlert("Unable to retrieve movie characters", message: error.localizedDescription)
