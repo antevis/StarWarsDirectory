@@ -35,22 +35,22 @@ protocol Endpoint {
 	var request: NSURLRequest { get }
 }
 
-enum SWEndpoint {
-	case People(Int)
-	case Planet(Int)
-	case Starships(Int)
-	case Vehicles(Int)
-	
-	func URL() -> String {
-		switch self {
-			
-		case .People(let page): return "people/?page=\(page)"
-		case .Planet(let index): return "planets/\(index)"
-		case .Starships(let page): return "starships/?page=\(page)"
-		case .Vehicles(let page): return "vehicles/?page=\(page)"
-		}
-	}
-}
+//enum SWEndpoint {
+//	case People(Int)
+//	case Planet(Int)
+//	case Starships(Int)
+//	case Vehicles(Int)
+//	
+//	func URL() -> String {
+//		switch self {
+//			
+//		case .People(let page): return "people/?page=\(page)"
+//		case .Planet(let index): return "planets/\(index)"
+//		case .Starships(let page): return "starships/?page=\(page)"
+//		case .Vehicles(let page): return "vehicles/?page=\(page)"
+//		}
+//	}
+//}
 
 protocol APIClient {
 	
