@@ -16,7 +16,6 @@
 		2C6ABEF81D6F440300341C03 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C6ABEF61D6F440300341C03 /* LaunchScreen.storyboard */; };
 		2C6ABF001D6F44C700341C03 /* RootCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABEFF1D6F44C700341C03 /* RootCollectionViewController.swift */; };
 		2C6ABF021D6F450700341C03 /* RootDataCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF011D6F450700341C03 /* RootDataCollectionViewCell.swift */; };
-		2C6ABF061D6F463C00341C03 /* RootResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF051D6F463C00341C03 /* RootResource.swift */; };
 		2C6ABF091D6F681A00341C03 /* DefaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF071D6F681A00341C03 /* DefaultViewController.swift */; };
 		2C6ABF0A1D6F681A00341C03 /* DefaultViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C6ABF081D6F681A00341C03 /* DefaultViewController.xib */; };
 		2C6ABF0C1D7016A600341C03 /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF0B1D7016A600341C03 /* Film.swift */; };
@@ -27,6 +26,7 @@
 		2C6ABF161D7054D600341C03 /* Starship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF151D7054D600341C03 /* Starship.swift */; };
 		2CDA1CA61D85AD7F00EEF4A7 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA1CA51D85AD7F00EEF4A7 /* APIClient.swift */; };
 		2CDA1CA81D85AE5200EEF4A7 /* MovieCharacterAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA1CA71D85AE5200EEF4A7 /* MovieCharacterAPIClient.swift */; };
+		2CDB428E1D89634500993281 /* RootResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB428D1D89634500993281 /* RootResource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +41,6 @@
 		2C6ABEF91D6F440300341C03 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C6ABEFF1D6F44C700341C03 /* RootCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootCollectionViewController.swift; sourceTree = "<group>"; };
 		2C6ABF011D6F450700341C03 /* RootDataCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootDataCollectionViewCell.swift; sourceTree = "<group>"; };
-		2C6ABF051D6F463C00341C03 /* RootResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootResource.swift; sourceTree = "<group>"; };
 		2C6ABF071D6F681A00341C03 /* DefaultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultViewController.swift; sourceTree = "<group>"; };
 		2C6ABF081D6F681A00341C03 /* DefaultViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DefaultViewController.xib; sourceTree = "<group>"; };
 		2C6ABF0B1D7016A600341C03 /* Film.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
@@ -52,6 +51,7 @@
 		2C6ABF151D7054D600341C03 /* Starship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Starship.swift; sourceTree = "<group>"; };
 		2CDA1CA51D85AD7F00EEF4A7 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		2CDA1CA71D85AE5200EEF4A7 /* MovieCharacterAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCharacterAPIClient.swift; sourceTree = "<group>"; };
+		2CDB428D1D89634500993281 /* RootResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootResource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,8 +84,8 @@
 		2C6ABEEC1D6F440300341C03 /* StarWarsDirectory */ = {
 			isa = PBXGroup;
 			children = (
+				2CDB428D1D89634500993281 /* RootResource.swift */,
 				2CDA1CA51D85AD7F00EEF4A7 /* APIClient.swift */,
-				2C6ABF051D6F463C00341C03 /* RootResource.swift */,
 				2C6ABEED1D6F440300341C03 /* AppDelegate.swift */,
 				2C6ABEF11D6F440300341C03 /* Main.storyboard */,
 				2C6ABEF41D6F440300341C03 /* Assets.xcassets */,
@@ -183,6 +183,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C6ABF091D6F681A00341C03 /* DefaultViewController.swift in Sources */,
+				2CDB428E1D89634500993281 /* RootResource.swift in Sources */,
 				2CDA1CA61D85AD7F00EEF4A7 /* APIClient.swift in Sources */,
 				2C6A667F1D805920009624C3 /* MovieCharacterViewController.swift in Sources */,
 				2C6ABF161D7054D600341C03 /* Starship.swift in Sources */,
@@ -192,7 +193,6 @@
 				2C6ABF021D6F450700341C03 /* RootDataCollectionViewCell.swift in Sources */,
 				2C6A66821D80704A009624C3 /* Auxilliary.swift in Sources */,
 				2C6ABF101D704D8D00341C03 /* MovieCharacter.swift in Sources */,
-				2C6ABF061D6F463C00341C03 /* RootResource.swift in Sources */,
 				2C6ABF001D6F44C700341C03 /* RootCollectionViewController.swift in Sources */,
 				2CDA1CA81D85AE5200EEF4A7 /* MovieCharacterAPIClient.swift in Sources */,
 				2C6ABF141D70531400341C03 /* Vehicle.swift in Sources */,
