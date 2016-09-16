@@ -21,7 +21,7 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 	
 	var movieCharacters = [MovieCharacter]()
 	
-	let characterAPIClient = MovieCharacterAPIClient()
+	let apiClient = SwapiClient()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +34,7 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 		self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
 		self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
 		
-		characterAPIClient.fetchMovieCharacters() { result in
+		apiClient.fetchMovieCharacters() { result in
 			
 			switch result {
 				

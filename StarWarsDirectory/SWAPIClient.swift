@@ -78,11 +78,7 @@ class SwapiClient: APIClient {
 		
 		recursiveCompletion = fetchCompletion
 		
-		//let url = NSURL(string: "http://swapi.co/api/people/?page=1")
-		
-		//let request = NSURLRequest(URL: url!)
-		
-		let request = SWEndpoint.Characters(page: 1)
+		let request = SWEndpoint.Characters(1).request
 		
 		fetch(request, parse: fetchCompletion, completion: completion)
 	}
