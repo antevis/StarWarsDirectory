@@ -82,9 +82,9 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 					
 					case .Success(let characters):
 						
+						//let sortedCharacters = characters.sort { $0.name > $1.name }
 						
-						
-						self.movieCharacters = characters
+						self.movieCharacters = characters.sort { $0.name < $1.name }
 						
 						//let sorted = self.movieCharacters!.sort { $0.name > $1.name }
 						
