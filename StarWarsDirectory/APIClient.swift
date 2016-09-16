@@ -81,7 +81,6 @@ class APIClient {
 				
 				completion(nil, httpResponse, error)
 			}
-			
 		}
 		
 		return task

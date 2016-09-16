@@ -12,8 +12,10 @@
                 <outlet property="eyeColorLabel" destination="epw-5x-HZX" id="oji-tU-sAB"/>
                 <outlet property="hairColorLabel" destination="7by-Nu-uf7" id="btp-Eu-Auq"/>
                 <outlet property="heightLabel" destination="aIp-N8-6kI" id="tG5-N1-DG9"/>
+                <outlet property="highestLabel" destination="sKb-Cd-TzF" id="UZD-IQ-bC8"/>
                 <outlet property="homePlanetLabel" destination="Pia-VY-Dft" id="opb-fA-61o"/>
                 <outlet property="nameLabel" destination="Ovy-NX-Qjg" id="0aY-iQ-2o7"/>
+                <outlet property="shortestLabel" destination="ahB-Gq-Zzd" id="Rx5-t6-Qsy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -50,14 +52,14 @@
                             <color key="textColor" red="0.32549019607843138" green="0.32549019607843138" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahB-Gq-Zzd">
-                            <rect key="frame" x="126" y="16" width="25.5" height="24"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Undefined" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahB-Gq-Zzd">
+                            <rect key="frame" x="126" y="16" width="98" height="24"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chewie" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKb-Cd-TzF">
-                            <rect key="frame" x="126" y="50" width="70.5" height="24"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Undefined" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sKb-Cd-TzF">
+                            <rect key="frame" x="126" y="50" width="98" height="24"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -189,6 +191,9 @@
                     <state key="normal" title="Metric">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="metricButtonHandler:" destination="-1" eventType="touchUpInside" id="2gg-Jo-58D"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wes-5d-AMJ">
                     <rect key="frame" x="460" y="234" width="57" height="33"/>
@@ -196,6 +201,10 @@
                     <state key="normal" title="English">
                         <color key="titleColor" red="0.30196078431372547" green="0.30980392156862746" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WGR-46-afT">
+                    <rect key="frame" x="460" y="81" width="46" height="30"/>
+                    <state key="normal" title="Button"/>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.082352941176470587" green="0.094117647058823528" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
@@ -253,6 +262,7 @@
                 <mask key="subviews">
                     <exclude reference="tUA-hl-HdB"/>
                     <exclude reference="yD2-hY-2hg"/>
+                    <exclude reference="WGR-46-afT"/>
                 </mask>
             </variation>
             <point key="canvasLocation" x="374" y="555.5"/>

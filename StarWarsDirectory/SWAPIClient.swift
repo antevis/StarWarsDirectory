@@ -39,6 +39,7 @@ class SwapiClient: APIClient {
 	//To be honest, the recursion approach has been borrowed.
 	func fetchMovieCharacters(completion: APIResult<[MovieCharacter]> -> Void) {
 		
+		
 		var movieCharacters = [MovieCharacter]()
 		
 		var recursiveCompletion: (JSON -> [MovieCharacter]?)!
@@ -63,6 +64,8 @@ class SwapiClient: APIClient {
 					
 					let nextURL = NSURL(string: nextPage)
 					let nextRequest = NSURLRequest(URL: nextURL!)
+					
+					
 					
 					self.fetch(nextRequest, parse: recursiveCompletion, completion: completion)
 					

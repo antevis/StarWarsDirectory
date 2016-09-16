@@ -19,7 +19,11 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 	@IBOutlet weak var eyeColorLabel: UILabel!
 	@IBOutlet weak var hairColorLabel: UILabel!
 	
-	var movieCharacters = [MovieCharacter]()
+	@IBOutlet weak var shortestLabel: UILabel!
+	@IBOutlet weak var highestLabel: UILabel!
+	
+	
+	var movieCharacters: [MovieCharacter]?
 	
 	let apiClient = SwapiClient()
 
@@ -34,27 +38,29 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 		self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
 		self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
 		
-		apiClient.fetchMovieCharacters() { result in
-			
-			switch result {
-				
-				case .Success(let characters):
-					
-					self.movieCharacters = characters
-					
-					self.characterPicker.reloadAllComponents()
-				
-					self.displayCharacterData()
-				
-					//print("\(self.movieCharacters.count)")
-				
-				case .Failure(let error as NSError):
-					
-					self.showAlert("Unable to retrieve movie characters", message: error.localizedDescription)
-				
-				default: break
-			}
-		}
+//		apiClient.fetchMovieCharacters() { result in
+//			
+//			self.activityIndicator.stopAnimating()
+//			
+//			switch result {
+//				
+//				case .Success(let characters):
+//					
+//					self.movieCharacters = characters
+//					
+//					self.characterPicker.reloadAllComponents()
+//				
+//					self.displayCharacterData()
+//				
+//					//print("\(self.movieCharacters.count)")
+//				
+//				case .Failure(let error as NSError):
+//					
+//					self.showAlert("Unable to retrieve movie characters", message: error.localizedDescription)
+//				
+//				default: break
+//			}
+//		}
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,18 +74,58 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 		self.navigationController?.navigationBarHidden = false
 		self.navigationController?.navigationBar.topItem?.title = "Characters"
 		
+		if movieCharacters == nil {
+			
+			apiClient.fetchMovieCharacters() { result in
+				
+				switch result {
+					
+					case .Success(let characters):
+						
+						
+						
+						self.movieCharacters = characters
+						
+						//let sorted = self.movieCharacters!.sort { $0.name > $1.name }
+						
+						self.characterPicker.reloadAllComponents()
+						
+						self.displayCharacterData()
+						
+						//print("\(self.movieCharacters.count)")
+						
+					case .Failure(let error as NSError):
+						
+						self.showAlert("Unable to retrieve movie characters", message: error.localizedDescription)
+						
+					default: break
+				}
+			}
+		}
+		
 		//zeroLabel.text = zeroLabelText
 	}
+	
 	
 	//MARK: picker conformance
 	func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
 		
+		if let movieCharacters = movieCharacters{
+		
 		return movieCharacters[row].name
+		} else {
+			return "Please wait."
+		}
 	}
 	
 	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
 		
+		if let movieCharacters = movieCharacters{
+		
 		return movieCharacters.count
+		} else {
+			return 0
+		}
 	}
 	
 	func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -94,6 +140,11 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 	
 	func displayCharacterData() {
 		
+		guard let movieCharacters = movieCharacters else {
+			
+			return
+		}
+		
 		let currentCharacter = movieCharacters[characterPicker.selectedRowInComponent(0)]
 		
 		self.nameLabel.text = currentCharacter.name
@@ -102,6 +153,19 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 		self.heightLabel.text = currentCharacter.height.description
 		self.hairColorLabel.text = currentCharacter.hair_color
 		self.eyeColorLabel.text = currentCharacter.eye_color
+		
+		if let shortestTallest = getShortestTallestWithin(movieCharacters) {
+			
+			if let shortest = shortestTallest.min {
+				
+				shortestLabel.text = "\(shortest.name): \(shortest.height.description) cm"
+			}
+			
+			if let highest = shortestTallest.max {
+				
+				highestLabel.text = "\(highest.name): \(highest.height.description) cm"
+			}
+		}
 	}
 	
 	func showAlert(title: String, message: String?, style: UIAlertControllerStyle = .Alert) {
@@ -115,6 +179,68 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 		presentViewController(alertController, animated: true, completion: nil)
 	}
 	
+	func getShortestTallestWithin(movieCharacters: [MovieCharacter]?) -> (min: MovieCharacter?, max: MovieCharacter?)? {
+		
+		guard let movieCharacters = movieCharacters where movieCharacters.count > 0 else { return nil }
+		
+		var minHeight: Int?
+		var maxHeight: Int?
+		
+		var shortestCharacter: MovieCharacter? {
+			
+			didSet { minHeight = shortestCharacter?.height.intValue }
+		}
+		
+		var highestCharacter: MovieCharacter? {
+			
+			didSet { maxHeight = highestCharacter?.height.intValue }
+		}
+		
+		for characacter in movieCharacters {
+			
+			if let characterHeight = characacter.height.intValue {
+				
+				if let minHeight = minHeight {
+					
+					if characterHeight < minHeight {
+					
+						shortestCharacter = characacter
+					}
+					
+				} else {
+					
+					shortestCharacter = characacter
+				}
+				
+				if let maxHeight = maxHeight {
+					
+					if characterHeight > maxHeight {
+						
+						highestCharacter = characacter
+					}
+					
+				} else {
+					
+					highestCharacter = characacter
+				}
+			}
+		}
+		
+		return (shortestCharacter, highestCharacter)
+	}
+	
+	@IBAction func metricButtonHandler(sender: UIButton) {
+		
+		guard let movieCharacters = movieCharacters else {
+			
+			return
+		}
+		
+		for character in movieCharacters {
+			
+			print(character.height.description)
+		}
+	}
 
     /*
     // MARK: - Navigation

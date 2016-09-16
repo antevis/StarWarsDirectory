@@ -85,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				2C05EFA51D897B7D00992663 /* APIClient.swift */,
+				2CDA1CA71D85AE5200EEF4A7 /* SWAPIClient.swift */,
 				2CDB428D1D89634500993281 /* RootResource.swift */,
 				2C6ABEED1D6F440300341C03 /* AppDelegate.swift */,
 				2C6ABEF11D6F440300341C03 /* Main.storyboard */,
@@ -104,7 +105,6 @@
 				2C6A667D1D805920009624C3 /* MovieCharacterViewController.swift */,
 				2C6A667E1D805920009624C3 /* MovieCharacterViewController.xib */,
 				2C6A66811D80704A009624C3 /* Auxilliary.swift */,
-				2CDA1CA71D85AE5200EEF4A7 /* SWAPIClient.swift */,
 			);
 			path = StarWarsDirectory;
 			sourceTree = "<group>";
