@@ -10,11 +10,25 @@
 
 import Foundation
 
+
+
 struct  MovieCharacter {
 	
 	//Required
 	let name: String
-	let height: DescriptiveInt
+	
+	//height in centimeters
+	var height: DescriptiveInt {
+		
+		didSet {
+			
+			if let invValue = height.intValue {
+				
+				height.description = "\(invValue) cm"
+			}
+		}
+	}
+	
 //	let mass: DescriptiveInt // The mass of the person in kilograms.
 	
 	let hair_color: String // The hair color of this person. Will be "unknown" if not known or "n/a" if the person does not have hair.
@@ -36,6 +50,35 @@ struct  MovieCharacter {
 	//Optional
 //	let created: NSDate? // the ISO 8601 date format of the time that this resource was created.
 //	let edited: NSDate?
+	
+	func heightIn(measure: MeasureSystem) -> String {
+		
+		guard let intValue = height.intValue else {
+			
+			return height.description
+		}
+		
+		switch measure {
+			
+			case .Imperial:
+				return convertToImperial(from: intValue)
+			case .Metric:
+				return "\(intValue) cm"
+		
+		}
+	}
+	
+	func convertToImperial(from cm: Int) -> String {
+		
+		let cmPerFoot: Double = 30.48
+		let cmPerInch: Double = cmPerFoot / 12
+		
+		let feet = Int(Double(cm) / cmPerFoot)
+		
+		let inches = Int((Double(cm) % cmPerFoot) / cmPerInch)
+		
+		return "\(feet)' \(inches)''"
+	}
 }
 
 extension MovieCharacter {

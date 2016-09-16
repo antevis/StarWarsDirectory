@@ -34,6 +34,12 @@ enum APIResult<T> {
 	case Failure(ErrorType)
 }
 
+enum MeasureSystem {
+	
+	case Metric
+	case Imperial
+}
+
 class APIClient {
 	
 	func JSONTaskWith(request: NSURLRequest, completion: JSONTaskCompletion) -> NSURLSessionDataTask {

@@ -22,8 +22,35 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 	@IBOutlet weak var shortestLabel: UILabel!
 	@IBOutlet weak var highestLabel: UILabel!
 	
+	@IBOutlet weak var imperialButton: UIButton!
+	@IBOutlet weak var metricButton: UIButton!
+	
+	
+	
+	var currentMeasureSystem = MeasureSystem.Metric {
+		
+		didSet {
+			
+			switch currentMeasureSystem {
+				
+				case .Imperial:
+					imperialButton.enabled = false
+					metricButton.enabled = true
+				
+				case .Metric:
+					imperialButton.enabled = true
+					metricButton.enabled = false
+			}
+			
+			self.heightLabel.text = currentCharacter?.heightIn(currentMeasureSystem)
+		}
+	}
 	
 	var movieCharacters: [MovieCharacter]?
+	
+	var currentCharacter: MovieCharacter?
+	
+	var isMetric: Bool?
 	
 	let apiClient = SwapiClient()
 
@@ -31,6 +58,21 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
         super.viewDidLoad()
 		
 		characterPicker.delegate = self
+		
+		imperialButton.setTitleColor(UIColor.grayColor(), forState: .Disabled)
+		metricButton.setTitleColor(UIColor.grayColor(), forState: .Disabled)
+		
+		isMetric = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem) as? Bool
+		
+		if let isMetric = isMetric {
+			
+			currentMeasureSystem = isMetric ? .Metric : .Imperial
+		
+		} else {
+			
+			currentMeasureSystem = .Metric
+		}
+		
 
         // Do any additional setup after loading the view.
 		
@@ -38,29 +80,25 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 		self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
 		self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
 		
-//		apiClient.fetchMovieCharacters() { result in
-//			
-//			self.activityIndicator.stopAnimating()
-//			
-//			switch result {
-//				
-//				case .Success(let characters):
-//					
-//					self.movieCharacters = characters
-//					
-//					self.characterPicker.reloadAllComponents()
-//				
-//					self.displayCharacterData()
-//				
-//					//print("\(self.movieCharacters.count)")
-//				
-//				case .Failure(let error as NSError):
-//					
-//					self.showAlert("Unable to retrieve movie characters", message: error.localizedDescription)
-//				
-//				default: break
-//			}
-//		}
+		apiClient.fetchMovieCharacters() { result in
+			
+			switch result {
+				
+				case .Success(let characters):
+					
+					self.movieCharacters = characters.sort { $0.name < $1.name }
+					
+					self.characterPicker.reloadAllComponents()
+					
+					self.displayCharacterData()
+					
+				case .Failure(let error as NSError):
+					
+					self.showAlert("Unable to retrieve movie characters", message: error.localizedDescription)
+					
+				default: break
+			}
+		}
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,37 +111,6 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 		
 		self.navigationController?.navigationBarHidden = false
 		self.navigationController?.navigationBar.topItem?.title = "Characters"
-		
-		if movieCharacters == nil {
-			
-			apiClient.fetchMovieCharacters() { result in
-				
-				switch result {
-					
-					case .Success(let characters):
-						
-						//let sortedCharacters = characters.sort { $0.name > $1.name }
-						
-						self.movieCharacters = characters.sort { $0.name < $1.name }
-						
-						//let sorted = self.movieCharacters!.sort { $0.name > $1.name }
-						
-						self.characterPicker.reloadAllComponents()
-						
-						self.displayCharacterData()
-						
-						//print("\(self.movieCharacters.count)")
-						
-					case .Failure(let error as NSError):
-						
-						self.showAlert("Unable to retrieve movie characters", message: error.localizedDescription)
-						
-					default: break
-				}
-			}
-		}
-		
-		//zeroLabel.text = zeroLabelText
 	}
 	
 	
@@ -145,12 +152,19 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 			return
 		}
 		
-		let currentCharacter = movieCharacters[characterPicker.selectedRowInComponent(0)]
+		self.currentCharacter = movieCharacters[characterPicker.selectedRowInComponent(0)]
+		
+		guard let currentCharacter = currentCharacter else {
+			
+			return
+		}
 		
 		self.nameLabel.text = currentCharacter.name
 		self.dobLabel.text = currentCharacter.birth_year
 		self.homePlanetLabel.text = currentCharacter.homeworld
-		self.heightLabel.text = currentCharacter.height.description
+		
+		self.heightLabel.text = currentCharacter.heightIn(currentMeasureSystem)
+		
 		self.hairColorLabel.text = currentCharacter.hair_color
 		self.eyeColorLabel.text = currentCharacter.eye_color
 		
@@ -231,17 +245,13 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 	
 	@IBAction func metricButtonHandler(sender: UIButton) {
 		
-		guard let movieCharacters = movieCharacters else {
-			
-			return
-		}
-		
-		for character in movieCharacters {
-			
-			print(character.height.description)
-		}
+		currentMeasureSystem = .Metric
 	}
 
+	@IBAction func imperialButtonHandler(sender: UIButton) {
+		
+		currentMeasureSystem = .Imperial
+	}
     /*
     // MARK: - Navigation
 

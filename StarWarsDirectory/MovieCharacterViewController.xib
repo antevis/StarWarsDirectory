@@ -14,6 +14,8 @@
                 <outlet property="heightLabel" destination="aIp-N8-6kI" id="tG5-N1-DG9"/>
                 <outlet property="highestLabel" destination="sKb-Cd-TzF" id="UZD-IQ-bC8"/>
                 <outlet property="homePlanetLabel" destination="Pia-VY-Dft" id="opb-fA-61o"/>
+                <outlet property="imperialButton" destination="wes-5d-AMJ" id="UMP-fu-7uc"/>
+                <outlet property="metricButton" destination="JQt-8C-g7c" id="kYW-Iv-t2C"/>
                 <outlet property="nameLabel" destination="Ovy-NX-Qjg" id="0aY-iQ-2o7"/>
                 <outlet property="shortestLabel" destination="ahB-Gq-Zzd" id="Rx5-t6-Qsy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -199,8 +201,11 @@
                     <rect key="frame" x="460" y="234" width="57" height="33"/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                     <state key="normal" title="English">
-                        <color key="titleColor" red="0.30196078431372547" green="0.30980392156862746" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="imperialButtonHandler:" destination="-1" eventType="touchUpInside" id="SeS-Kk-Dn1"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WGR-46-afT">
                     <rect key="frame" x="460" y="81" width="46" height="30"/>
