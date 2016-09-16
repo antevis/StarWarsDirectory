@@ -234,6 +234,7 @@
                 <constraint firstItem="MOw-f4-9os" firstAttribute="leading" secondItem="Kpi-eE-wWi" secondAttribute="leading" id="KRS-iQ-Kci"/>
                 <constraint firstItem="lUo-hC-bxP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="24" id="L6S-2v-PRj"/>
                 <constraint firstItem="7e1-U0-xbj" firstAttribute="leading" secondItem="whc-lH-vch" secondAttribute="leading" id="NDV-CO-9xd"/>
+                <constraint firstItem="JQt-8C-g7c" firstAttribute="centerY" secondItem="7e1-U0-xbj" secondAttribute="centerY" id="NTW-Uo-WZb"/>
                 <constraint firstItem="kWn-1n-Gzy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NZu-Rb-Mng"/>
                 <constraint firstItem="MOw-f4-9os" firstAttribute="top" secondItem="Kpi-eE-wWi" secondAttribute="bottom" constant="8" id="Noy-DF-INL"/>
                 <constraint firstItem="Ovy-NX-Qjg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="75" id="PAt-pH-K9r"/>
@@ -249,7 +250,6 @@
                 <constraint firstItem="35P-0T-ART" firstAttribute="top" secondItem="7MI-f9-cK9" secondAttribute="bottom" constant="8" id="fmd-xO-cf7"/>
                 <constraint firstAttribute="trailing" secondItem="7Oe-cR-2SX" secondAttribute="trailing" constant="24" id="gc5-eD-2Sh"/>
                 <constraint firstItem="Hqq-h3-Ecd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="24" id="jgF-BN-gqF"/>
-                <constraint firstItem="JQt-8C-g7c" firstAttribute="centerY" secondItem="aIp-N8-6kI" secondAttribute="centerY" id="lhm-rp-EmX"/>
                 <constraint firstAttribute="trailing" secondItem="c9r-ds-hfa" secondAttribute="trailing" id="n9u-rM-71A"/>
                 <constraint firstAttribute="trailing" secondItem="Hqq-h3-Ecd" secondAttribute="trailing" constant="24" id="nB2-7i-eZV"/>
                 <constraint firstAttribute="trailing" secondItem="JQt-8C-g7c" secondAttribute="trailing" constant="24" id="pFm-Tl-luw"/>

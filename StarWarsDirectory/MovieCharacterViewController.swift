@@ -26,7 +26,6 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 	@IBOutlet weak var metricButton: UIButton!
 	
 	
-	
 	var currentMeasureSystem = MeasureSystem.Metric {
 		
 		didSet {
