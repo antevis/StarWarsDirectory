@@ -15,13 +15,6 @@ public let AbnormalError: Int = 30
 
 typealias JSON = [String: AnyObject]
 typealias JSONTaskCompletion = (JSON?, NSHTTPURLResponse?, NSError?) -> Void
-typealias JSONTask = NSURLSessionDataTask
-
-enum APIResult<T> {
-	
-	case Success(T)
-	case Failure(ErrorType)
-}
 
 protocol JSONDecodable {
 	
@@ -35,21 +28,18 @@ protocol Endpoint {
 	var request: NSURLRequest { get }
 }
 
-
-
-protocol APIClient {
+enum APIResult<T> {
 	
-	var configuration: NSURLSessionConfiguration { get }
-	var session: NSURLSession { get }
-	
-	func JSONTaskWith(request: NSURLRequest, completion: ([String: AnyObject]?, NSHTTPURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask
-	
-	func fetch<T: JSONDecodable>(request: NSURLRequest, parse: [String: AnyObject] -> T?, completion: APIResult<T> -> Void)
+	case Success(T)
+	case Failure(ErrorType)
 }
 
-extension APIClient {
+class APIClient {
 	
-	func JSONTaskWith(request: NSURLRequest, completion: ([String: AnyObject]?, NSHTTPURLResponse?, NSError?) -> Void) -> NSURLSessionDataTask {
+	func JSONTaskWith(request: NSURLRequest, completion: JSONTaskCompletion) -> NSURLSessionDataTask {
+		
+		let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
+		let session: NSURLSession = NSURLSession(configuration: sessionConfig)
 		
 		let task = session.dataTaskWithRequest(request) { data, response, error in
 			
@@ -71,32 +61,33 @@ extension APIClient {
 				
 				switch httpResponse.statusCode {
 					
-					case 200:
+				case 200:
+					
+					do {
 						
-						do {
-							
-							let json = try NSJSONSerialization.JSONObjectWithData(dataCandidate, options: []) as? [String: AnyObject]
-							
-							completion(json, httpResponse, error)
-							
-						} catch let err as NSError {
-							
-							completion(nil, httpResponse, err)
-						}
+						let json = try NSJSONSerialization.JSONObjectWithData(dataCandidate, options: []) as? [String: AnyObject]
 						
-					default: print("Received HTTP response: \(httpResponse.statusCode).")
+						completion(json, httpResponse, error)
+						
+					} catch let err as NSError {
+						
+						completion(nil, httpResponse, err)
+					}
+					
+				default: print("Received HTTP response: \(httpResponse.statusCode).")
 				}
 				
 			} else {
 				
 				completion(nil, httpResponse, error)
 			}
+			
 		}
 		
 		return task
 	}
 	
-	func fetch<T>(request: NSURLRequest, parse: [String: AnyObject] -> T?, completion: APIResult<T> -> Void) {
+	func fetch<T>(request: NSURLRequest, parse: JSON -> T?, completion: APIResult<T> -> Void) {
 		
 		let task = JSONTaskWith(request) { json, response, error in
 			
@@ -134,3 +125,5 @@ extension APIClient {
 		task.resume()
 	}
 }
+
+
