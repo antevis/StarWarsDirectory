@@ -81,7 +81,7 @@ class SwapiClient: APIClient {
 		
 		recursiveCompletion = fetchCompletion
 		
-		let request = SWEndpoint.Characters(1).request
+		let request = SWEndpoint.Characters(8).request
 		
 		fetch(request, parse: fetchCompletion, completion: completion)
 	}
