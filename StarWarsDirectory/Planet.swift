@@ -27,5 +27,15 @@ struct Planet {
 	//Optional (marked required for planets, though. But still)
 	let created: NSDate? // the ISO 8601 date format of the time that this resource was created.
 	let edited: NSDate? // the ISO 8601 date format of the time that this resource was edited.
+	
+	init?(json: [String: AnyObject]) {
+		
+		return nil
+	}
+	
+	init?(url: String) {
+		
+		return nil
+	}
 }
 

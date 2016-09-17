@@ -160,7 +160,9 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 		
 		self.nameLabel.text = currentCharacter.name
 		self.dobLabel.text = currentCharacter.birth_year
-		self.homePlanetLabel.text = currentCharacter.homeworld
+		
+		
+		//self.homePlanetLabel.text = currentCharacter.homePlanet.name
 		
 		self.heightLabel.text = currentCharacter.heightIn(currentMeasureSystem)
 		
