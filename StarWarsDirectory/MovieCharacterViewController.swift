@@ -163,8 +163,8 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 		self.nameLabel.text = currentCharacter.name
 		self.dobLabel.text = currentCharacter.birth_year
 		
-		
-		
+		//To avoid previously selected moviecharacter data being displayed before planet fetch completion handled.
+		self.noHomePlanetData()
 		
 		self.heightLabel.text = currentCharacter.heightIn(currentMeasureSystem)
 		
@@ -191,7 +191,7 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 					
 				case .Failure( _ as NSError):
 					
-					self.homePlanetLabel.text = "unknown"
+					self.noHomePlanetData()
 					
 				default: break
 				}
@@ -210,6 +210,11 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 				highestLabel.text = "\(highest.name): \(highest.height.description) cm"
 			}
 		}
+	}
+	
+	func noHomePlanetData() {
+		
+		self.homePlanetLabel.text = "unknown"
 	}
 	
 	func showAlert(title: String, message: String?, style: UIAlertControllerStyle = .Alert) {
