@@ -73,16 +73,13 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 			currentMeasureSystem = .Metric //Default API measure system
 		}
 		
-
         // Do any additional setup after loading the view.
 		
 		// Status bar white font
 		self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
 		self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
 		
-		//apiClient.fetchMovieCharacters() { result in
-		apiClient.fetchPeople() { result in
-		//apiClient.fetchPaginatedResource(SWEndpoint.Characters(1)) { result in
+		apiClient.fetchMovieCharacters() { result in
 			
 			switch result {
 				

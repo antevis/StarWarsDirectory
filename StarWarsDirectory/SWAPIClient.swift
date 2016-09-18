@@ -37,6 +37,7 @@ enum SWEndpoint: Endpoint {
 
 class SwapiClient: APIClient {
 	
+	//To be honest, the recursion approach has been borrowed.
 	func fetchPaginatedResource<T: JSONDecodable>(endPoint: SWEndpoint, completion: APIResult<[T]> -> Void) {
 		
 		var resourceResultArray = [T]()
@@ -83,61 +84,61 @@ class SwapiClient: APIClient {
 		fetch(request, parse: fetchCompletion, completion: completion)
 	}
 	
-	func fetchPeople(completion: APIResult<[MovieCharacter]> -> Void) {
+	func fetchMovieCharacters(completion: APIResult<[MovieCharacter]> -> Void) {
 		
 		let endpoint = SWEndpoint.Characters(8)
 		
 		fetchPaginatedResource(endpoint, completion: completion)
 	}
 	
-	//To be honest, the recursion approach has been borrowed.
-	func fetchMovieCharacters(completion: APIResult<[MovieCharacter]> -> Void) {
-		
-		var movieCharacters = [MovieCharacter]()
-		
-		var recursiveCompletion: (JSON -> [MovieCharacter]?)!
-		
-		let fetchCompletion = { (json: JSON) -> [MovieCharacter]? in
-			
-			if let characterSupspects = json["results"] as? [AnyObject] {
-				
-				var currentPageCharacters = [MovieCharacter]()
-				
-				for characterCandidate in characterSupspects {
-					
-					if let mc = characterCandidate as? [String: AnyObject], candidate = MovieCharacter(json: mc) {
-						
-						currentPageCharacters.append(candidate)
-					}
-				}
-				
-				movieCharacters += currentPageCharacters
-				
-				if let nextPage = json["next"] as? String {
-					
-					let nextURL = NSURL(string: nextPage)
-					let nextRequest = NSURLRequest(URL: nextURL!)
-					
-					
-					
-					self.fetch(nextRequest, parse: recursiveCompletion, completion: completion)
-					
-				}
-				
-				return movieCharacters
-				
-			} else {
-				
-				return nil
-			}
-		}
-		
-		recursiveCompletion = fetchCompletion
-		
-		let request = SWEndpoint.Characters(1).request
-		
-		fetch(request, parse: fetchCompletion, completion: completion)
-	}
+//	//To be honest, the recursion approach has been borrowed.
+//	func fetchMovieCharacters(completion: APIResult<[MovieCharacter]> -> Void) {
+//		
+//		var movieCharacters = [MovieCharacter]()
+//		
+//		var recursiveCompletion: (JSON -> [MovieCharacter]?)!
+//		
+//		let fetchCompletion = { (json: JSON) -> [MovieCharacter]? in
+//			
+//			if let characterSupspects = json["results"] as? [AnyObject] {
+//				
+//				var currentPageCharacters = [MovieCharacter]()
+//				
+//				for characterCandidate in characterSupspects {
+//					
+//					if let mc = characterCandidate as? [String: AnyObject], candidate = MovieCharacter(json: mc) {
+//						
+//						currentPageCharacters.append(candidate)
+//					}
+//				}
+//				
+//				movieCharacters += currentPageCharacters
+//				
+//				if let nextPage = json["next"] as? String {
+//					
+//					let nextURL = NSURL(string: nextPage)
+//					let nextRequest = NSURLRequest(URL: nextURL!)
+//					
+//					
+//					
+//					self.fetch(nextRequest, parse: recursiveCompletion, completion: completion)
+//					
+//				}
+//				
+//				return movieCharacters
+//				
+//			} else {
+//				
+//				return nil
+//			}
+//		}
+//		
+//		recursiveCompletion = fetchCompletion
+//		
+//		let request = SWEndpoint.Characters(1).request
+//		
+//		fetch(request, parse: fetchCompletion, completion: completion)
+//	}
 	
 	func fetchPlanet(url: String, completion: APIResult<Planet> -> Void) {
 		
