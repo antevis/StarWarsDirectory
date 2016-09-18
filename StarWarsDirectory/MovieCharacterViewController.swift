@@ -25,7 +25,7 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 	@IBOutlet weak var imperialButton: UIButton!
 	@IBOutlet weak var metricButton: UIButton!
 	
-	
+	//Initially explicitly set to default API measure system to bypass the init() requirement. Re-evaluated in viewDidLoad according to current locale
 	var currentMeasureSystem = MeasureSystem.Metric {
 		
 		didSet {
@@ -67,9 +67,10 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 			
 			currentMeasureSystem = isMetric ? .Metric : .Imperial
 		
-		} else {
+		} else /*Highly unprobable, but still..*/ {
 			
-			currentMeasureSystem = .Metric
+			
+			currentMeasureSystem = .Metric //Default API measure system
 		}
 		
 
@@ -173,7 +174,7 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 		
 		if let planet = currentCharacter.homePlanet {
 			
-			//If planet has been already pulled, use it instead of recurrent quering the API
+			//If planet has already been pulled before, use it instead of recurrent quering the API
 			self.homePlanetLabel.text = planet.name
 			
 		} else {
