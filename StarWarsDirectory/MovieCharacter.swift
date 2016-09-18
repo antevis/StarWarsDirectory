@@ -29,6 +29,7 @@ class MovieCharacter {
 		}
 	}
 	
+	//Query api for planet data only when property accessed.
 	lazy var homePlanet: Planet? = Planet(url: self.homeWorldUrl)
 	
 //	let mass: DescriptiveInt // The mass of the person in kilograms.

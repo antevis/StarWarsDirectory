@@ -146,12 +146,14 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 	
 	func displayCharacterData() {
 		
+		let currentCharacterIndex = characterPicker.selectedRowInComponent(0)
+		
 		guard let movieCharacters = movieCharacters else {
 			
 			return
 		}
 		
-		self.currentCharacter = movieCharacters[characterPicker.selectedRowInComponent(0)]
+		self.currentCharacter = movieCharacters[currentCharacterIndex]
 		
 		guard let currentCharacter = currentCharacter else {
 			
@@ -161,12 +163,40 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 		self.nameLabel.text = currentCharacter.name
 		self.dobLabel.text = currentCharacter.birth_year
 		
-		self.homePlanetLabel.text = currentCharacter.homePlanet?.name ?? "undef"
+		
+		
 		
 		self.heightLabel.text = currentCharacter.heightIn(currentMeasureSystem)
 		
 		self.hairColorLabel.text = currentCharacter.hair_color
 		self.eyeColorLabel.text = currentCharacter.eye_color
+		
+		if let planet = currentCharacter.homePlanet {
+			
+			//If planet has been already pulled, use it instead of recurrent quering the API
+			self.homePlanetLabel.text = planet.name
+			
+		} else {
+			
+			apiClient.fetchPlanet(currentCharacter.homeWorldUrl) { result in
+				
+				switch result {
+					
+				case .Success(let planet):
+					
+					//Set planet data for future access instead of recurrent quering the API
+					self.movieCharacters?[currentCharacterIndex].homePlanet = planet
+					
+					self.homePlanetLabel.text = planet.name
+					
+				case .Failure( _ as NSError):
+					
+					self.homePlanetLabel.text = "unknown"
+					
+				default: break
+				}
+			}
+		}
 		
 		if let shortestTallest = getShortestTallestWithin(movieCharacters) {
 			

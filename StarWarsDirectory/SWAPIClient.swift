@@ -12,6 +12,8 @@ enum SWEndpoint: Endpoint {
 	
 	case Characters(Int)
 	
+	//case Planet(String)
+	
 	var baseURL: NSURL {
 		
 		return NSURL(string: "http://swapi.co/api/")!
@@ -21,8 +23,13 @@ enum SWEndpoint: Endpoint {
 		
 		switch self {
 			
-		case .Characters(let page):
-			return "people/?page=\(page)"
+			case .Characters(let page):
+				
+				return "people/?page=\(page)"
+				
+	//		case .Planet(let urlString):
+//			
+//			
 		}
 	}
 	
@@ -81,8 +88,19 @@ class SwapiClient: APIClient {
 		
 		recursiveCompletion = fetchCompletion
 		
-		let request = SWEndpoint.Characters(8).request
+		let request = SWEndpoint.Characters(7).request
 		
 		fetch(request, parse: fetchCompletion, completion: completion)
+	}
+	
+	func fetchPlanet(url: String, completion: APIResult<Planet> -> Void) {
+		
+		let request = NSURLRequest(URL: NSURL(string: url)!)
+
+		fetch(request, parse: { json -> Planet? in
+			
+			return Planet(json: json)
+			
+		}, completion: completion)
 	}
 }
