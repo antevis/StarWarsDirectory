@@ -37,6 +37,59 @@ enum SWEndpoint: Endpoint {
 
 class SwapiClient: APIClient {
 	
+	func fetchPaginatedResource<T: JSONDecodable>(endPoint: SWEndpoint, completion: APIResult<[T]> -> Void) {
+		
+		var resourceResultArray = [T]()
+		
+		var recursiveCompletion: (JSON -> [T]?)!
+		
+		let fetchCompletion = { (json: JSON) -> [T]? in
+			
+			if let resourceSupspects = json["results"] as? [AnyObject] {
+				
+				var currentPageResources = [T]()
+				
+				for resourceCandidate in resourceSupspects {
+					
+					if let mc = resourceCandidate as? [String: AnyObject], candidate = T(json: mc) {
+						
+						currentPageResources.append(candidate)
+					}
+				}
+				
+				resourceResultArray += currentPageResources
+				
+				if let nextPage = json["next"] as? String {
+					
+					let nextURL = NSURL(string: nextPage)
+					let nextRequest = NSURLRequest(URL: nextURL!)
+					
+					self.fetch(nextRequest, parse: recursiveCompletion, completion: completion)
+					
+				}
+				
+				return resourceResultArray
+				
+			} else {
+				
+				return nil
+			}
+		}
+		
+		recursiveCompletion = fetchCompletion
+		
+		let request = endPoint.request// SWEndpoint.Characters(1).request
+		
+		fetch(request, parse: fetchCompletion, completion: completion)
+	}
+	
+	func fetchPeople(completion: APIResult<[MovieCharacter]> -> Void) {
+		
+		let endpoint = SWEndpoint.Characters(8)
+		
+		fetchPaginatedResource(endpoint, completion: completion)
+	}
+	
 	//To be honest, the recursion approach has been borrowed.
 	func fetchMovieCharacters(completion: APIResult<[MovieCharacter]> -> Void) {
 		

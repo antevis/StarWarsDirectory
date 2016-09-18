@@ -80,7 +80,9 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 		self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
 		self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
 		
-		apiClient.fetchMovieCharacters() { result in
+		//apiClient.fetchMovieCharacters() { result in
+		apiClient.fetchPeople() { result in
+		//apiClient.fetchPaginatedResource(SWEndpoint.Characters(1)) { result in
 			
 			switch result {
 				
@@ -183,18 +185,18 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 				
 				switch result {
 					
-				case .Success(let planet):
-					
-					//Set planet data for future access instead of recurrent quering the API
-					self.movieCharacters?[currentCharacterIndex].homePlanet = planet
-					
-					self.homePlanetLabel.text = planet.name
-					
-				case .Failure( _ as NSError):
-					
-					self.noHomePlanetData()
-					
-				default: break
+					case .Success(let planet):
+						
+						//Set planet data for future access instead of recurrent quering the API
+						self.movieCharacters?[currentCharacterIndex].homePlanet = planet
+						
+						self.homePlanetLabel.text = planet.name
+						
+					case .Failure( _ as NSError):
+						
+						self.noHomePlanetData()
+						
+					default: break
 				}
 			}
 		}

@@ -18,7 +18,7 @@ typealias JSONTaskCompletion = (JSON?, NSHTTPURLResponse?, NSError?) -> Void
 
 protocol JSONDecodable {
 	
-	init?(JSON: [String: AnyObject])
+	init?(json: JSON)
 }
 
 protocol Endpoint {
@@ -39,6 +39,8 @@ enum MeasureSystem {
 	case Metric
 	case Imperial
 }
+
+
 
 class APIClient {
 	

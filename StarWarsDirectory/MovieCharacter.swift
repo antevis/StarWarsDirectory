@@ -12,7 +12,7 @@ import Foundation
 
 
 
-class MovieCharacter {
+class MovieCharacter: JSONDecodable {
 	
 	//Required
 	let name: String
@@ -83,7 +83,7 @@ class MovieCharacter {
 		return "\(feet)' \(inches)''"
 	}
 	
-	init?(json: [String: AnyObject]) {
+	required init?(json: JSON) {
 		
 		guard let
 			name = json["name"] as? String,
