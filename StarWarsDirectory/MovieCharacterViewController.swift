@@ -214,7 +214,7 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 	
 	func noHomePlanetData() {
 		
-		self.homePlanetLabel.text = "unknown"
+		self.homePlanetLabel.text = ""
 	}
 	
 	func showAlert(title: String, message: String?, style: UIAlertControllerStyle = .Alert) {

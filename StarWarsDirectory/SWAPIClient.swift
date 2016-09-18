@@ -11,6 +11,7 @@ import Foundation
 enum SWEndpoint: Endpoint {
 	
 	case Characters(Int)
+	case Planets(Int)
 	
 	var baseURL: NSURL {
 		
@@ -24,6 +25,10 @@ enum SWEndpoint: Endpoint {
 			case .Characters(let page):
 				
 				return "people/?page=\(page)"
+			
+			case .Planets(let page):
+				
+				return "planets/?page=\(page)"
 		}
 	}
 	
@@ -79,66 +84,18 @@ class SwapiClient: APIClient {
 		
 		recursiveCompletion = fetchCompletion
 		
-		let request = endPoint.request// SWEndpoint.Characters(1).request
+		let request = endPoint.request
 		
 		fetch(request, parse: fetchCompletion, completion: completion)
 	}
 	
 	func fetchMovieCharacters(completion: APIResult<[MovieCharacter]> -> Void) {
 		
-		let endpoint = SWEndpoint.Characters(8)
+		let endpoint = SWEndpoint.Characters(1)
 		
 		fetchPaginatedResource(endpoint, completion: completion)
 	}
 	
-//	//To be honest, the recursion approach has been borrowed.
-//	func fetchMovieCharacters(completion: APIResult<[MovieCharacter]> -> Void) {
-//		
-//		var movieCharacters = [MovieCharacter]()
-//		
-//		var recursiveCompletion: (JSON -> [MovieCharacter]?)!
-//		
-//		let fetchCompletion = { (json: JSON) -> [MovieCharacter]? in
-//			
-//			if let characterSupspects = json["results"] as? [AnyObject] {
-//				
-//				var currentPageCharacters = [MovieCharacter]()
-//				
-//				for characterCandidate in characterSupspects {
-//					
-//					if let mc = characterCandidate as? [String: AnyObject], candidate = MovieCharacter(json: mc) {
-//						
-//						currentPageCharacters.append(candidate)
-//					}
-//				}
-//				
-//				movieCharacters += currentPageCharacters
-//				
-//				if let nextPage = json["next"] as? String {
-//					
-//					let nextURL = NSURL(string: nextPage)
-//					let nextRequest = NSURLRequest(URL: nextURL!)
-//					
-//					
-//					
-//					self.fetch(nextRequest, parse: recursiveCompletion, completion: completion)
-//					
-//				}
-//				
-//				return movieCharacters
-//				
-//			} else {
-//				
-//				return nil
-//			}
-//		}
-//		
-//		recursiveCompletion = fetchCompletion
-//		
-//		let request = SWEndpoint.Characters(1).request
-//		
-//		fetch(request, parse: fetchCompletion, completion: completion)
-//	}
 	
 	func fetchPlanet(url: String, completion: APIResult<Planet> -> Void) {
 		
