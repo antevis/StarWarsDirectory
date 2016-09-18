@@ -12,8 +12,6 @@ enum SWEndpoint: Endpoint {
 	
 	case Characters(Int)
 	
-	//case Planet(String)
-	
 	var baseURL: NSURL {
 		
 		return NSURL(string: "http://swapi.co/api/")!
@@ -26,10 +24,6 @@ enum SWEndpoint: Endpoint {
 			case .Characters(let page):
 				
 				return "people/?page=\(page)"
-				
-	//		case .Planet(let urlString):
-//			
-//			
 		}
 	}
 	
@@ -45,7 +39,6 @@ class SwapiClient: APIClient {
 	
 	//To be honest, the recursion approach has been borrowed.
 	func fetchMovieCharacters(completion: APIResult<[MovieCharacter]> -> Void) {
-		
 		
 		var movieCharacters = [MovieCharacter]()
 		
@@ -97,9 +90,9 @@ class SwapiClient: APIClient {
 		
 		let request = NSURLRequest(URL: NSURL(string: url)!)
 
-		fetch(request, parse: { json -> Planet? in
+		fetch(request, parse: { planetJson -> Planet? in
 			
-			return Planet(json: json)
+			return Planet(json: planetJson)
 			
 		}, completion: completion)
 	}
