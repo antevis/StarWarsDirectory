@@ -42,7 +42,6 @@ class MovieCharacter: JSONDecodable {
 	
 	let homeWorldUrl: String // The URL of a planet resource, a planet that this person was born on or inhabits.
 	
-	//TODO: change homeworld type to Planet
 	//let homeworld: Planet // The URL of a planet resource, a planet that this person was born on or inhabits.
 //	let films: [String] // An array of film resource URLs that this person has been in.
 //	let species: [String] // An array of species resource URLs that this person belonds to.
