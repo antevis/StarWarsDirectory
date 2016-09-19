@@ -12,7 +12,7 @@ import Foundation
 
 
 
-class MovieCharacter: JSONDecodable {
+class MovieCharacter: JSONDecodable, SizeProvider {
 	
 	//Required
 	let name: String
@@ -31,6 +31,18 @@ class MovieCharacter: JSONDecodable {
 	
 	//Query api for planet data only when property accessed.
 	lazy var homePlanet: Planet? = Planet(url: self.homeWorldUrl)
+	
+	var size: Double? {
+		
+		if let intValue = height.intValue {
+			
+			return Double(intValue)
+		
+		} else {
+			
+			return nil
+		}
+	}
 	
 //	let mass: DescriptiveInt // The mass of the person in kilograms.
 	

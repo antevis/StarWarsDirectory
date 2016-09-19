@@ -10,6 +10,7 @@ import Foundation
 
 typealias DescriptiveInt = (intValue: Int?, description: String)
 typealias DescriptiveDouble = (doubleValue: Double?, description: String)
+typealias Aux = Auxilliary
 
 class Auxilliary {
 	
@@ -26,7 +27,64 @@ class Auxilliary {
 //		
 //		return result
 //	}
+	
+	class func getExtremesWithin<T: SizeProvider>(array: [T]?) -> (min: T?, max: T?)? {
+		
+		guard let array = array where array.count > 0 else { return nil }
+		
+		var minSize: Double?
+		var maxSize: Double?
+		
+		var smallestMember: T? {
+			
+			didSet { minSize = smallestMember?.size }
+		}
+		
+		var biggestMember: T? {
+			
+			didSet { maxSize = biggestMember?.size }
+		}
+		
+		for item in array {
+			
+			if let itemSize = item.size {
+				
+				if let minSize = minSize {
+					
+					if itemSize < minSize {
+						
+						smallestMember = item
+					}
+					
+				} else {
+					
+					smallestMember = item
+				}
+				
+				if let maxSize = maxSize {
+					
+					if itemSize > maxSize {
+						
+						biggestMember = item
+					}
+					
+				} else {
+					
+					biggestMember = item
+				}
+			}
+		}
+		
+		return (smallestMember, biggestMember)
+	}
 }
+
+protocol SizeProvider {
+	
+	var size: Double? { get }
+}
+
+
 
 extension String {
 	

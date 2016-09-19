@@ -163,7 +163,7 @@ class MovieCharacterViewController: DetailViewController, UIPickerViewDelegate, 
 			}
 		}
 		
-		if let shortestTallest = getShortestTallestWithin(movieCharacters) {
+		if let shortestTallest = Aux.getExtremesWithin(movieCharacters) {
 			
 			if let shortest = shortestTallest.min {
 				
@@ -200,56 +200,6 @@ class MovieCharacterViewController: DetailViewController, UIPickerViewDelegate, 
 		metricButton.enabled = false
 	}
 	
-	
-	func getShortestTallestWithin(movieCharacters: [MovieCharacter]?) -> (min: MovieCharacter?, max: MovieCharacter?)? {
-		
-		guard let movieCharacters = movieCharacters where movieCharacters.count > 0 else { return nil }
-		
-		var minHeight: Int?
-		var maxHeight: Int?
-		
-		var shortestCharacter: MovieCharacter? {
-			
-			didSet { minHeight = shortestCharacter?.height.intValue }
-		}
-		
-		var highestCharacter: MovieCharacter? {
-			
-			didSet { maxHeight = highestCharacter?.height.intValue }
-		}
-		
-		for characacter in movieCharacters {
-			
-			if let characterHeight = characacter.height.intValue {
-				
-				if let minHeight = minHeight {
-					
-					if characterHeight < minHeight {
-					
-						shortestCharacter = characacter
-					}
-					
-				} else {
-					
-					shortestCharacter = characacter
-				}
-				
-				if let maxHeight = maxHeight {
-					
-					if characterHeight > maxHeight {
-						
-						highestCharacter = characacter
-					}
-					
-				} else {
-					
-					highestCharacter = characacter
-				}
-			}
-		}
-		
-		return (shortestCharacter, highestCharacter)
-	}
 	
 	@IBAction func metricButtonHandler(sender: UIButton) {
 		

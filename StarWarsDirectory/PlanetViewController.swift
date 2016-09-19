@@ -9,6 +9,11 @@
 import UIKit
 
 class PlanetViewController: DetailViewController {
+	
+	var planets: [Planet]?
+	var currentPlanet: Planet?
+	
+	let apiClient = SwapiClient()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +25,24 @@ class PlanetViewController: DetailViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+	
+	//MARK: planet functions
+	func displayPlanetDataFor(index: Int) {
+		
+		guard let planets = planets else {
+			
+			return
+		}
+		
+		self.currentPlanet = planets[index]
+		
+		guard let currentPlanet = currentPlanet else {
+			
+			return
+		}
+		
+		
+	}
     
 
     /*
