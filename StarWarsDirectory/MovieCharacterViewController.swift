@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class MovieCharacterViewController: DetailViewController, UIPickerViewDelegate, UIPickerViewDataSource, MeasureSystemDelegate {
 	
 	@IBOutlet weak var characterPicker: UIPickerView!
 	
@@ -25,59 +25,24 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 	@IBOutlet weak var imperialButton: UIButton!
 	@IBOutlet weak var metricButton: UIButton!
 	
-	//Initially explicitly set to default API measure system to bypass the init() requirement. Re-evaluated in viewDidLoad according to current locale
-	var currentMeasureSystem = MeasureSystem.Metric {
-		
-		didSet {
-			
-			switch currentMeasureSystem {
-				
-				case .Imperial:
-					imperialButton.enabled = false
-					metricButton.enabled = true
-				
-				case .Metric:
-					imperialButton.enabled = true
-					metricButton.enabled = false
-			}
-			
-			self.heightLabel.text = currentCharacter?.heightIn(currentMeasureSystem)
-		}
-	}
 	
 	var movieCharacters: [MovieCharacter]?
 	
 	var currentCharacter: MovieCharacter?
-	
-	var isMetric: Bool?
 	
 	let apiClient = SwapiClient()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 		
+		self.measureSystemDelegate = self
+		
+		handle(currentMeasureSystem)
+		
 		characterPicker.delegate = self
 		
 		imperialButton.setTitleColor(UIColor.grayColor(), forState: .Disabled)
 		metricButton.setTitleColor(UIColor.grayColor(), forState: .Disabled)
-		
-		isMetric = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem) as? Bool
-		
-		if let isMetric = isMetric {
-			
-			currentMeasureSystem = isMetric ? .Metric : .Imperial
-		
-		} else /*Highly unprobable, but still..*/ {
-			
-			
-			currentMeasureSystem = .Metric //Default API measure system
-		}
-		
-        // Do any additional setup after loading the view.
-		
-		// Status bar white font
-		self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
-		self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
 		
 		apiClient.fetchMovieCharacters() { result in
 			
@@ -217,16 +182,24 @@ class MovieCharacterViewController: UIViewController, UIPickerViewDelegate, UIPi
 		self.homePlanetLabel.text = ""
 	}
 	
-	func showAlert(title: String, message: String?, style: UIAlertControllerStyle = .Alert) {
+	//MARK: MeasureSystem delegate conformance
+	func measureSystemSetTo(measureSystem: MeasureSystem) {
 		
-		let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
-		
-		let dismissAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
-		
-		alertController.addAction(dismissAction)
-		
-		presentViewController(alertController, animated: true, completion: nil)
+		self.heightLabel.text = currentCharacter?.heightIn(measureSystem)
 	}
+	
+	func imperialSystemSet() {
+		
+		imperialButton.enabled = false
+		metricButton.enabled = true
+	}
+	
+	func metricSystemSet() {
+		
+		imperialButton.enabled = true
+		metricButton.enabled = false
+	}
+	
 	
 	func getShortestTallestWithin(movieCharacters: [MovieCharacter]?) -> (min: MovieCharacter?, max: MovieCharacter?)? {
 		

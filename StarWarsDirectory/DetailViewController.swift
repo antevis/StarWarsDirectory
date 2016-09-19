@@ -8,56 +8,54 @@
 
 import UIKit
 
+protocol MeasureSystemDelegate: class {
+	
+	func measureSystemSetTo(measureSystem: MeasureSystem)
+	
+	func imperialSystemSet()
+	func metricSystemSet()
+}
+
 
 class DetailViewController: UIViewController {
 	
+	weak var measureSystemDelegate: MeasureSystemDelegate?
+	
 	//Initially explicitly set to default API measure system to bypass the init() requirement. Re-evaluated in viewDidLoad according to current locale
-	var currentMeasureSystem = MeasureSystem.Metric
-		{
+	var currentMeasureSystem = MeasureSystem.Metric {
 		
 		didSet {
 			
-			switch currentMeasureSystem {
-				
-			case .Imperial:
-
-				imperialSystemSet()
-				
-			case .Metric:
-				
-				metricSystemSet()
-			}
+			measureSystemDelegate?.measureSystemSetTo(currentMeasureSystem)
 			
-			measureSystemSet()
+			handle(currentMeasureSystem)
 		}
 	}
 	
-	var isMetric: Bool?
+	func handle(measureSystem: MeasureSystem){
+		
+		switch measureSystem {
+			
+			case .Imperial: measureSystemDelegate?.imperialSystemSet()
+			case .Metric: measureSystemDelegate?.metricSystemSet()
+		}
+	}
 	
-	
-	//these 4 funcs to probably move to the protocol
-	func measureSystemSet() {}
-	
-	func imperialSystemSet() {}
-	func metricSystemSet() {}
 	
 	func localeMeasureSystemSetup() {
 		
-		isMetric = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem) as? Bool
-		
-		if let isMetric = isMetric {
+		if let isMetric = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem) as? Bool {
 			
 			currentMeasureSystem = isMetric ? .Metric : .Imperial
 			
-		} else /*Highly unprobable, but still..*/ {
+		} else /*It's extremely unlikely that above binding fails, but still we don't take chances..*/ {
 			
 			currentMeasureSystem = .Metric //Default API measure system
 		}
 	}
-	
-	
 
     override func viewDidLoad() {
+		
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
