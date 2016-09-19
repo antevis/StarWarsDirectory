@@ -96,6 +96,13 @@ class SwapiClient: APIClient {
 		fetchPaginatedResource(endpoint, completion: completion)
 	}
 	
+	func fetchPlanets(completion: APIResult<[Planet]> -> Void) {
+		
+		let endpoint = SWEndpoint.Planets(1)
+		
+		fetchPaginatedResource(endpoint, completion: completion)
+	}
+	
 	
 	func fetchPlanet(url: String, completion: APIResult<Planet> -> Void) {
 		

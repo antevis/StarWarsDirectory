@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PlanetViewController: UIViewController {
+class PlanetViewController: DetailViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

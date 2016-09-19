@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Planet {
+struct Planet: JSONDecodable {
 		
 	//Required
 	let name: String // The name of this planet.
