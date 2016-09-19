@@ -34,6 +34,8 @@ class DetailViewController: UIViewController {
 	
 	var isMetric: Bool?
 	
+	
+	//these 4 funcs to probably move to the protocol
 	func measureSystemSet() {}
 	
 	func imperialSystemSet() {}
