@@ -160,6 +160,11 @@ class RootCollectionViewController: UICollectionViewController {
 				
 				let characterController = MovieCharacterViewController(nibName: "MovieCharacterViewController", bundle: nil)
 				childController = characterController
+			
+			case 2:
+				
+				let planetController = PlanetViewController(nibName: "PlanetViewController", bundle: nil)
+				childController = planetController
 		
 			default:
 				let defaultController = DefaultViewController(nibName: "DefaultViewController", bundle: nil)

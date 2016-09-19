@@ -75,23 +75,14 @@ class MovieCharacter: JSONDecodable, SizeProvider {
 		switch measure {
 			
 			case .Imperial:
-				return convertToImperial(from: intValue)
+				
+				return Aux.convertToImperial(from: Double(intValue), scale: .cmToFeetInches)
+			
 			case .Metric:
+				
 				return "\(intValue) cm"
 		
 		}
-	}
-	
-	func convertToImperial(from cm: Int) -> String {
-		
-		let cmPerFoot: Double = 30.48
-		let cmPerInch: Double = cmPerFoot / 12
-		
-		let feet = Int(Double(cm) / cmPerFoot)
-		
-		let inches = Int((Double(cm) % cmPerFoot) / cmPerInch)
-		
-		return "\(feet)' \(inches)''"
 	}
 	
 	required init?(json: JSON) {

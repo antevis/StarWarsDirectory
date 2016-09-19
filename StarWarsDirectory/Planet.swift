@@ -8,13 +8,57 @@
 
 import Foundation
 
-struct Planet: JSONDecodable {
+struct Planet: JSONDecodable, SizeProvider {
 		
 	//Required
 	let name: String // The name of this planet.
 	let rotation_period: DescriptiveDouble // The number of standard hours it takes for this planet to complete a single rotation on its axis.
 	let orbital_period: DescriptiveDouble // The number of standard days it takes for this planet to complete a single orbit of its local star.
-	let diameter: DescriptiveDouble // The diameter of this planet in kilometers.
+	
+	// The diameter of this planet in kilometers.
+	var diameter: DescriptiveDouble {
+		
+		didSet {
+			
+			if let doubleValue = diameter.doubleValue {
+				
+				diameter.description = "\(doubleValue) km"
+			}
+		}
+	}
+	
+	var size: Double? {
+		
+		if let doubleValue = diameter.doubleValue {
+			
+			return doubleValue
+			
+		} else {
+			
+			return nil
+		}
+	}
+	
+	func diameterIn(measure: MeasureSystem) -> String {
+		
+		guard let doubleValue = diameter.doubleValue else {
+			
+			return diameter.description
+		}
+		
+		switch measure {
+			
+			case .Imperial:
+				
+				return Aux.convertToImperial(from: Double(doubleValue), scale: .kmToMiles)
+				
+			case .Metric:
+				
+				return "\(doubleValue) km"
+			
+		}
+	}
+	
 	let climate: String // The climate of this planet. Comma-seperated if diverse.
 	let gravity: DescriptiveDouble // A number denoting the gravity of this planet, where "1" is normal or 1 standard G. "2" is twice or 2 standard Gs. "0.5" is half or 0.5 standard Gs.
 	let terrain: String // The terrain of this planet. Comma-seperated if diverse.

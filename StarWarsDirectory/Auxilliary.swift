@@ -28,6 +28,32 @@ class Auxilliary {
 //		return result
 //	}
 	
+	class func convertToImperial(from source: Double, scale: ConversionScale) -> String {
+		
+		switch scale {
+			
+			case .cmToFeetInches:
+			
+				let cmPerFoot: Double = 30.48
+				let cmPerInch: Double = cmPerFoot / 12
+				
+				let feet = Int(source / cmPerFoot)
+				
+				let inches = Int((Double(source) % cmPerFoot) / cmPerInch)
+				
+				return "\(feet)' \(inches)''"
+			
+		case .kmToMiles:
+			
+			let milesPerKm: Double = 0.621371
+			
+			return "\(round(source/milesPerKm)) mi"
+			
+		}
+		
+		
+	}
+	
 	class func getExtremesWithin<T: SizeProvider>(array: [T]?) -> (min: T?, max: T?)? {
 		
 		guard let array = array where array.count > 0 else { return nil }
@@ -82,6 +108,12 @@ class Auxilliary {
 protocol SizeProvider {
 	
 	var size: Double? { get }
+}
+
+enum ConversionScale {
+	
+	case cmToFeetInches
+	case kmToMiles
 }
 
 

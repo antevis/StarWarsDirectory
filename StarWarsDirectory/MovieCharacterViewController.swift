@@ -83,8 +83,10 @@ class MovieCharacterViewController: DetailViewController, UIPickerViewDelegate, 
 		
 		if let movieCharacters = movieCharacters{
 		
-		return movieCharacters[row].name
+			return movieCharacters[row].name
+		
 		} else {
+			
 			return "Please wait."
 		}
 	}
