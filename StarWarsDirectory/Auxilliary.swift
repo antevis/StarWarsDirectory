@@ -43,11 +43,11 @@ class Auxilliary {
 				
 				return "\(feet)' \(inches)''"
 			
-		case .kmToMiles:
-			
-			let milesPerKm: Double = 0.621371
-			
-			return "\(round(source * milesPerKm)) mi"
+			case .kmToMiles:
+				
+				let milesPerKm: Double = 0.621371
+				
+				return "\(round(source * milesPerKm)) mi"
 			
 		}
 		
