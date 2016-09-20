@@ -47,7 +47,7 @@ class Auxilliary {
 			
 			let milesPerKm: Double = 0.621371
 			
-			return "\(round(source/milesPerKm)) mi"
+			return "\(round(source * milesPerKm)) mi"
 			
 		}
 		

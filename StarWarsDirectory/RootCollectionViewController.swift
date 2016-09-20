@@ -165,6 +165,11 @@ class RootCollectionViewController: UICollectionViewController {
 				
 				let planetController = PlanetViewController(nibName: "PlanetViewController", bundle: nil)
 				childController = planetController
+			
+			case 3:
+				
+				let speciesController = SpeciesViewController(nibName: "SpeciesViewController", bundle: nil)
+				childController = speciesController
 		
 			default:
 				let defaultController = DefaultViewController(nibName: "DefaultViewController", bundle: nil)

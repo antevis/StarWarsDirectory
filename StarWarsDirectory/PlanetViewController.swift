@@ -10,7 +10,6 @@ import UIKit
 
 class PlanetViewController: DetailViewController, UIPickerViewDelegate, UIPickerViewDataSource, MeasureSystemDelegate {
 	
-	
 	@IBOutlet weak var planetNameLabel: UILabel!
 	@IBOutlet weak var rotationPeriodLabel: UILabel!
 	@IBOutlet weak var orbitalPeriodLabel: UILabel!
@@ -25,9 +24,6 @@ class PlanetViewController: DetailViewController, UIPickerViewDelegate, UIPicker
 	
 	@IBOutlet weak var planetPicker: UIPickerView!
 	@IBOutlet weak var measureSystemControl: UISegmentedControl!
-	
-	
-	
 	
 	var planets: [Planet]?
 	var currentPlanet: Planet?
@@ -72,6 +68,13 @@ class PlanetViewController: DetailViewController, UIPickerViewDelegate, UIPicker
         // Dispose of any resources that can be recreated.
 		
     }
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		
+		self.navigationController?.navigationBarHidden = false
+		self.navigationController?.navigationBar.topItem?.title = "Planets"
+	}
 	
 	//MARK: planet functions
 	func displayPlanetDataFor(index: Int) {

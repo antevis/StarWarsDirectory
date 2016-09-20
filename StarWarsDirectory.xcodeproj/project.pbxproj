@@ -11,6 +11,8 @@
 		2C05EFCF1D8EF34A00992663 /* PlanetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05EFCD1D8EF34A00992663 /* PlanetViewController.swift */; };
 		2C05EFD01D8EF34A00992663 /* PlanetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C05EFCE1D8EF34A00992663 /* PlanetViewController.xib */; };
 		2C05EFD21D8EF42000992663 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05EFD11D8EF42000992663 /* DetailViewController.swift */; };
+		2C05EFD51D90472C00992663 /* SpeciesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C05EFD31D90472C00992663 /* SpeciesViewController.swift */; };
+		2C05EFD61D90472C00992663 /* SpeciesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C05EFD41D90472C00992663 /* SpeciesViewController.xib */; };
 		2C6A667F1D805920009624C3 /* MovieCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6A667D1D805920009624C3 /* MovieCharacterViewController.swift */; };
 		2C6A66801D805920009624C3 /* MovieCharacterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C6A667E1D805920009624C3 /* MovieCharacterViewController.xib */; };
 		2C6A66821D80704A009624C3 /* Auxilliary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6A66811D80704A009624C3 /* Auxilliary.swift */; };
@@ -37,6 +39,8 @@
 		2C05EFCD1D8EF34A00992663 /* PlanetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanetViewController.swift; sourceTree = "<group>"; };
 		2C05EFCE1D8EF34A00992663 /* PlanetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlanetViewController.xib; sourceTree = "<group>"; };
 		2C05EFD11D8EF42000992663 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		2C05EFD31D90472C00992663 /* SpeciesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpeciesViewController.swift; sourceTree = "<group>"; };
+		2C05EFD41D90472C00992663 /* SpeciesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpeciesViewController.xib; sourceTree = "<group>"; };
 		2C6A667D1D805920009624C3 /* MovieCharacterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCharacterViewController.swift; sourceTree = "<group>"; };
 		2C6A667E1D805920009624C3 /* MovieCharacterViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MovieCharacterViewController.xib; sourceTree = "<group>"; };
 		2C6A66811D80704A009624C3 /* Auxilliary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auxilliary.swift; sourceTree = "<group>"; };
@@ -114,6 +118,8 @@
 				2C05EFCD1D8EF34A00992663 /* PlanetViewController.swift */,
 				2C05EFCE1D8EF34A00992663 /* PlanetViewController.xib */,
 				2C05EFD11D8EF42000992663 /* DetailViewController.swift */,
+				2C05EFD31D90472C00992663 /* SpeciesViewController.swift */,
+				2C05EFD41D90472C00992663 /* SpeciesViewController.xib */,
 			);
 			path = StarWarsDirectory;
 			sourceTree = "<group>";
@@ -178,6 +184,7 @@
 			files = (
 				2C05EFD01D8EF34A00992663 /* PlanetViewController.xib in Resources */,
 				2C6ABEF81D6F440300341C03 /* LaunchScreen.storyboard in Resources */,
+				2C05EFD61D90472C00992663 /* SpeciesViewController.xib in Resources */,
 				2C6ABEF51D6F440300341C03 /* Assets.xcassets in Resources */,
 				2C6ABF0A1D6F681A00341C03 /* DefaultViewController.xib in Resources */,
 				2C6ABEF31D6F440300341C03 /* Main.storyboard in Resources */,
@@ -207,6 +214,7 @@
 				2C6ABF101D704D8D00341C03 /* MovieCharacter.swift in Sources */,
 				2C6ABF001D6F44C700341C03 /* RootCollectionViewController.swift in Sources */,
 				2CDA1CA81D85AE5200EEF4A7 /* SWAPIClient.swift in Sources */,
+				2C05EFD51D90472C00992663 /* SpeciesViewController.swift in Sources */,
 				2C6ABF141D70531400341C03 /* Vehicle.swift in Sources */,
 				2C6ABEEE1D6F440300341C03 /* AppDelegate.swift in Sources */,
 			);

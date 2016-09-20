@@ -12,6 +12,7 @@ enum SWEndpoint: Endpoint {
 	
 	case Characters(Int)
 	case Planets(Int)
+	case Species(Int)
 	
 	var baseURL: NSURL {
 		
@@ -29,6 +30,10 @@ enum SWEndpoint: Endpoint {
 			case .Planets(let page):
 				
 				return "planets/?page=\(page)"
+			
+			case .Species(let page):
+				
+				return "species/?page=\(page)"
 		}
 	}
 	
@@ -98,7 +103,14 @@ class SwapiClient: APIClient {
 	
 	func fetchPlanets(completion: APIResult<[Planet]> -> Void) {
 		
-		let endpoint = SWEndpoint.Planets(5)
+		let endpoint = SWEndpoint.Planets(1)
+		
+		fetchPaginatedResource(endpoint, completion: completion)
+	}
+	
+	func fetchSpecies(completion: APIResult<[Species]> -> Void) {
+		
+		let endpoint = SWEndpoint.Species(1)
 		
 		fetchPaginatedResource(endpoint, completion: completion)
 	}

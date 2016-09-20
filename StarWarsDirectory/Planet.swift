@@ -104,7 +104,6 @@ struct Planet: JSONDecodable, SizeProvider {
 		self.films = films
 		self.url = url
 		
-		//TODO: add optional date fields
 	}
 	
 	init?(url: String) {
