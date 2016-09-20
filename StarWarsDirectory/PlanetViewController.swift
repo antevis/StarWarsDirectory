@@ -95,7 +95,7 @@ class PlanetViewController: DetailViewController, UIPickerViewDelegate, UIPicker
 		self.rotationPeriodLabel.text = currentPlanet.rotation_period.description
 		self.orbitalPeriodLabel.text = currentPlanet.orbital_period.description
 		
-		self.diameterLabel.text = currentPlanet.diameterIn(currentMeasureSystem)
+		self.diameterLabel.text = currentPlanet.sizeIn(currentMeasureSystem)
 		
 		self.climateLabel.text = currentPlanet.climate
 		self.gravityLabel.text = currentPlanet.gravity.description

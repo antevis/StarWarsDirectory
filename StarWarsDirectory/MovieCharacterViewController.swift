@@ -187,7 +187,7 @@ class MovieCharacterViewController: DetailViewController, UIPickerViewDelegate, 
 	//MARK: MeasureSystem delegate conformance
 	func measureSystemSetTo(measureSystem: MeasureSystem) {
 		
-		self.heightLabel.text = currentCharacter?.heightIn(measureSystem)
+		self.heightLabel.text = currentCharacter?.sizeIn(measureSystem)
 	}
 	
 	func imperialSystemSet() {
