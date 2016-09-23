@@ -79,6 +79,8 @@ class RootCollectionViewController: UICollectionViewController {
 		
 		cell.rootItem = rootItems[indexPath.row]
 		cell.rootCellButton.tag = indexPath.row
+		
+		cell.tag = indexPath.row
     
         return cell
     }
@@ -148,42 +150,107 @@ class RootCollectionViewController: UICollectionViewController {
 		collectionView.collectionViewLayout = layout
 	}
 	
+//	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//		if segue.identifier == "showDetail" {
+////			if let indexPath = self.tableView.indexPathForSelectedRow {
+////				//let object = objects[indexPath.row] as! NSDate
+////				let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
+////				//controller.detailItem = object
+////				
+////				let venue = venues[indexPath.row]
+////				
+////				controller.venue = venue
+////				
+////				controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+////				controller.navigationItem.leftItemsSupplementBackButton = true
+////			}
+//			
+//			print(sender?.tag)
+//			
+//			guard let cell = sender else {
+//				
+//				return
+//			}
+//			
+//			switch cell.tag {
+//				
+//				case 4:
+//					
+//					let controller = (segue.destinationViewController as! UINavigationController).topViewController as! UniversalDetailViewController
+//					
+//					controller.endPoint = SWEndpoint.Starships(1)
+//					
+//				default: return
+//			}
+//		}
+//	}
+	
 	// MARK: Event Handlers
 	
 	@IBAction func rootCellButtonTapped(sender: UIButton) {
 		
-		var childController: UIViewController?
+		//var childController: UIViewController?
 		
 		switch sender.tag {
 			
 			case 1:
 				
 				let characterController = MovieCharacterViewController(nibName: "MovieCharacterViewController", bundle: nil)
-				childController = characterController
+				//childController = characterController
+			
+				navigationController?.pushViewController(characterController, animated: true)
+			
 			
 			case 2:
 				
 				let planetController = PlanetViewController(nibName: "PlanetViewController", bundle: nil)
-				childController = planetController
+				//childController = planetController
+				navigationController?.pushViewController(planetController, animated: true)
 			
 			case 3:
 				
 				let speciesController = SpeciesViewController(nibName: "SpeciesViewController", bundle: nil)
-				childController = speciesController
+				//childController = speciesController
+			
+				navigationController?.pushViewController(speciesController, animated: true)
+			
+			case 4:
+				
+				//childController = UniversalDetailViewController(nibName: "UniversalDetailViewController", bundle: nil) as UniversalDetailViewController
+			
+//				let starshipController: UniversalDetailViewController? = UniversalDetailViewController(nibName: "UniversalDetailViewController", bundle: nil) as UniversalDetailViewController
+//			
+//				starshipController?.endPoint = SWEndpoint.Starships(1)
+//				
+//				if let starshipController = starshipController {
+//			
+//					navigationController?.pushViewController(starshipController, animated: true)
+			
+			
+//				}
+			
+				let starshipsController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as! UniversalDetailViewController
+				
+				starshipsController.endPoint = SWEndpoint.Starships(1)
+				
+				self.navigationController?.pushViewController(starshipsController, animated: true)
+			
 		
 			default:
 				let defaultController = DefaultViewController(nibName: "DefaultViewController", bundle: nil)
 			
 				defaultController.zeroLabelText = rootItems[sender.tag].resourceUrlString
 				
-				childController = defaultController
+				//childController = defaultController
+			
+				navigationController?.pushViewController(defaultController, animated: true)
 			
 		}
 		
-		if let vc = childController {
-			
-			navigationController?.pushViewController(vc, animated: true)
-		}
+//		if let vc = childController {
+//			
+//			navigationController?.pushViewController(vc, animated: true)
+//		}
 	}
 	
 

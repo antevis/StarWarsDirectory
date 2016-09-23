@@ -65,7 +65,7 @@ class MovieCharacter: JSONDecodable, SizeProvider {
 //	let created: NSDate? // the ISO 8601 date format of the time that this resource was created.
 //	let edited: NSDate?
 	
-	func heightIn(measure: MeasureSystem) -> String {
+	func sizeIn(measure: MeasureSystem) -> String {
 		
 		guard let intValue = height.intValue else {
 			

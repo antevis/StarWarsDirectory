@@ -95,7 +95,7 @@ class SpeciesViewController: DetailViewController, MeasureSystemDelegate, UIPick
 		
 		self.speciesNameLabel.text = currentSpecies.name
 		
-		self.avgHeightLabel.text = currentSpecies.heightIn(currentMeasureSystem)
+		self.avgHeightLabel.text = currentSpecies.sizeIn(currentMeasureSystem)
 		
 		self.hairColorsLabel.text = currentSpecies.hairColors
 		self.eyeColorsLabel.text = currentSpecies.eyeColors
@@ -157,7 +157,7 @@ class SpeciesViewController: DetailViewController, MeasureSystemDelegate, UIPick
 	//MARK: MeasureSystem delegate conformance
 	func measureSystemSetTo(measureSystem: MeasureSystem) {
 		
-		self.avgHeightLabel.text = currentSpecies?.heightIn(measureSystem)
+		self.avgHeightLabel.text = currentSpecies?.sizeIn(measureSystem)
 	}
 	
 	func imperialSystemSet() {

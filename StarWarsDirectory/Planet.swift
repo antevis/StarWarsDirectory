@@ -29,17 +29,17 @@ struct Planet: JSONDecodable, SizeProvider {
 	
 	var size: Double? {
 		
-		if let doubleValue = diameter.doubleValue {
+		//if let doubleValue = diameter.doubleValue {
 			
-			return doubleValue
+		return diameter.doubleValue
 			
-		} else {
-			
-			return nil
-		}
+//		} else {
+//			
+//			return nil
+//		}
 	}
 	
-	func diameterIn(measure: MeasureSystem) -> String {
+	func sizeIn(measure: MeasureSystem) -> String {
 		
 		guard let doubleValue = diameter.doubleValue else {
 			
@@ -55,7 +55,6 @@ struct Planet: JSONDecodable, SizeProvider {
 			case .Metric:
 				
 				return "\(doubleValue) km"
-			
 		}
 	}
 	

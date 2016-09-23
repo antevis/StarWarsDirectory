@@ -46,8 +46,12 @@ class Auxilliary {
 			case .kmToMiles:
 				
 				let milesPerKm: Double = 0.621371
-				
 				return "\(round(source * milesPerKm)) mi"
+			
+			case .metersToYards:
+				
+				let yardsPerMeter: Double = 1.09361
+				return "\(source * yardsPerMeter) yd"
 			
 		}
 		
@@ -108,12 +112,15 @@ class Auxilliary {
 protocol SizeProvider {
 	
 	var size: Double? { get }
+	
+	func sizeIn(measure: MeasureSystem) -> String
 }
 
 enum ConversionScale {
 	
 	case cmToFeetInches
 	case kmToMiles
+	case metersToYards
 }
 
 

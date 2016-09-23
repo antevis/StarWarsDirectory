@@ -64,6 +64,7 @@ class DetailViewController: UIViewController {
 		// Status bar white font
 		self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
 		self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+		
     }
 
     override func didReceiveMemoryWarning() {
@@ -92,5 +93,7 @@ class DetailViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+	
+	
 
 }

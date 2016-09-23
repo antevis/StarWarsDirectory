@@ -42,7 +42,7 @@ class Species: JSONDecodable, SizeProvider {
 		}
 	}
 	
-	func heightIn(measure: MeasureSystem) -> String {
+	func sizeIn(measure: MeasureSystem) -> String {
 		
 		guard let intValue = avgHeight.intValue else {
 			

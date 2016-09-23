@@ -8,13 +8,48 @@
 
 import Foundation
 
-struct Starship {
+struct Starship: SizeProvider, JSONDecodable {
 	
 	let name: String // The name of this starship. The common name, such as "Death Star".
 	let model: String // The model or official name of this starship. Such as "T-65 X-wing" or "DS-1 Orbital Battle Station".
 	let manufacturer: String // The manufacturer of this starship. Comma seperated if more than one.
 	let cost_in_credits: DescriptiveDouble // The cost of this starship new, in galactic credits.
-	let length: DescriptiveDouble // The length of this starship in meters.
+	
+	// The length of this starship in meters.
+	var length: DescriptiveDouble {
+		
+		didSet {
+			
+			if let doubleValue = length.doubleValue {
+				
+				length.description = "\(doubleValue) m"
+			}
+		}
+	}
+	
+	var size: Double? {
+		
+		return length.doubleValue
+	}
+	
+	func sizeIn(measure: MeasureSystem) -> String {
+		
+		guard let doubleValue = length.doubleValue else {
+			
+			return length.description
+		}
+		
+		switch measure {
+			case .Imperial:
+				
+				return Aux.convertToImperial(from: doubleValue, scale: ConversionScale.metersToYards)
+				
+			case .Metric:
+				
+				return "\(doubleValue) m"
+		}
+	}
+	
 	let max_atmosphering_speed: DescriptiveDouble // The maximum speed of this starship in atmosphere. "N/A" if this starship is incapable of atmosphering flight.
 	let crew: DescriptiveInt // The number of personnel needed to run or pilot this starship.
 	let passengers: DescriptiveInt // The number of non-essential people this starship can transport.
@@ -23,12 +58,79 @@ struct Starship {
 	let hyperdrive_rating: String // The class of this starships hyperdrive.
 	let MGLT: DescriptiveDouble // The Maximum number of Megalights this starship can travel in a standard hour. A "Megalight" is a standard unit of distance and has never been defined before within the Star Wars universe. This figure is only really useful for measuring the difference in speed of starships. We can assume it is similar to AU, the distance between our Sun (Sol) and Earth.
 	let starship_class: String // The class of this starship, such as "Starfighter" or "Deep Space Mobile Battlestation"
-	let pilots: [MovieCharacter] // An array of People URL Resources that this starship has been piloted by.
-	let films: [Film] // An array of Film URL Resources that this starship has appeared in.
+	let pilots: [String] // An array of People URL Resources that this starship has been piloted by.
+	let films: [String] // An array of Film URL Resources that this starship has appeared in.
 	let url: String // the hypermedia URL of this resource.
 	
+	var starShipTableData: [(key: String, value: String)] {
+		
+		get {
+			
+			var data = [(key: String, value: String)]()
+			
+			data.append(("Name", name))
+			data.append(("Model", model))
+			data.append(("Manufacturer", manufacturer))
+			data.append(("Cost", cost_in_credits.description))
+			data.append(("Length", length.description))
+			data.append(("Max.Atm.Spd", max_atmosphering_speed.description))
+			data.append(("Crew", crew.description))
+			data.append(("Passengers", passengers.description))
+			data.append(("Cargo (kg)", cargo_capacity.description))
+			data.append(("Consumables", consumables.description))
+			data.append(("HyperDrive", hyperdrive_rating))
+			data.append(("MGLT", MGLT.description))
+			data.append(("Class", starship_class))
+			
+			return data
+			
+		}
+	}
+	
 	//Optional
-	let created: NSDate? // the ISO 8601 date format of the time that this resource was created.
-	let edited: NSDate? // the ISO 8601 date format of the time that this resource was edited.
+//	let created: NSDate? // the ISO 8601 date format of the time that this resource was created.
+//	let edited: NSDate? // the ISO 8601 date format of the time that this resource was edited.
+	
+	init?(json: JSON) {
+		
+		guard let
+		
+			crew = json["crew"] as? String,
+			starshipClass = json["starship_class"] as? String,
+			consumables = json["consumables"] as? String,
+			model = json["model"] as? String,
+			passengers = json["passengers"] as? String,
+			url = json["url"] as? String,
+			maxAtmoSpeed = json["max_atmosphering_speed"] as? String,
+			name = json["name"] as? String,
+			cost = json["cost_in_credits"] as? String,
+			manufacturer = json["manufacturer"] as? String,
+			pilots = json["pilots"] as? [String],
+			mglt = json["MGLT"] as? String,
+			hyperdriveRating = json["hyperdrive_rating"] as? String,
+			length = json["length"] as? String,
+			cargoCapacity = json["cargo_capacity"] as? String,
+			films = json["films"] as? [String] else {
+				
+				return nil
+		}
+		
+		self.crew = crew.descriptiveInt
+		self.starship_class = starshipClass
+		self.consumables = consumables.descriptiveDouble
+		self.model = model
+		self.passengers = passengers.descriptiveInt
+		self.url = url
+		self.max_atmosphering_speed = maxAtmoSpeed.descriptiveDouble
+		self.name = name
+		self.cost_in_credits = cost.descriptiveDouble
+		self.manufacturer = manufacturer
+		self.pilots = pilots
+		self.MGLT = mglt.descriptiveDouble
+		self.hyperdrive_rating = hyperdriveRating
+		self.length = length.descriptiveDouble
+		self.cargo_capacity = cargoCapacity.descriptiveDouble
+		self.films = films
+	}
 }
 
