@@ -17,9 +17,29 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	
 	@IBOutlet weak var detailsTableView: UITableView!
 	@IBOutlet weak var picker: UIPickerView!
+	@IBOutlet weak var titleLabel: UILabel!
+	
+	var i: Int = 0
 	
 	var starShips: [Starship]?
-	var currentStarShip: Starship?
+	
+	var currentStarShip: Starship? {
+		
+		didSet {
+			
+//			
+//			
+//			print("\(i)")
+//			
+//			i += 1
+//			
+//			setStarshipDataFor(detailsTableView)
+			
+			titleLabel.text = currentStarShip?.name ?? "Starship"
+			
+			detailsTableView.reloadData()
+		}
+	}
 	
 	weak var measureSystemDelegate: MeasureSystemDelegate?
 	
@@ -161,11 +181,15 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			
 			switch endPoint {
 				
-			case .Starships( _):
-				
-				return 13
-				
-			default: return 0
+				case .Starships( _):
+					
+					let rowCount = currentStarShip?.starShipTableData.count ?? 0
+//					
+					return max(rowCount - 1, 0)
+					
+					//return currentStarShip?.starShipTableData.count ?? 0
+					
+				default: return 0
 			}
 			
 		} else {
@@ -181,18 +205,11 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		
 		if let cell = cell, starShip = currentStarShip {
 			
-			switch indexPath.row {
-				
-			case 1:
-				
-				cell.keyLabel.text = "Model"
-				cell.valueLabel.text = starShip.model
-				
-			default:
-				
-				cell.keyLabel.text = "To be defined"
-				cell.valueLabel.text = "later"
-			}
+			cell.keyLabel.text = starShip.starShipTableData[indexPath.row + 1].key
+			cell.valueLabel.text = starShip.starShipTableData[indexPath.row + 1].value
+			
+//				cell.keyLabel.text = "To be defined"
+//				cell.valueLabel.text = "later"
 			
 			
 			return cell
@@ -296,16 +313,18 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		}
 	}
 	
-	func setCurrentStarshipFor(index: Int) {
-		
-//		guard let starShips = starShips else {
+//	func setStarshipDataFor(dataTable: UITableView) {
+//		
+//		guard let currentStarShip = currentStarShip else {
 //			
 //			return
 //		}
-		
-		self.currentStarShip = starShips?[index]
-	}
-		
+//		
+//		
+//		
+//		detailsTableView.reloadData()
+//	}
+	
 		
 	
 }

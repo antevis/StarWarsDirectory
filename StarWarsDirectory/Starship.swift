@@ -62,6 +62,31 @@ struct Starship: SizeProvider, JSONDecodable {
 	let films: [String] // An array of Film URL Resources that this starship has appeared in.
 	let url: String // the hypermedia URL of this resource.
 	
+	var starShipTableData: [(key: String, value: String)] {
+		
+		get {
+			
+			var data = [(key: String, value: String)]()
+			
+			data.append(("Name", name))
+			data.append(("Model", model))
+			data.append(("Manufacturer", manufacturer))
+			data.append(("Cost", cost_in_credits.description))
+			data.append(("Length", length.description))
+			data.append(("Max.Atm.Spd", max_atmosphering_speed.description))
+			data.append(("Crew", crew.description))
+			data.append(("Passengers", passengers.description))
+			data.append(("Cargo (kg)", cargo_capacity.description))
+			data.append(("Consumables", consumables.description))
+			data.append(("HyperDrive", hyperdrive_rating))
+			data.append(("MGLT", MGLT.description))
+			data.append(("Class", starship_class))
+			
+			return data
+			
+		}
+	}
+	
 	//Optional
 //	let created: NSDate? // the ISO 8601 date format of the time that this resource was created.
 //	let edited: NSDate? // the ISO 8601 date format of the time that this resource was edited.
