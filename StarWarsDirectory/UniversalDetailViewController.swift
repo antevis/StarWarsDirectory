@@ -64,6 +64,8 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		localeMeasureSystemSetup()
 		
 		// Status bar white font
+		self.navigationController?.navigationBarHidden = false
+		
 		self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
 		self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
 		
@@ -86,6 +88,8 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		switch endPoint {
 			
 			case .Starships(_):
+				
+				self.navigationController?.navigationBar.topItem?.title = "Starships"
 			
 				apiClient.fetchStarships() { result in
 			

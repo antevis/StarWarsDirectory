@@ -79,6 +79,8 @@ class RootCollectionViewController: UICollectionViewController {
 		
 		cell.rootItem = rootItems[indexPath.row]
 		cell.rootCellButton.tag = indexPath.row
+		
+		cell.tag = indexPath.row
     
         return cell
     }
@@ -148,6 +150,41 @@ class RootCollectionViewController: UICollectionViewController {
 		collectionView.collectionViewLayout = layout
 	}
 	
+//	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+//		if segue.identifier == "showDetail" {
+////			if let indexPath = self.tableView.indexPathForSelectedRow {
+////				//let object = objects[indexPath.row] as! NSDate
+////				let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
+////				//controller.detailItem = object
+////				
+////				let venue = venues[indexPath.row]
+////				
+////				controller.venue = venue
+////				
+////				controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+////				controller.navigationItem.leftItemsSupplementBackButton = true
+////			}
+//			
+//			print(sender?.tag)
+//			
+//			guard let cell = sender else {
+//				
+//				return
+//			}
+//			
+//			switch cell.tag {
+//				
+//				case 4:
+//					
+//					let controller = (segue.destinationViewController as! UINavigationController).topViewController as! UniversalDetailViewController
+//					
+//					controller.endPoint = SWEndpoint.Starships(1)
+//					
+//				default: return
+//			}
+//		}
+//	}
+	
 	// MARK: Event Handlers
 	
 	@IBAction func rootCellButtonTapped(sender: UIButton) {
@@ -181,14 +218,22 @@ class RootCollectionViewController: UICollectionViewController {
 				
 				//childController = UniversalDetailViewController(nibName: "UniversalDetailViewController", bundle: nil) as UniversalDetailViewController
 			
-				let starshipController: UniversalDetailViewController? = UniversalDetailViewController(nibName: "UniversalDetailViewController", bundle: nil) as UniversalDetailViewController
+//				let starshipController: UniversalDetailViewController? = UniversalDetailViewController(nibName: "UniversalDetailViewController", bundle: nil) as UniversalDetailViewController
+//			
+//				starshipController?.endPoint = SWEndpoint.Starships(1)
+//				
+//				if let starshipController = starshipController {
+//			
+//					navigationController?.pushViewController(starshipController, animated: true)
 			
-				starshipController?.endPoint = SWEndpoint.Starships(1)
+			
+//				}
+			
+				let starshipsController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as! UniversalDetailViewController
 				
-				if let starshipController = starshipController {
-			
-					navigationController?.pushViewController(starshipController, animated: true)
-				}
+				starshipsController.endPoint = SWEndpoint.Starships(1)
+				
+				self.navigationController?.pushViewController(starshipsController, animated: true)
 			
 		
 			default:
