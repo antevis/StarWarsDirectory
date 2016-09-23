@@ -156,7 +156,7 @@ class PlanetViewController: DetailViewController, UIPickerViewDelegate, UIPicker
 	//MARK: MeasureSystem delegate conformance
 	func measureSystemSetTo(measureSystem: MeasureSystem) {
 		
-		self.diameterLabel.text = currentPlanet?.diameterIn(measureSystem)
+		self.diameterLabel.text = currentPlanet?.sizeIn(measureSystem)
 	}
 	
 	func imperialSystemSet() {

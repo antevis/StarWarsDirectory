@@ -157,7 +157,7 @@ class SpeciesViewController: DetailViewController, MeasureSystemDelegate, UIPick
 	//MARK: MeasureSystem delegate conformance
 	func measureSystemSetTo(measureSystem: MeasureSystem) {
 		
-		self.avgHeightLabel.text = currentSpecies?.heightIn(measureSystem)
+		self.avgHeightLabel.text = currentSpecies?.sizeIn(measureSystem)
 	}
 	
 	func imperialSystemSet() {

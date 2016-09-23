@@ -133,7 +133,7 @@ class MovieCharacterViewController: DetailViewController, UIPickerViewDelegate, 
 		//To avoid previously selected moviecharacter data being displayed before planet fetch completion handled.
 		self.noHomePlanetData()
 		
-		self.heightLabel.text = currentCharacter.heightIn(currentMeasureSystem)
+		self.heightLabel.text = currentCharacter.sizeIn(currentMeasureSystem)
 		
 		self.hairColorLabel.text = currentCharacter.hair_color
 		self.eyeColorLabel.text = currentCharacter.eye_color

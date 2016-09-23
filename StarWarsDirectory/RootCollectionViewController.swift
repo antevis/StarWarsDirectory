@@ -152,38 +152,60 @@ class RootCollectionViewController: UICollectionViewController {
 	
 	@IBAction func rootCellButtonTapped(sender: UIButton) {
 		
-		var childController: UIViewController?
+		//var childController: UIViewController?
 		
 		switch sender.tag {
 			
 			case 1:
 				
 				let characterController = MovieCharacterViewController(nibName: "MovieCharacterViewController", bundle: nil)
-				childController = characterController
+				//childController = characterController
+			
+				navigationController?.pushViewController(characterController, animated: true)
+			
 			
 			case 2:
 				
 				let planetController = PlanetViewController(nibName: "PlanetViewController", bundle: nil)
-				childController = planetController
+				//childController = planetController
+				navigationController?.pushViewController(planetController, animated: true)
 			
 			case 3:
 				
 				let speciesController = SpeciesViewController(nibName: "SpeciesViewController", bundle: nil)
-				childController = speciesController
+				//childController = speciesController
+			
+				navigationController?.pushViewController(speciesController, animated: true)
+			
+			case 4:
+				
+				//childController = UniversalDetailViewController(nibName: "UniversalDetailViewController", bundle: nil) as UniversalDetailViewController
+			
+				let starshipController: UniversalDetailViewController? = UniversalDetailViewController(nibName: "UniversalDetailViewController", bundle: nil) as UniversalDetailViewController
+			
+				starshipController?.endPoint = SWEndpoint.Starships(1)
+				
+				if let starshipController = starshipController {
+			
+					navigationController?.pushViewController(starshipController, animated: true)
+				}
+			
 		
 			default:
 				let defaultController = DefaultViewController(nibName: "DefaultViewController", bundle: nil)
 			
 				defaultController.zeroLabelText = rootItems[sender.tag].resourceUrlString
 				
-				childController = defaultController
+				//childController = defaultController
+			
+				navigationController?.pushViewController(defaultController, animated: true)
 			
 		}
 		
-		if let vc = childController {
-			
-			navigationController?.pushViewController(vc, animated: true)
-		}
+//		if let vc = childController {
+//			
+//			navigationController?.pushViewController(vc, animated: true)
+//		}
 	}
 	
 
