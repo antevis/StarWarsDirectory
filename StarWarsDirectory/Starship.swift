@@ -62,25 +62,24 @@ struct Starship: SizeProvider, JSONDecodable {
 	let films: [String] // An array of Film URL Resources that this starship has appeared in.
 	let url: String // the hypermedia URL of this resource.
 	
-	var starShipTableData: [(key: String, value: String)] {
+	var starShipTableData: [(key: String, value: String, measurable: Bool, convertible: Bool)] {
 		
 		get {
 			
-			var data = [(key: String, value: String)]()
+			var data = [(key: String, value: String, measurable: Bool, convertible: Bool)]()
 			
-			data.append(("Name", name))
-			data.append(("Model", model))
-			data.append(("Manufacturer", manufacturer))
-			data.append(("Cost", cost_in_credits.description))
-			data.append(("Length", length.description))
-			data.append(("Max.Atm.Spd", max_atmosphering_speed.description))
-			data.append(("Crew", crew.description))
-			data.append(("Passengers", passengers.description))
-			data.append(("Cargo (kg)", cargo_capacity.description))
-			data.append(("Consumables", consumables.description))
-			data.append(("HyperDrive", hyperdrive_rating))
-			data.append(("MGLT", MGLT.description))
-			data.append(("Class", starship_class))
+			data.append(("Model", model, false, false))
+			data.append(("Manufacturer", manufacturer, false, false))
+			data.append(("Cost", cost_in_credits.description, false, true))
+			data.append(("Length", length.description, true, false))
+			data.append(("Max.Atm.Spd", max_atmosphering_speed.description, false, false))
+			data.append(("Crew", crew.description, false, false))
+			data.append(("Passengers", passengers.description, false, false))
+			data.append(("Cargo", cargo_capacity.description, true, false))
+			data.append(("Consumables", consumables.description, false, false))
+			data.append(("HyperDrive", hyperdrive_rating, false, false))
+			data.append(("MGLT", MGLT.description, false, false))
+			data.append(("Class", starship_class, false, false))
 			
 			return data
 			

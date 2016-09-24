@@ -27,14 +27,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		
 		didSet {
 			
-//			
-//			
-//			print("\(i)")
-//			
-//			i += 1
-//			
-//			setStarshipDataFor(detailsTableView)
-			
 			titleLabel.text = currentStarShip?.name ?? "Starship"
 			
 			detailsTableView.reloadData()
@@ -85,7 +77,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		
 		// Status bar white font
 		self.navigationController?.navigationBarHidden = false
-		
 		self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
 		self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
 		
@@ -94,52 +85,50 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			return
 		}
 		
-		//TODO: Check - probably not needed
-		detailsTableView.delegate = self
 		detailsTableView.dataSource = self
-		
 		self.measureSystemDelegate = self
-		
 		handle(currentMeasureSystem)
-		
 		picker.delegate = self
-		
 		
 		switch endPoint {
 			
 			case .Starships(_):
-				
-				self.navigationController?.navigationBar.topItem?.title = "Starships"
 			
-				apiClient.fetchStarships() { result in
+				fetchStarships()
 			
-					switch result {
-						
-						case .Success(let starShips):
-							
-							self.starShips = starShips.sort { $0.name < $1.name }
-							
-							self.picker.reloadAllComponents()
-							
-							self.setCurrentItemFor(self.picker.selectedRowInComponent(0))
-						
-						case .Failure(let error as NSError):
-							
-							self.showAlert("Unable to retrieve starships.", message: error.localizedDescription)
-							
-						default: break
-					
-					}
-				
-				}
-				
-				
-			default: break
+				default: break
 		}
 		
 	}
+	
+	func fetchStarships() {
 		
+		self.navigationController?.navigationBar.topItem?.title = "Starships"
 		
+		apiClient.fetchStarships() { result in
+			
+			switch result {
+				
+			case .Success(let starShips):
+				
+				self.starShips = starShips.sort { $0.name < $1.name }
+				
+				self.picker.reloadAllComponents()
+				
+				self.setCurrentItemFor(self.picker.selectedRowInComponent(0))
+				
+			case .Failure(let error as NSError):
+				
+				self.showAlert("Unable to retrieve starships.", message: error.localizedDescription)
+				
+			default: break
+				
+			}
+			
+		}
+	}
+	
+	
 	
 	override func didReceiveMemoryWarning() {
 		super.didReceiveMemoryWarning()
@@ -183,11 +172,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				case .Starships( _):
 					
-					let rowCount = currentStarShip?.starShipTableData.count ?? 0
-//					
-					return max(rowCount - 1, 0)
-					
-					//return currentStarShip?.starShipTableData.count ?? 0
+					return currentStarShip?.starShipTableData.count ?? 0
 					
 				default: return 0
 			}
@@ -201,18 +186,46 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
-		let cell: DetailCell? = detailsTableView.dequeueReusableCellWithIdentifier("detailCell") as? DetailCell
+		guard let starShip = currentStarShip else {
+			
+			return UITableViewCell()
+		}
 		
-		if let cell = cell, starShip = currentStarShip {
+		if starShip.starShipTableData[indexPath.row].convertible {
 			
-			cell.keyLabel.text = starShip.starShipTableData[indexPath.row + 1].key
-			cell.valueLabel.text = starShip.starShipTableData[indexPath.row + 1].value
+			let cell: CurrencyDetailCell? = detailsTableView.dequeueReusableCellWithIdentifier("currencyDetailCell") as? CurrencyDetailCell
 			
-//				cell.keyLabel.text = "To be defined"
-//				cell.valueLabel.text = "later"
+			if let cell = cell {
+				
+				cell.keyLabel.text = starShip.starShipTableData[indexPath.row].key
+				cell.valueLabel.text = starShip.starShipTableData[indexPath.row].value
+				
+				return cell
+			}
+		
+		} else if starShip.starShipTableData[indexPath.row].measurable {
 			
+			let cell: MeasurableDetailCell? = detailsTableView.dequeueReusableCellWithIdentifier("measureDetailCell") as? MeasurableDetailCell
 			
-			return cell
+			if let cell = cell {
+				
+				cell.keyLabel.text = starShip.starShipTableData[indexPath.row].key
+				cell.valueLabel.text = starShip.starShipTableData[indexPath.row].value
+				
+				return cell
+			}
+		
+		} else {
+			
+			let cell: DetailCell? = detailsTableView.dequeueReusableCellWithIdentifier("detailCell") as? DetailCell
+			
+			if let cell = cell {
+				
+				cell.keyLabel.text = starShip.starShipTableData[indexPath.row].key
+				cell.valueLabel.text = starShip.starShipTableData[indexPath.row].value
+				
+				return cell
+			}
 		}
 		
 		return UITableViewCell()

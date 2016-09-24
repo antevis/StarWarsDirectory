@@ -35,8 +35,10 @@
 		2C6ABF121D704E1600341C03 /* Planet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF111D704E1600341C03 /* Planet.swift */; };
 		2C6ABF141D70531400341C03 /* Vehicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF131D70531400341C03 /* Vehicle.swift */; };
 		2C6ABF161D7054D600341C03 /* Starship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6ABF151D7054D600341C03 /* Starship.swift */; };
-		2CB2F3D01D950C1900F40433 /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F3CF1D950C1900F40433 /* DetailCell.swift */; };
+		2CB2F3D01D950C1900F40433 /* MeasurableDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F3CF1D950C1900F40433 /* MeasurableDetailCell.swift */; };
 		2CB2F3D21D95193800F40433 /* UniversalDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F3D11D95193800F40433 /* UniversalDetailViewController.swift */; };
+		2CB2F3D81D9671AC00F40433 /* DetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F3D71D9671AC00F40433 /* DetailCell.swift */; };
+		2CB2F3DA1D9678A400F40433 /* CurrencyDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB2F3D91D9678A400F40433 /* CurrencyDetailCell.swift */; };
 		2CDA1CA81D85AE5200EEF4A7 /* SWAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDA1CA71D85AE5200EEF4A7 /* SWAPIClient.swift */; };
 		2CDB428E1D89634500993281 /* RootResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB428D1D89634500993281 /* RootResource.swift */; };
 /* End PBXBuildFile section */
@@ -72,8 +74,10 @@
 		2C6ABF111D704E1600341C03 /* Planet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Planet.swift; sourceTree = "<group>"; };
 		2C6ABF131D70531400341C03 /* Vehicle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vehicle.swift; sourceTree = "<group>"; };
 		2C6ABF151D7054D600341C03 /* Starship.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Starship.swift; sourceTree = "<group>"; };
-		2CB2F3CF1D950C1900F40433 /* DetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCell.swift; sourceTree = "<group>"; };
+		2CB2F3CF1D950C1900F40433 /* MeasurableDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasurableDetailCell.swift; sourceTree = "<group>"; };
 		2CB2F3D11D95193800F40433 /* UniversalDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniversalDetailViewController.swift; sourceTree = "<group>"; };
+		2CB2F3D71D9671AC00F40433 /* DetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCell.swift; sourceTree = "<group>"; };
+		2CB2F3D91D9678A400F40433 /* CurrencyDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyDetailCell.swift; sourceTree = "<group>"; };
 		2CDA1CA71D85AE5200EEF4A7 /* SWAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SWAPIClient.swift; sourceTree = "<group>"; };
 		2CDB428D1D89634500993281 /* RootResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootResource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -114,7 +118,6 @@
 				2C6A66811D80704A009624C3 /* Auxilliary.swift */,
 				2C6ABF071D6F681A00341C03 /* DefaultViewController.swift */,
 				2C6ABF081D6F681A00341C03 /* DefaultViewController.xib */,
-				2CB2F3CF1D950C1900F40433 /* DetailCell.swift */,
 				2C05EFD11D8EF42000992663 /* DetailViewController.swift */,
 				2C05EFDF1D93F3F700992663 /* DetailViewController.xib */,
 				2C6ABF0B1D7016A600341C03 /* Film.swift */,
@@ -141,6 +144,9 @@
 				2CDA1CA71D85AE5200EEF4A7 /* SWAPIClient.swift */,
 				2C6ABF131D70531400341C03 /* Vehicle.swift */,
 				2CB2F3D11D95193800F40433 /* UniversalDetailViewController.swift */,
+				2CB2F3D71D9671AC00F40433 /* DetailCell.swift */,
+				2CB2F3CF1D950C1900F40433 /* MeasurableDetailCell.swift */,
+				2CB2F3D91D9678A400F40433 /* CurrencyDetailCell.swift */,
 			);
 			path = StarWarsDirectory;
 			sourceTree = "<group>";
@@ -228,7 +234,7 @@
 				2CDB428E1D89634500993281 /* RootResource.swift in Sources */,
 				2C6A667F1D805920009624C3 /* MovieCharacterViewController.swift in Sources */,
 				2C6ABF161D7054D600341C03 /* Starship.swift in Sources */,
-				2CB2F3D01D950C1900F40433 /* DetailCell.swift in Sources */,
+				2CB2F3D01D950C1900F40433 /* MeasurableDetailCell.swift in Sources */,
 				2C6ABF0E1D70194400341C03 /* Species.swift in Sources */,
 				2C6ABF0C1D7016A600341C03 /* Film.swift in Sources */,
 				2C05EFA61D897B7D00992663 /* APIClient.swift in Sources */,
@@ -240,7 +246,9 @@
 				2C6ABF001D6F44C700341C03 /* RootCollectionViewController.swift in Sources */,
 				2C05EFDD1D92D5E100992663 /* ScrollStackViewController.swift in Sources */,
 				2C05EFD91D91425900992663 /* StarshipViewController.swift in Sources */,
+				2CB2F3DA1D9678A400F40433 /* CurrencyDetailCell.swift in Sources */,
 				2CB2F3D21D95193800F40433 /* UniversalDetailViewController.swift in Sources */,
+				2CB2F3D81D9671AC00F40433 /* DetailCell.swift in Sources */,
 				2CDA1CA81D85AE5200EEF4A7 /* SWAPIClient.swift in Sources */,
 				2C05EFD51D90472C00992663 /* SpeciesViewController.swift in Sources */,
 				2C6ABF141D70531400341C03 /* Vehicle.swift in Sources */,
