@@ -9,7 +9,7 @@
 import UIKit
 
 
-class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MeasureSystemDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
 	
 	var endPoint: SWEndpoint?
 	
@@ -35,47 +35,14 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		}
 	}
 	
-	weak var measureSystemDelegate: MeasureSystemDelegate?
-	
-	//Initially explicitly set to default API measure system to bypass the init() requirement. Re-evaluated in viewDidLoad according to current locale
-	var currentMeasureSystem = MeasureSystem.Metric {
-		
-		didSet {
-			
-			measureSystemDelegate?.measureSystemSetTo(currentMeasureSystem)
-			
-			handle(currentMeasureSystem)
-		}
-	}
-	
-	func handle(measureSystem: MeasureSystem){
-		
-		switch measureSystem {
-			
-		case .Imperial: measureSystemDelegate?.imperialSystemSet()
-		case .Metric: measureSystemDelegate?.metricSystemSet()
-		}
-	}
-	
-	
-	func localeMeasureSystemSetup() {
-		
-		if let isMetric = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem) as? Bool {
-			
-			currentMeasureSystem = isMetric ? .Metric : .Imperial
-			
-		} else /*It's extremely unlikely that above binding fails, but still we don't take chances..*/ {
-			
-			currentMeasureSystem = .Metric //Default API measure system
-		}
-	}
+	var crdUsd: Double?
 	
 	override func viewDidLoad() {
 		
 		super.viewDidLoad()
 		
 		// Do any additional setup after loading the view.
-		localeMeasureSystemSetup()
+		//localeMeasureSystemSetup()
 		
 		// Status bar white font
 		self.navigationController?.navigationBarHidden = false
@@ -88,8 +55,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		}
 		
 		detailsTableView.dataSource = self
-		self.measureSystemDelegate = self
-		handle(currentMeasureSystem)
 		picker.delegate = self
 		
 		switch endPoint {
@@ -98,20 +63,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			
 				fetchStarships()
 			
-				if let shortestLongest = Aux.getExtremesWithin(starShips) {
-					
-					if let shortest = shortestLongest.min {
-						
-						smallestLabel.text = "\(shortest.name): \(shortest.length.description) m"
-					}
-					
-					if let longest = shortestLongest.max {
-						
-						largestLabel.text = "\(longest.name): \(longest.length.description) m"
-					}
-				}
-			
-				default: break
+			default: break
 		}
 		
 	}
@@ -124,25 +76,41 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			
 			switch result {
 				
-			case .Success(let starShips):
+				case .Success(let starShips):
+					
+					self.starShips = starShips.sort { $0.name < $1.name }
+					
+					self.picker.reloadAllComponents()
+					
+					self.setCurrentItemFor(self.picker.selectedRowInComponent(0))
 				
-				self.starShips = starShips.sort { $0.name < $1.name }
-				
-				self.picker.reloadAllComponents()
-				
-				self.setCurrentItemFor(self.picker.selectedRowInComponent(0))
-				
-			case .Failure(let error as NSError):
-				
-				self.showAlert("Unable to retrieve starships.", message: error.localizedDescription)
-				
-			default: break
-				
+					self.setMinMax()
+					
+				case .Failure(let error as NSError):
+					
+					self.showAlert("Unable to retrieve starships.", message: error.localizedDescription)
+					
+				default: break
 			}
 			
 		}
 	}
 	
+	func setMinMax() {
+		
+		if let shortestLongest = Aux.getExtremesWithin(starShips) {
+			
+			if let shortest = shortestLongest.min {
+				
+				self.smallestLabel.text = "\(shortest.name): \(shortest.length.description) m"
+			}
+			
+			if let longest = shortestLongest.max {
+				
+				self.largestLabel.text = "\(longest.name): \(longest.length.description) m"
+			}
+		}
+	}
 	
 	
 	override func didReceiveMemoryWarning() {
@@ -218,14 +186,33 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				return cell
 			}
 		
-		} else if starShip.starShipTableData[indexPath.row].measurable {
+		} else if let scale = starShip.starShipTableData[indexPath.row].scale {
 			
 			let cell: MeasurableDetailCell? = detailsTableView.dequeueReusableCellWithIdentifier("measureDetailCell") as? MeasurableDetailCell
 			
 			if let cell = cell {
 				
 				cell.keyLabel.text = starShip.starShipTableData[indexPath.row].key
-				cell.valueLabel.text = starShip.starShipTableData[indexPath.row].value
+				
+				cell.conversionScale = scale
+				
+				let value = starShip.starShipTableData[indexPath.row].value
+				
+				let doubleValue: Double? = Double(value)
+				
+				if let doubleValue = doubleValue {
+					
+					cell.metricValue = doubleValue
+					
+				} else {
+					
+					cell.valueLabel.text = value
+				}
+				
+				cell.englishButton.setTitleColor(UIColor.grayColor(), forState: .Disabled)
+				cell.metricButton.setTitleColor(UIColor.grayColor(), forState: .Disabled)
+				
+				cell.localeMeasureSystemSetup()
 				
 				return cell
 			}
@@ -246,21 +233,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		return UITableViewCell()
 	}
 	
-	//MARK: MeasureSystem delegate conformance
-	func measureSystemSetTo(measureSystem: MeasureSystem) {
-		
-//		self.avgHeightLabel.text = currentSpecies?.sizeIn(measureSystem)
-	}
-	
-	func imperialSystemSet() {
-		
-//		measureSystemControl.selectedSegmentIndex = 1
-	}
-	
-	func metricSystemSet() {
-		
-//		measureSystemControl.selectedSegmentIndex = 0
-	}
 	
 	//MARK: Picker conformance
 	func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {

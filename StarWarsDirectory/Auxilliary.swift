@@ -12,21 +12,17 @@ typealias DescriptiveInt = (intValue: Int?, description: String)
 typealias DescriptiveDouble = (doubleValue: Double?, description: String)
 typealias Aux = Auxilliary
 
+protocol MeasureSystemDelegate: class {
+	
+	func measureSystemSetTo<T: SizeProvider>(measureSystem: MeasureSystem, item: T)
+	
+	func imperialSystemSet()
+	func metricSystemSet()
+}
+
+
 class Auxilliary {
 	
-//	class func getDescriptiveValue<T>(stringValue: String) -> (T?, String) {
-//		
-//		var result: (T?, String)
-//		
-//		if let tValue = stringValue as? T {
-//			
-//			result.0 = tValue
-//		}
-//		
-//		result.1 = stringValue
-//		
-//		return result
-//	}
 	
 	class func convertToImperial(from source: Double, scale: ConversionScale) -> String {
 		
@@ -46,16 +42,36 @@ class Auxilliary {
 			case .kmToMiles:
 				
 				let milesPerKm: Double = 0.621371
-				return "\(round(source * milesPerKm)) mi"
+				return "\(round(10 * source * milesPerKm) / 10) mi"
 			
 			case .metersToYards:
 				
 				let yardsPerMeter: Double = 1.09361
-				return "\(source * yardsPerMeter) yd"
+				return "\(round(10 * source * yardsPerMeter) / 10) yd"
+			
+			case .kgToPounds:
+				
+				let poundsPerKg: Double = 2.20462
+				return "\(round(10 * source * poundsPerKg) / 10) lb"
 			
 		}
 		
 		
+	}
+	
+	class func descriptionOfMetric(value: Double, forMeasure measure: MeasureSystem, with scale: ConversionScale) -> String {
+		
+		switch measure {
+			
+			case .Imperial:
+				
+				return Aux.convertToImperial(from: value, scale: scale)
+				
+			case .Metric:
+				
+				return "\(value) \(scale.rawValue)"
+			
+		}
 	}
 	
 	class func getExtremesWithin<T: SizeProvider>(array: [T]?) -> (min: T?, max: T?)? {
@@ -113,14 +129,15 @@ protocol SizeProvider {
 	
 	var size: Double? { get }
 	
-	func sizeIn(measure: MeasureSystem) -> String
+	func sizeIn(measure: MeasureSystem, with scale: ConversionScale) -> String
 }
 
-enum ConversionScale {
+enum ConversionScale: String {
 	
-	case cmToFeetInches
-	case kmToMiles
-	case metersToYards
+	case cmToFeetInches = "cm"
+	case kmToMiles = "km"
+	case metersToYards = "m"
+	case kgToPounds = "kg"
 }
 
 
@@ -154,6 +171,11 @@ extension String {
 	var isDouble: Bool {
 		
 		return self.doubleValue != nil
+	}
+	
+	var isNumber: Bool {
+		
+		return isInteger || isDouble
 	}
 	
 	var descriptiveInt: (intValue: Int?, description: String) {

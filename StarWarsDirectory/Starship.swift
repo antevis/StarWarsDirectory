@@ -32,7 +32,7 @@ struct Starship: SizeProvider, JSONDecodable {
 		return length.doubleValue
 	}
 	
-	func sizeIn(measure: MeasureSystem) -> String {
+	func sizeIn(measure: MeasureSystem, with scale: ConversionScale) -> String {
 		
 		guard let doubleValue = length.doubleValue else {
 			
@@ -40,13 +40,14 @@ struct Starship: SizeProvider, JSONDecodable {
 		}
 		
 		switch measure {
+			
 			case .Imperial:
 				
-				return Aux.convertToImperial(from: doubleValue, scale: ConversionScale.metersToYards)
+				return Aux.convertToImperial(from: doubleValue, scale: scale)
 				
 			case .Metric:
 				
-				return "\(doubleValue) m"
+				return "\(doubleValue) \(scale.rawValue)"
 		}
 	}
 	
@@ -62,27 +63,26 @@ struct Starship: SizeProvider, JSONDecodable {
 	let films: [String] // An array of Film URL Resources that this starship has appeared in.
 	let url: String // the hypermedia URL of this resource.
 	
-	var starShipTableData: [(key: String, value: String, measurable: Bool, convertible: Bool)] {
+	var starShipTableData: [(key: String, value: String, scale: ConversionScale?, convertible: Bool)] {
 		
 		get {
 			
-			var data = [(key: String, value: String, measurable: Bool, convertible: Bool)]()
+			var data = [(key: String, value: String, scale: ConversionScale?, convertible: Bool)]()
 			
-			data.append(("Model", model, false, false))
-			data.append(("Manufacturer", manufacturer, false, false))
-			data.append(("Cost", cost_in_credits.description, false, true))
-			data.append(("Length", length.description, true, false))
-			data.append(("Max.Atm.Spd", max_atmosphering_speed.description, false, false))
-			data.append(("Crew", crew.description, false, false))
-			data.append(("Passengers", passengers.description, false, false))
-			data.append(("Cargo", cargo_capacity.description, true, false))
-			data.append(("Consumables", consumables.description, false, false))
-			data.append(("HyperDrive", hyperdrive_rating, false, false))
-			data.append(("MGLT", MGLT.description, false, false))
-			data.append(("Class", starship_class, false, false))
+			data.append(("Model", model, nil, false))
+			data.append(("Manufacturer", manufacturer, nil, false))
+			data.append(("Cost", cost_in_credits.description, nil, true))
+			data.append(("Length", length.description, .metersToYards, false))
+			data.append(("Max.Atm.Spd", max_atmosphering_speed.description, nil, false))
+			data.append(("Crew", crew.description, nil, false))
+			data.append(("Passengers", passengers.description, nil, false))
+			data.append(("Cargo", cargo_capacity.description, .kgToPounds, false))
+			data.append(("Consumables", consumables.description, nil, false))
+			data.append(("HyperDrive", hyperdrive_rating, nil, false))
+			data.append(("MGLT", MGLT.description, nil, false))
+			data.append(("Class", starship_class, nil, false))
 			
 			return data
-			
 		}
 	}
 	

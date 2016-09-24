@@ -65,7 +65,7 @@ class MovieCharacter: JSONDecodable, SizeProvider {
 //	let created: NSDate? // the ISO 8601 date format of the time that this resource was created.
 //	let edited: NSDate?
 	
-	func sizeIn(measure: MeasureSystem) -> String {
+	func sizeIn(measure: MeasureSystem, with scale: ConversionScale) -> String {
 		
 		guard let intValue = height.intValue else {
 			
@@ -76,11 +76,11 @@ class MovieCharacter: JSONDecodable, SizeProvider {
 			
 			case .Imperial:
 				
-				return Aux.convertToImperial(from: Double(intValue), scale: .cmToFeetInches)
+				return Aux.convertToImperial(from: Double(intValue), scale: scale)
 			
 			case .Metric:
 				
-				return "\(intValue) cm"
+				return "\(intValue) \(scale.rawValue)"
 		
 		}
 	}

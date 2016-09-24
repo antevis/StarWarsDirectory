@@ -95,7 +95,7 @@ class PlanetViewController: DetailViewController, UIPickerViewDelegate, UIPicker
 		self.rotationPeriodLabel.text = currentPlanet.rotation_period.description
 		self.orbitalPeriodLabel.text = currentPlanet.orbital_period.description
 		
-		self.diameterLabel.text = currentPlanet.sizeIn(currentMeasureSystem)
+		self.diameterLabel.text = currentPlanet.sizeIn(currentMeasureSystem, with: ConversionScale.kmToMiles)
 		
 		self.climateLabel.text = currentPlanet.climate
 		self.gravityLabel.text = currentPlanet.gravity.description
@@ -154,9 +154,9 @@ class PlanetViewController: DetailViewController, UIPickerViewDelegate, UIPicker
 	}
 	
 	//MARK: MeasureSystem delegate conformance
-	func measureSystemSetTo(measureSystem: MeasureSystem) {
+	func measureSystemSetTo<T: SizeProvider>(measureSystem: MeasureSystem, item: T) {
 		
-		self.diameterLabel.text = currentPlanet?.sizeIn(measureSystem)
+		self.diameterLabel.text = currentPlanet?.sizeIn(measureSystem, with: ConversionScale.kmToMiles)
 	}
 	
 	func imperialSystemSet() {

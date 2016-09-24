@@ -39,7 +39,7 @@ struct Planet: JSONDecodable, SizeProvider {
 //		}
 	}
 	
-	func sizeIn(measure: MeasureSystem) -> String {
+	func sizeIn(measure: MeasureSystem, with scale: ConversionScale) -> String {
 		
 		guard let doubleValue = diameter.doubleValue else {
 			
@@ -50,7 +50,7 @@ struct Planet: JSONDecodable, SizeProvider {
 			
 			case .Imperial:
 				
-				return Aux.convertToImperial(from: Double(doubleValue), scale: .kmToMiles)
+				return Aux.convertToImperial(from: Double(doubleValue), scale: scale)
 				
 			case .Metric:
 				

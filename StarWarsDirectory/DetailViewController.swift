@@ -8,13 +8,7 @@
 
 import UIKit
 
-protocol MeasureSystemDelegate: class {
-	
-	func measureSystemSetTo(measureSystem: MeasureSystem)
-	
-	func imperialSystemSet()
-	func metricSystemSet()
-}
+
 
 
 class DetailViewController: UIViewController {
@@ -26,7 +20,7 @@ class DetailViewController: UIViewController {
 		
 		didSet {
 			
-			measureSystemDelegate?.measureSystemSetTo(currentMeasureSystem)
+			//measureSystemDelegate?.measureSystemSetTo(currentMeasureSystem)
 			
 			handle(currentMeasureSystem)
 		}

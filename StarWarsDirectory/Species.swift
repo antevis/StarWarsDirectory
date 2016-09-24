@@ -42,7 +42,7 @@ class Species: JSONDecodable, SizeProvider {
 		}
 	}
 	
-	func sizeIn(measure: MeasureSystem) -> String {
+	func sizeIn(measure: MeasureSystem, with scale: ConversionScale) -> String {
 		
 		guard let intValue = avgHeight.intValue else {
 			
@@ -53,7 +53,7 @@ class Species: JSONDecodable, SizeProvider {
 			
 		case .Imperial:
 			
-			return Aux.convertToImperial(from: Double(intValue), scale: .cmToFeetInches)
+			return Aux.convertToImperial(from: Double(intValue), scale: scale)
 			
 		case .Metric:
 			

@@ -186,6 +186,9 @@
                                                     <state key="normal" title="English">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="englishButtonHandler:" destination="txL-4a-rb3" eventType="touchUpInside" id="nDM-Uj-y7Q"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mom-7S-mzD">
                                                     <rect key="frame" x="194.5" y="8" width="41" height="27"/>
@@ -193,6 +196,9 @@
                                                     <state key="normal" title="Metric">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="metricButtonHandler:" destination="txL-4a-rb3" eventType="touchUpInside" id="CLX-Xo-uKQ"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>
@@ -345,7 +351,9 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="detailsTableView" destination="25r-Qe-RlF" id="4Ye-Qg-hhi"/>
+                        <outlet property="largestLabel" destination="D1u-kX-NKk" id="F8G-0s-3Nv"/>
                         <outlet property="picker" destination="8SX-Bz-gA4" id="YLk-2l-dVp"/>
+                        <outlet property="smallestLabel" destination="dlz-qP-kuC" id="dug-Sf-uCO"/>
                         <outlet property="titleLabel" destination="OJl-Xs-x6j" id="J6u-Vc-Pbs"/>
                     </connections>
                 </viewController>
