@@ -18,6 +18,8 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	@IBOutlet weak var detailsTableView: UITableView!
 	@IBOutlet weak var picker: UIPickerView!
 	@IBOutlet weak var titleLabel: UILabel!
+	@IBOutlet weak var smallestLabel: UILabel!
+	@IBOutlet weak var largestLabel: UILabel!
 	
 	var i: Int = 0
 	
@@ -95,6 +97,19 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			case .Starships(_):
 			
 				fetchStarships()
+			
+				if let shortestLongest = Aux.getExtremesWithin(starShips) {
+					
+					if let shortest = shortestLongest.min {
+						
+						smallestLabel.text = "\(shortest.name): \(shortest.length.description) m"
+					}
+					
+					if let longest = shortestLongest.max {
+						
+						largestLabel.text = "\(longest.name): \(longest.length.description) m"
+					}
+				}
 			
 				default: break
 		}
@@ -325,19 +340,5 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				return
 		}
 	}
-	
-//	func setStarshipDataFor(dataTable: UITableView) {
-//		
-//		guard let currentStarShip = currentStarShip else {
-//			
-//			return
-//		}
-//		
-//		
-//		
-//		detailsTableView.reloadData()
-//	}
-	
-		
 	
 }

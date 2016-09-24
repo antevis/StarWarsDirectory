@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MeasurableDetailCell: UITableViewCell {
+class MeasurableDetailCell: UITableViewCell/*, MeasureSystemDelegate */ {
 
 	@IBOutlet weak var keyLabel: UILabel!
 	@IBOutlet weak var valueLabel: UILabel!
@@ -28,5 +28,19 @@ class MeasurableDetailCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+	
+//	func measureSystemSetTo(measureSystem: MeasureSystem) {
+//		
+//		
+//	}
+//	
+//	func imperialSystemSet() {
+//		
+//	}
+//	
+//	func metricSystemSet() {
+//		
+//		
+//	}
 
 }

@@ -95,8 +95,10 @@ class MovieCharacterViewController: DetailViewController, UIPickerViewDelegate, 
 		
 		if let movieCharacters = movieCharacters{
 		
-		return movieCharacters.count
+			return movieCharacters.count
+			
 		} else {
+			
 			return 0
 		}
 	}
