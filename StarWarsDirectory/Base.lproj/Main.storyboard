@@ -252,6 +252,9 @@
                                                     <state key="normal" title="USD">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="convertToUsd:" destination="6D6-mx-40o" eventType="touchUpInside" id="GGh-WO-yRq"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tmM-V5-b6i" userLabel="Credits Button">
                                                     <rect key="frame" x="194.5" y="8" width="41" height="27"/>
@@ -259,6 +262,9 @@
                                                     <state key="normal" title="Credits">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="convertToCrd:" destination="6D6-mx-40o" eventType="touchUpInside" id="aRA-rg-2oz"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>

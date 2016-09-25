@@ -40,6 +40,12 @@ enum MeasureSystem {
 	case Imperial
 }
 
+enum Currency: String {
+	
+	case GCR
+	case USD
+}
+
 
 
 class APIClient {

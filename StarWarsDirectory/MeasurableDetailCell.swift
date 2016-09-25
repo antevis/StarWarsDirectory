@@ -17,7 +17,7 @@ class MeasurableDetailCell: UITableViewCell {
 	
 	var conversionScale: ConversionScale?
 	
-	var measureSystem: MeasureSystem?
+	//var measureSystem: MeasureSystem?
 	
 	var metricValue: Double?
 	

@@ -8,8 +8,15 @@
 
 import UIKit
 
+protocol CurrencyRateUpdatedDelegate: class {
+	
+	func rateUpdatedTo(value: Double)
+}
 
-class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
+
+class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UsdRatePrompterDelegate {
+	
+	weak var currencyRateUpdatedDelegate: CurrencyRateUpdatedDelegate?
 	
 	var endPoint: SWEndpoint?
 	
@@ -35,7 +42,9 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		}
 	}
 	
+	//Credits / USD exchange rate
 	var crdUsd: Double?
+	var currentCurrency: Currency = Currency.GCR
 	
 	override func viewDidLoad() {
 		
@@ -66,6 +75,16 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			default: break
 		}
 		
+	}
+	
+	func RateRequired(sender: CurrencyRateUpdatedDelegate) {
+		
+		promptForCrdUsdRate(sender)
+	}
+	
+	func CurrencyChangedTo(currency: Currency) {
+		
+		currentCurrency = currency
 	}
 	
 	func fetchStarships() {
@@ -129,6 +148,47 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		presentViewController(alertController, animated: true, completion: nil)
 	}
 	
+	func promptForCrdUsdRate(sender: CurrencyRateUpdatedDelegate) {
+		
+		let prompt = UIAlertController(title: "X USD per 1 CRD", message: "Please enter the exchange rate:", preferredStyle: .Alert)
+		
+		let dismissAction = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+		
+		prompt.addAction(dismissAction)
+		
+		let okAction = UIAlertAction(title: "OK", style: .Default) { _ in
+			
+			if let textField = prompt.textFields?.first, text = textField.text {
+				
+				if let crdUsd = Double(text) {
+					
+					self.crdUsd = crdUsd
+					
+					self.currencyRateUpdatedDelegate = sender
+					
+					self.currencyRateUpdatedDelegate?.rateUpdatedTo(crdUsd)
+					
+					print("\(self.crdUsd)")
+					
+					self.dismissViewControllerAnimated(true, completion: nil)
+				
+				} else {
+					
+					self.showAlert("Error", message: "Exchange rate couldn't be recognized.")
+				}
+			}
+		}
+		
+		prompt.addTextFieldWithConfigurationHandler { textField in
+		
+			textField.placeholder = "X USD per 1 CRD"
+		}
+		
+		prompt.addAction(okAction)
+		
+		presentViewController(prompt, animated: true, completion: nil)
+	}
+	
 	
 	/*
 	// MARK: - Navigation
@@ -180,8 +240,28 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			
 			if let cell = cell {
 				
+				cell.usdRateDelegate = self
+				
+				cell.crdUsd = self.crdUsd
+				
+				let stringValue = starShip.starShipTableData[indexPath.row].value
+				
+				if let value = Double(stringValue) {
+					
+					cell.costInCrd = value
+					
+					
+				} else {
+					
+					cell.valueLabel.text = stringValue
+				}
+				
 				cell.keyLabel.text = starShip.starShipTableData[indexPath.row].key
-				cell.valueLabel.text = starShip.starShipTableData[indexPath.row].value
+				
+				cell.usdButton.setTitleColor(UIColor.grayColor(), forState: .Disabled)
+				cell.creditsButton.setTitleColor(UIColor.grayColor(), forState: .Disabled)
+				
+				cell.currentCurrency = self.currentCurrency//Currency.GCR //Set default currency to galactic credits
 				
 				return cell
 			}
@@ -312,5 +392,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				return
 		}
 	}
+
 	
 }

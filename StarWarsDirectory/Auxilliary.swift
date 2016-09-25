@@ -74,6 +74,21 @@ class Auxilliary {
 		}
 	}
 	
+	class func descriptionOfCredits(value: Double, forCurrency currency: Currency, with rate: Double) -> String {
+		
+		switch currency {
+			
+			case .USD:
+				
+				return "\(round(100 * value * rate) / 100) \(currency.rawValue)"
+				
+			case .GCR:
+				
+				return "\(value) \(currency.rawValue)"
+			
+		}
+	}
+	
 	class func getExtremesWithin<T: SizeProvider>(array: [T]?) -> (min: T?, max: T?)? {
 		
 		guard let array = array where array.count > 0 else { return nil }
