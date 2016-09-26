@@ -215,7 +215,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				case .Starships( _):
 					
-					return currentStarShip?.starShipTableData.count ?? 0
+					return currentStarShip?.tableData.count ?? 0
 					
 				default: return 0
 			}
@@ -234,7 +234,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			return UITableViewCell()
 		}
 		
-		if starShip.starShipTableData[indexPath.row].convertible {
+		if starShip.tableData[indexPath.row].convertible {
 			
 			let cell: CurrencyDetailCell? = detailsTableView.dequeueReusableCellWithIdentifier("currencyDetailCell") as? CurrencyDetailCell
 			
@@ -244,7 +244,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				cell.crdUsd = self.crdUsd
 				
-				let stringValue = starShip.starShipTableData[indexPath.row].value
+				let stringValue = starShip.tableData[indexPath.row].value
 				
 				if let value = Double(stringValue) {
 					
@@ -256,7 +256,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 					cell.valueLabel.text = stringValue
 				}
 				
-				cell.keyLabel.text = starShip.starShipTableData[indexPath.row].key
+				cell.keyLabel.text = starShip.tableData[indexPath.row].key
 				
 				cell.usdButton.setTitleColor(UIColor.grayColor(), forState: .Disabled)
 				cell.creditsButton.setTitleColor(UIColor.grayColor(), forState: .Disabled)
@@ -266,17 +266,17 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				return cell
 			}
 		
-		} else if let scale = starShip.starShipTableData[indexPath.row].scale {
+		} else if let scale = starShip.tableData[indexPath.row].scale {
 			
 			let cell: MeasurableDetailCell? = detailsTableView.dequeueReusableCellWithIdentifier("measureDetailCell") as? MeasurableDetailCell
 			
 			if let cell = cell {
 				
-				cell.keyLabel.text = starShip.starShipTableData[indexPath.row].key
+				cell.keyLabel.text = starShip.tableData[indexPath.row].key
 				
 				cell.conversionScale = scale
 				
-				let value = starShip.starShipTableData[indexPath.row].value
+				let value = starShip.tableData[indexPath.row].value
 				
 				let doubleValue: Double? = Double(value)
 				
@@ -303,8 +303,8 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			
 			if let cell = cell {
 				
-				cell.keyLabel.text = starShip.starShipTableData[indexPath.row].key
-				cell.valueLabel.text = starShip.starShipTableData[indexPath.row].value
+				cell.keyLabel.text = starShip.tableData[indexPath.row].key
+				cell.valueLabel.text = starShip.tableData[indexPath.row].value
 				
 				return cell
 			}

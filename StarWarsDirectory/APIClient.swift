@@ -46,6 +46,14 @@ enum Currency: String {
 	case USD
 }
 
+protocol SWCategory: JSONDecodable {
+	
+	var name: String { get }
+	var categoryTitle: String { get }
+	
+	var tableData: [(key: String, value: String, scale: ConversionScale?, convertible: Bool)] { get }
+}
+
 
 
 class APIClient {

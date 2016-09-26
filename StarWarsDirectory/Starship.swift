@@ -8,7 +8,9 @@
 
 import Foundation
 
-struct Starship: SizeProvider, JSONDecodable {
+struct Starship: SizeProvider, SWCategory {
+	
+	let categoryTitle: String = "Starships"
 	
 	let name: String // The name of this starship. The common name, such as "Death Star".
 	let model: String // The model or official name of this starship. Such as "T-65 X-wing" or "DS-1 Orbital Battle Station".
@@ -63,7 +65,7 @@ struct Starship: SizeProvider, JSONDecodable {
 	let films: [String] // An array of Film URL Resources that this starship has appeared in.
 	let url: String // the hypermedia URL of this resource.
 	
-	var starShipTableData: [(key: String, value: String, scale: ConversionScale?, convertible: Bool)] {
+	var tableData: [(key: String, value: String, scale: ConversionScale?, convertible: Bool)] {
 		
 		get {
 			
