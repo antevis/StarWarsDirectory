@@ -10,7 +10,9 @@ import Foundation
 
 
 
-class Species: JSONDecodable, SizeProvider {
+class Species: SWCategory, SizeProvider {
+	
+	let categoryTitle: String = "Species"
 	
 	//Required
 	let name: String // The name of this species.
@@ -76,6 +78,30 @@ class Species: JSONDecodable, SizeProvider {
 	let people: [String] // An array of People URL Resources that are a part of this species.
 	//let created: NSDate? // the ISO 8601 date format of the time that this resource was created.
 	//let edited: NSDate? // the ISO 8601 date format of the time that this resource was edited.
+	
+	
+	var tableData: [(key: String, value: String, scale: ConversionScale?, convertible: Bool)] {
+		
+		get {
+			
+			let data = [(key: String, value: String, scale: ConversionScale?, convertible: Bool)]()
+			
+			//			data.append(("Model", model, nil, false))
+			//			data.append(("Manufacturer", manufacturer, nil, false))
+			//			data.append(("Cost", cost_in_credits.description, nil, true))
+			//			data.append(("Length", length.description, .metersToYards, false))
+			//			data.append(("Max.Atm.Spd", max_atmosphering_speed.description, nil, false))
+			//			data.append(("Crew", crew.description, nil, false))
+			//			data.append(("Passengers", passengers.description, nil, false))
+			//			data.append(("Cargo", cargo_capacity.description, .kgToPounds, false))
+			//			data.append(("Consumables", consumables.description, nil, false))
+			//			data.append(("HyperDrive", hyperdrive_rating, nil, false))
+			//			data.append(("MGLT", MGLT.description, nil, false))
+			//			data.append(("Class", starship_class, nil, false))
+			
+			return data
+		}
+	}
 	
 	required init?(json: JSON) {
 		

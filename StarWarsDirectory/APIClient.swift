@@ -46,6 +46,7 @@ enum Currency: String {
 	case USD
 }
 
+
 protocol SWCategory: JSONDecodable {
 	
 	var name: String { get }

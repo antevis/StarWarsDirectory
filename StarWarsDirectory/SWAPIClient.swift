@@ -14,6 +14,7 @@ enum SWEndpoint: Endpoint {
 	case Planets(Int)
 	case Species(Int)
 	case Starships(Int)
+	case Vehicles(Int)
 	
 	
 	var baseURL: NSURL {
@@ -40,6 +41,10 @@ enum SWEndpoint: Endpoint {
 			case .Starships(let page):
 				
 				return "starships/?page=\(page)"
+			
+			case .Vehicles(let page):
+				
+				return "vehicles/?page=\(page)"
 		}
 	}
 	
@@ -54,7 +59,7 @@ enum SWEndpoint: Endpoint {
 class SwapiClient: APIClient {
 	
 	//To be honest, the recursion approach has been borrowed.
-	func fetchPaginatedResource<T: JSONDecodable>(endPoint: SWEndpoint, completion: APIResult<[T]> -> Void) {
+	func fetchPaginatedResource<T: SWCategory>(endPoint: SWEndpoint, completion: APIResult<[T]> -> Void) {
 		
 		var resourceResultArray = [T]()
 		
@@ -127,7 +132,6 @@ class SwapiClient: APIClient {
 		
 		fetchPaginatedResource(endPoint, completion: completion)
 	}
-	
 	
 	func fetchPlanet(url: String, completion: APIResult<Planet> -> Void) {
 		

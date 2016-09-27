@@ -22,6 +22,9 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	
 	let apiClient = SwapiClient()
 	
+
+	
+	
 	@IBOutlet weak var detailsTableView: UITableView!
 	@IBOutlet weak var picker: UIPickerView!
 	@IBOutlet weak var titleLabel: UILabel!
@@ -31,12 +34,24 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	var i: Int = 0
 	
 	var starShips: [Starship]?
+	var vehicles: [Vehicle]?
+	
 	
 	var currentStarShip: Starship? {
 		
 		didSet {
 			
 			titleLabel.text = currentStarShip?.name ?? "Starship"
+			
+			detailsTableView.reloadData()
+		}
+	}
+	
+	var currentVehicle: Vehicle? {
+		
+		didSet {
+			
+			titleLabel.text = currentVehicle?.name ?? "Vehicle"
 			
 			detailsTableView.reloadData()
 		}
@@ -72,9 +87,10 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			
 				fetchStarships()
 			
+			
+			
 			default: break
 		}
-		
 	}
 	
 	func RateRequired(sender: CurrencyRateUpdatedDelegate) {
@@ -111,7 +127,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 					
 				default: break
 			}
-			
 		}
 	}
 	

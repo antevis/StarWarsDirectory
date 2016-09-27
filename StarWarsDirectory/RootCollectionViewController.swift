@@ -233,6 +233,8 @@ class RootCollectionViewController: UICollectionViewController {
 				
 				starshipsController.endPoint = SWEndpoint.Starships(1)
 				
+				
+				
 				self.navigationController?.pushViewController(starshipsController, animated: true)
 			
 		
