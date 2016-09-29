@@ -189,7 +189,7 @@ class RootCollectionViewController: UICollectionViewController {
 	
 	@IBAction func rootCellButtonTapped(sender: UIButton) {
 		
-		//var childController: UIViewController?
+		var childController: UniversalDetailViewController?
 		
 		switch sender.tag {
 			
@@ -215,27 +215,41 @@ class RootCollectionViewController: UICollectionViewController {
 				navigationController?.pushViewController(speciesController, animated: true)
 			
 			case 4:
-				
-				//childController = UniversalDetailViewController(nibName: "UniversalDetailViewController", bundle: nil) as UniversalDetailViewController
-			
-//				let starshipController: UniversalDetailViewController? = UniversalDetailViewController(nibName: "UniversalDetailViewController", bundle: nil) as UniversalDetailViewController
-//			
-//				starshipController?.endPoint = SWEndpoint.Starships(1)
-//				
-//				if let starshipController = starshipController {
-//			
-//					navigationController?.pushViewController(starshipController, animated: true)
-			
-			
-//				}
 			
 				let starshipsController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as! UniversalDetailViewController
 				
 				starshipsController.endPoint = SWEndpoint.Starships(1)
-				
-				
-				
+
 				self.navigationController?.pushViewController(starshipsController, animated: true)
+			
+			case 5:
+				
+				let vehiclesController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as! UniversalDetailViewController
+				
+				vehiclesController.endPoint = SWEndpoint.Vehicles(1)
+				
+				self.navigationController?.pushViewController(vehiclesController, animated: true)
+			
+			case 0:
+				
+				childController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as? UniversalDetailViewController
+				
+				childController?.endPoint = SWEndpoint.Films
+				
+				if let controller = childController {
+				
+					self.navigationController?.pushViewController(controller, animated: true)
+				
+				} else {
+					
+					let defaultController = DefaultViewController(nibName: "DefaultViewController", bundle: nil)
+					
+					defaultController.zeroLabelText = rootItems[sender.tag].resourceUrlString
+					
+					//childController = defaultController
+					
+					navigationController?.pushViewController(defaultController, animated: true)
+				}
 			
 		
 			default:

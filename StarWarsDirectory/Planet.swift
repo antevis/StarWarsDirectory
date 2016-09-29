@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Planet: SWCategory, SizeProvider {
+struct Planet: SWCategoryType, SizeProvider {
 	
 	let categoryTitle: String = "Planets"
 		

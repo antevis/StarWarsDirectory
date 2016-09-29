@@ -2,4 +2,54 @@
 <Bucket
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StarWarsDirectory/Film.swift"
+            timestampString = "496848279.973627"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "init(json:)"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "StarWarsDirectory.Film.init (json : Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;) -&gt; Swift.Optional&lt;StarWarsDirectory.Film&gt;"
+                  moduleName = "StarWarsDirectory"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ivan/Development/TreeHouseDevelopment/TechDegree/StarWarsDirectory/StarWarsDirectory/Film.swift"
+                  timestampString = "496848392.831447"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47"
+                  offsetFromSymbolStart = "7013">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "protocol witness for StarWarsDirectory.JSONDecodable.init (json : Swift.Dictionary&lt;Swift.String, Swift.AnyObject&gt;) -&gt; Swift.Optional&lt;A&gt; in conformance StarWarsDirectory.Film : StarWarsDirectory.JSONDecodable in StarWarsDirectory"
+                  moduleName = "StarWarsDirectory"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ivan/Development/TreeHouseDevelopment/TechDegree/StarWarsDirectory/StarWarsDirectory/Film.swift"
+                  timestampString = "496848392.831734"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "47"
+                  endingLineNumber = "47"
+                  offsetFromSymbolStart = "30">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

@@ -15,6 +15,7 @@ enum SWEndpoint: Endpoint {
 	case Species(Int)
 	case Starships(Int)
 	case Vehicles(Int)
+	case Films
 	
 	
 	var baseURL: NSURL {
@@ -45,6 +46,11 @@ enum SWEndpoint: Endpoint {
 			case .Vehicles(let page):
 				
 				return "vehicles/?page=\(page)"
+			
+			case .Films:
+				
+				return "films/" //this is really so, yet there is only one page so far
+			
 		}
 	}
 	
@@ -59,7 +65,7 @@ enum SWEndpoint: Endpoint {
 class SwapiClient: APIClient {
 	
 	//To be honest, the recursion approach has been borrowed.
-	func fetchPaginatedResource<T: SWCategory>(endPoint: SWEndpoint, completion: APIResult<[T]> -> Void) {
+	func fetchPaginatedResource<T: SWCategoryType>(endPoint: SWEndpoint, completion: APIResult<[T]> -> Void) {
 		
 		var resourceResultArray = [T]()
 		
@@ -139,6 +145,8 @@ class SwapiClient: APIClient {
 		
 		fetchPaginatedResource(endPoint, completion: completion)
 	}
+	
+	
 	
 	func fetchPlanet(url: String, completion: APIResult<Planet> -> Void) {
 		

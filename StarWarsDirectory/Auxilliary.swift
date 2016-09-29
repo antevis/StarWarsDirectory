@@ -23,6 +23,27 @@ protocol MeasureSystemDelegate: class {
 
 class Auxilliary {
 	
+	class func stringFrom(date: NSDate?, format: String) -> String {
+		
+		guard let date = date else {
+			
+			return "Not defined"
+		}
+		
+		let dateFormatter = NSDateFormatter()
+		dateFormatter.dateFormat = format
+		
+		return dateFormatter.stringFromDate(date)
+	}
+	
+	class func dateFrom(text: String, format: String) -> NSDate? {
+		
+		let dateFormatter = NSDateFormatter()
+		dateFormatter.dateFormat = format
+		
+		return dateFormatter.dateFromString(text)
+	}
+	
 	
 	class func convertToImperial(from source: Double, scale: ConversionScale) -> String {
 		

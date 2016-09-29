@@ -8,11 +8,9 @@
 
 import Foundation
 
-struct Starship: SWCategory {
+struct Starship: SWCategoryType {
 	
-	let categoryTitle: String = "Starships"
-	
-	let name: String // The name of this starship. The common name, such as "Death Star".
+	//MARK: Starship-specific properties (OK, not ONLY starship-specific eventually)
 	let model: String // The model or official name of this starship. Such as "T-65 X-wing" or "DS-1 Orbital Battle Station".
 	let manufacturer: String // The manufacturer of this starship. Comma seperated if more than one.
 	let cost_in_credits: DescriptiveDouble // The cost of this starship new, in galactic credits.
@@ -29,42 +27,22 @@ struct Starship: SWCategory {
 		}
 	}
 	
-	var size: Double? {
-		
-		return length.doubleValue
-	}
-	
-	func sizeIn(measure: MeasureSystem, with scale: ConversionScale) -> String {
-		
-		guard let doubleValue = length.doubleValue else {
-			
-			return length.description
-		}
-		
-		switch measure {
-			
-			case .Imperial:
-				
-				return Aux.convertToImperial(from: doubleValue, scale: scale)
-				
-			case .Metric:
-				
-				return "\(doubleValue) \(scale.rawValue)"
-		}
-	}
-	
 	let max_atmosphering_speed: DescriptiveDouble // The maximum speed of this starship in atmosphere. "N/A" if this starship is incapable of atmosphering flight.
 	let crew: DescriptiveInt // The number of personnel needed to run or pilot this starship.
 	let passengers: DescriptiveInt // The number of non-essential people this starship can transport.
 	let cargo_capacity: DescriptiveDouble // The maximum number of kilograms that this starship can transport.
 	let consumables: DescriptiveDouble //The maximum length of time that this starship can provide consumables for its entire crew without having to resupply.
 	let hyperdrive_rating: String // The class of this starships hyperdrive.
-	let MGLT: DescriptiveDouble // The Maximum number of Megalights this starship can travel in a standard hour. A "Megalight" is a standard unit of distance and has never been defined before within the Star Wars universe. This figure is only really useful for measuring the difference in speed of starships. We can assume it is similar to AU, the distance between our Sun (Sol) and Earth.
+	let MGLT: DescriptiveDouble // The Maximum number of Megalights this starship can travel in a standard hour. We can assume it is similar to AU, the distance between our Sun (Sol) and Earth.
 	let starship_class: String // The class of this starship, such as "Starfighter" or "Deep Space Mobile Battlestation"
 	let pilots: [String] // An array of People URL Resources that this starship has been piloted by.
 	let films: [String] // An array of Film URL Resources that this starship has appeared in.
 	let url: String // the hypermedia URL of this resource.
 	
+	
+	//MARK: SWCategory conformance
+	let categoryTitle: String = "Starships"
+	let name: String // The name of this starship. The common name, such as "Death Star".
 	var tableData: [(key: String, value: String, scale: ConversionScale?, convertible: Bool)] {
 		
 		get {
@@ -88,10 +66,7 @@ struct Starship: SWCategory {
 		}
 	}
 	
-	//Optional
-//	let created: NSDate? // the ISO 8601 date format of the time that this resource was created.
-//	let edited: NSDate? // the ISO 8601 date format of the time that this resource was edited.
-	
+	//JSONDecodable
 	init?(json: JSON) {
 		
 		guard let
@@ -132,6 +107,31 @@ struct Starship: SWCategory {
 		self.length = length.descriptiveDouble
 		self.cargo_capacity = cargoCapacity.descriptiveDouble
 		self.films = films
+	}
+	
+	//SizeProvider
+	var size: Double? {
+		
+		return length.doubleValue
+	}
+	
+	func sizeIn(measure: MeasureSystem, with scale: ConversionScale) -> String {
+		
+		guard let doubleValue = length.doubleValue else {
+			
+			return length.description
+		}
+		
+		switch measure {
+			
+		case .Imperial:
+			
+			return Aux.convertToImperial(from: doubleValue, scale: scale)
+			
+		case .Metric:
+			
+			return "\(doubleValue) \(scale.rawValue)"
+		}
 	}
 }
 

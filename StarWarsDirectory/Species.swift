@@ -10,7 +10,7 @@ import Foundation
 
 
 
-class Species: SWCategory, SizeProvider {
+class Species: SWCategoryType, SizeProvider {
 	
 	let categoryTitle: String = "Species"
 	

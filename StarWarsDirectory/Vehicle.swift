@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Vehicle: SizeProvider, SWCategory {
+struct Vehicle: SizeProvider, SWCategoryType {
 	
 	let categoryTitle: String = "Vehicles"
 	

@@ -21,9 +21,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	var endPoint: SWEndpoint?
 	
 	let apiClient = SwapiClient()
-	
 
-	
 	
 	@IBOutlet weak var detailsTableView: UITableView!
 	@IBOutlet weak var picker: UIPickerView!
@@ -31,35 +29,23 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	@IBOutlet weak var smallestLabel: UILabel!
 	@IBOutlet weak var largestLabel: UILabel!
 	
-	var i: Int = 0
-	
-	var items: [SWCategory]?
-	var currentItem: SWCategory?
+	var itemCount: Int?
+	var currentItem: SWCategoryType? {
+		
+		didSet {
+			
+			titleLabel.text = currentItem?.name ?? "Item"
+			
+			detailsTableView.reloadData()
+		}
+	}
 	
 	var starShips: [Starship]?
 	var vehicles: [Vehicle]?
+	var films: [Film]?
+	var people: [MovieCharacter]?
+	var planets: [Planet]?
 	
-	var currentStarShip: Starship? {
-		
-		didSet {
-			
-			titleLabel.text = currentStarShip?.name ?? "Starship"
-			
-			detailsTableView.reloadData()
-		}
-	}
-	
-	
-	
-	var currentVehicle: Vehicle? {
-		
-		didSet {
-			
-			titleLabel.text = currentVehicle?.name ?? "Vehicle"
-			
-			detailsTableView.reloadData()
-		}
-	}
 	
 	//Credits / USD exchange rate
 	var crdUsd: Double?
@@ -89,13 +75,15 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			
 			case .Starships(_):
 			
-				//apiClient.fetchStarships(endPoint, completion: starShipFetchCompletion)
-			
 				apiClient.fetchPaginatedResource(endPoint, completion: starShipFetchCompletion)
 			
 			case .Vehicles(_):
 				
-				fetchVehicles()
+				apiClient.fetchPaginatedResource(endPoint, completion: vehicleFetchCompletion)
+			
+			case .Films:
+				
+				apiClient.fetchPaginatedResource(endPoint, completion: filmsFetchCompletion)
 			
 			
 			default: break
@@ -112,119 +100,109 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		currentCurrency = currency
 	}
 	
-	func commonTasks<T: SWCategory>(items: [T]) {
-		
-		self.picker.reloadAllComponents()
+	func commonTasks<T: SWCategoryType>(items: [T]) {
 		
 		self.setCurrentItemFor(self.picker.selectedRowInComponent(0))
 		
 		self.setMinMaxLabels(items)
+		
+		self.itemCount = items.count
+		
+		self.picker.reloadAllComponents()
 	}
 	
+	//Following 6 completion methods represent an ugly and ambarassing redundancy which I have failed to avoid.
 	func starShipFetchCompletion(result: APIResult<[Starship]>) -> Void {
-		
-		self.navigationController?.navigationBar.topItem?.title = "Starships"
 		
 		switch result {
 			
-			case .Success(let starShips):
+			case .Success(let items):
 				
+				let categoryTtitle = items.first?.categoryTitle ?? ""
 				
-				//TODO: convert to items
-				self.starShips = starShips.sort { $0.name < $1.name }
+				self.navigationController?.navigationBar.topItem?.title = categoryTtitle
 				
-				commonTasks(starShips)
+				self.starShips = items.sort { $0.name < $1.name }
+				
+				self.commonTasks(items)
 				
 			case .Failure(let error as NSError):
 				
-				self.showAlert("Unable to retrieve starships.", message: error.localizedDescription)
+				self.showAlert("Unable to retrieve items.", message: error.localizedDescription)
 				
 			default: break
 		}
 	}
 	
-//	func fetchStarships() {
-//		
-//		apiClient.fetchStarships(starShipFetchCompletion)
-//
-//	}
-	
-	func fetchVehicles() {
+	func vehicleFetchCompletion(result: APIResult<[Vehicle]>) -> Void {
 		
-		self.navigationController?.navigationBar.topItem?.title = "Vehicles"
-		
-		apiClient.fetchVehicles() { result in
+		switch result {
 			
-			switch result {
+			case .Success(let items):
 				
-			case .Success(let vehicles):
+				let categoryTtitle = items.first?.categoryTitle ?? ""
 				
-				self.vehicles = vehicles.sort { $0.name < $1.name }
+				self.navigationController?.navigationBar.topItem?.title = categoryTtitle
 				
-				self.picker.reloadAllComponents()
+				self.vehicles = items.sort { $0.name < $1.name }
 				
-				self.setCurrentItemFor(self.picker.selectedRowInComponent(0))
-				
-				//self.setMinMax()
-				self.setMinMaxLabels(vehicles)
+				self.commonTasks(items)
 				
 			case .Failure(let error as NSError):
 				
-				self.showAlert("Unable to retrieve vehicles.", message: error.localizedDescription)
+				self.showAlert("Unable to retrieve items.", message: error.localizedDescription)
 				
 			default: break
-			}
 		}
 	}
 	
-//	func setMinMax() {
-//		
-//		if let shortestLongest = Aux.getExtremesWithin(starShips) {
-//			
-//			if let shortest = shortestLongest.min {
-//				
-//				self.smallestLabel.text = "\(shortest.name): \(shortest.length.description) m"
-//			}
-//			
-//			if let longest = shortestLongest.max {
-//				
-//				self.largestLabel.text = "\(longest.name): \(longest.length.description) m"
-//			}
-//		}
-//	}
+	func filmsFetchCompletion(result: APIResult<[Film]>) -> Void {
+		
+		switch result {
+			
+			case .Success(let items):
+				
+				let categoryTtitle = items.first?.categoryTitle ?? ""
+				
+				self.navigationController?.navigationBar.topItem?.title = categoryTtitle
+				
+				self.films = items//.sort { $0.name < $1.name }
+				
+				self.commonTasks(items)
+				
+			case .Failure(let error as NSError):
+				
+				self.showAlert("Unable to retrieve items.", message: error.localizedDescription)
+				
+			default: break
+		}
+	}
 	
-	//	func hourly<T: HourlyEmployee>() -> T? {
-	//
-	//		var entrant: T?
-	//
-	//		if let employeeData = getEmployeeRelevantData() {
-	//
-	//			do {
-	//
-	//				try entrant = T(
-	//					fullName: employeeData.dobNameAddress.fullName,
-	//					address: employeeData.dobNameAddress.address,
-	//					ssn: employeeData.ssn,
-	//					birthDate: employeeData.dobNameAddress.birthDate)
-	//
-	//			} catch EntrantError.FirstNameMissing(let message) {
-	//
-	//				displayAlert(title: "Error", message: message)
-	//
-	//			} catch EntrantError.LastNameMissing(let message) {
-	//
-	//				displayAlert(title: "Error", message: message)
-	//
-	//			} catch {
-	//
-	//				fatalError()
-	//			}
-	//		}
-	//
-	//		return entrant
-	//	}
+	func peopleFetchCompletion(result: APIResult<[MovieCharacter]>) -> Void {
+		
+		switch result {
+			
+			case .Success(let items):
+				
+				let categoryTtitle = items.first?.categoryTitle ?? ""
+				
+				self.navigationController?.navigationBar.topItem?.title = categoryTtitle
+				
+				self.people = items.sort { $0.name < $1.name }
+				
+				self.commonTasks(items)
+				
+			case .Failure(let error as NSError):
+				
+				self.showAlert("Unable to retrieve items.", message: error.localizedDescription)
+				
+			default: break
+		}
+	}
 	
-	func setMinMaxLabels<T: SWCategory>(items: [T]?) {
+	
+	
+	func setMinMaxLabels<T: SWCategoryType>(items: [T]?) {
 		
 		if let shortestLongest = Aux.getExtremesWithin(items) {
 			
@@ -312,74 +290,24 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	//MARK: UITableView conformance
 	//TODO: Check - Probably not needed
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+		
 		return 1
 	}
 	
 	
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		
-		if let endPoint = endPoint {
-			
-			switch endPoint {
-				
-				case .Starships( _):
-					
-					return currentStarShip?.tableData.count ?? 0
-				
-				case .Vehicles(_):
-					
-					return currentVehicle?.tableData.count ?? 0
-				
-				default: return 0
-			}
-			
-		} else {
-			
-			return 0
-		}
-		
+		return currentItem?.tableData.count ?? 0
 	}
-	
-//	func hourly<T: HourlyEmployee>() -> T? {
-//		
-//		var entrant: T?
-//		
-//		if let employeeData = getEmployeeRelevantData() {
-//			
-//			do {
-//				
-//				try entrant = T(
-//					fullName: employeeData.dobNameAddress.fullName,
-//					address: employeeData.dobNameAddress.address,
-//					ssn: employeeData.ssn,
-//					birthDate: employeeData.dobNameAddress.birthDate)
-//				
-//			} catch EntrantError.FirstNameMissing(let message) {
-//				
-//				displayAlert(title: "Error", message: message)
-//				
-//			} catch EntrantError.LastNameMissing(let message) {
-//				
-//				displayAlert(title: "Error", message: message)
-//				
-//			} catch {
-//				
-//				fatalError()
-//			}
-//		}
-//		
-//		return entrant
-//	}
 	
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		
-		
-		guard let starShip = currentStarShip else {
+		guard let currentItem = currentItem else {
 			
 			return UITableViewCell()
 		}
 		
-		if starShip.tableData[indexPath.row].convertible {
+		if currentItem.tableData[indexPath.row].convertible {
 			
 			let cell: CurrencyDetailCell? = detailsTableView.dequeueReusableCellWithIdentifier("currencyDetailCell") as? CurrencyDetailCell
 			
@@ -389,7 +317,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				cell.crdUsd = self.crdUsd
 				
-				let stringValue = starShip.tableData[indexPath.row].value
+				let stringValue = currentItem.tableData[indexPath.row].value
 				
 				if let value = Double(stringValue) {
 					
@@ -401,7 +329,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 					cell.valueLabel.text = stringValue
 				}
 				
-				cell.keyLabel.text = starShip.tableData[indexPath.row].key
+				cell.keyLabel.text = currentItem.tableData[indexPath.row].key
 				
 				cell.usdButton.setTitleColor(UIColor.grayColor(), forState: .Disabled)
 				cell.creditsButton.setTitleColor(UIColor.grayColor(), forState: .Disabled)
@@ -411,17 +339,17 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				return cell
 			}
 		
-		} else if let scale = starShip.tableData[indexPath.row].scale {
+		} else if let scale = currentItem.tableData[indexPath.row].scale {
 			
 			let cell: MeasurableDetailCell? = detailsTableView.dequeueReusableCellWithIdentifier("measureDetailCell") as? MeasurableDetailCell
 			
 			if let cell = cell {
 				
-				cell.keyLabel.text = starShip.tableData[indexPath.row].key
+				cell.keyLabel.text = currentItem.tableData[indexPath.row].key
 				
 				cell.conversionScale = scale
 				
-				let value = starShip.tableData[indexPath.row].value
+				let value = currentItem.tableData[indexPath.row].value
 				
 				let doubleValue: Double? = Double(value)
 				
@@ -448,14 +376,40 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			
 			if let cell = cell {
 				
-				cell.keyLabel.text = starShip.tableData[indexPath.row].key
-				cell.valueLabel.text = starShip.tableData[indexPath.row].value
+				cell.keyLabel.text = currentItem.tableData[indexPath.row].key
+				cell.valueLabel.text = currentItem.tableData[indexPath.row].value
 				
 				return cell
 			}
 		}
 		
 		return UITableViewCell()
+	}
+	
+	func setCurrentItemFor(index: Int) {
+		
+		guard let endPoint = endPoint else {
+			
+			return
+		}
+		
+		switch endPoint {
+			
+			case .Starships(_):
+				
+				self.currentItem = starShips?[index]
+				
+			case .Vehicles(_):
+				
+				self.currentItem = vehicles?[index]
+				
+			case .Films:
+				
+				self.currentItem = films?[index]
+				
+			default:
+				return
+		}
 	}
 	
 	
@@ -468,7 +422,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				case .Starships(_):
 					
-					//TODO: Convert to items
 					if let starShips = starShips {
 						
 						return starShips[row].name
@@ -477,7 +430,29 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 						
 						return "Please wait."
 					}
+				
+				case .Vehicles(_):
 					
+					if let vehicles	= vehicles {
+						
+						return vehicles[row].name
+						
+					} else {
+						
+						return "Please wait."
+					}
+				
+				case .Films:
+					
+					if let films = films {
+						
+						return films[row].name
+						
+					} else {
+						
+						return "Please wait."
+				}
+				
 				default: return "Please wait."
 			}
 			
@@ -488,26 +463,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	
 	func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
 		
-		if let endPoint = endPoint {
-			
-			switch endPoint {
-				
-			case .Starships(_):
-				
-				//TODO: Convert to items
-				if let starShips = starShips {
-					
-					return starShips.count
-					
-				} else {
-					
-					return 0
-				}
-				
-			default: return 0
-			}
-			
-		} else { return 0 }
+		return self.itemCount ?? 0
 	}
 	
 	func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
@@ -523,23 +479,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		
 	}
 	
-	func setCurrentItemFor(index: Int) {
-		
-		guard let endPoint = endPoint else {
-			
-			return
-		}
-		
-		switch endPoint {
-			case .Starships(_):
-			
-				//TODO: Convert to items
-				self.currentStarShip = starShips?[index]
-			
-			default:
-				return
-		}
-	}
+	
 
 	
 }

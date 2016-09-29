@@ -12,7 +12,7 @@ import Foundation
 
 
 
-class MovieCharacter: SWCategory, SizeProvider {
+class MovieCharacter: SWCategoryType, SizeProvider {
 	
 	let categoryTitle: String = "People"
 	
