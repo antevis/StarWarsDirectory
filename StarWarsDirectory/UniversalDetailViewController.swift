@@ -45,6 +45,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	var films: [Film]?
 	var people: [MovieCharacter]?
 	var planets: [Planet]?
+	var species: [Species]?
 	
 	
 	//Credits / USD exchange rate
@@ -166,7 +167,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				self.navigationController?.navigationBar.topItem?.title = categoryTtitle
 				
-				self.films = items//.sort { $0.name < $1.name }
+				self.films = items.sort { $0.episode_id < $1.episode_id }
 				
 				self.commonTasks(items)
 				
@@ -189,6 +190,28 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				self.navigationController?.navigationBar.topItem?.title = categoryTtitle
 				
 				self.people = items.sort { $0.name < $1.name }
+				
+				self.commonTasks(items)
+				
+			case .Failure(let error as NSError):
+				
+				self.showAlert("Unable to retrieve items.", message: error.localizedDescription)
+				
+			default: break
+		}
+	}
+	
+	func planetFetchCompletion(result: APIResult<[Planet]>) -> Void {
+		
+		switch result {
+			
+			case .Success(let items):
+				
+				let categoryTtitle = items.first?.categoryTitle ?? ""
+				
+				self.navigationController?.navigationBar.topItem?.title = categoryTtitle
+				
+				self.planets = items.sort { $0.name < $1.name }
 				
 				self.commonTasks(items)
 				
