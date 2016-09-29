@@ -47,7 +47,7 @@ enum Currency: String {
 }
 
 
-protocol SWCategory: JSONDecodable {
+protocol SWCategory: JSONDecodable, SizeProvider {
 	
 	var name: String { get }
 	var categoryTitle: String { get }

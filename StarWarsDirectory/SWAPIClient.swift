@@ -126,9 +126,16 @@ class SwapiClient: APIClient {
 		fetchPaginatedResource(endpoint, completion: completion)
 	}
 	
-	func fetchStarships(completion: APIResult<[Starship]> -> Void) {
+	func fetchStarships(endPoint: SWEndpoint, completion: APIResult<[Starship]> -> Void) {
 		
-		let endPoint = SWEndpoint.Starships(1)
+		//let endPoint = SWEndpoint.Starships(1)
+		
+		fetchPaginatedResource(endPoint, completion: completion)
+	}
+	
+	func fetchVehicles(completion: APIResult<[Vehicle]> -> Void) {
+		
+		let endPoint = SWEndpoint.Vehicles(1)
 		
 		fetchPaginatedResource(endPoint, completion: completion)
 	}

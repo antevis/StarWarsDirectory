@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Starship: SizeProvider, SWCategory {
+struct Starship: SWCategory {
 	
 	let categoryTitle: String = "Starships"
 	

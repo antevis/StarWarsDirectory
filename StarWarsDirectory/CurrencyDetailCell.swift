@@ -10,8 +10,8 @@ import UIKit
 
 protocol UsdRatePrompterDelegate: class {
 	
-	func RateRequired(sender: CurrencyRateUpdatedDelegate)
-	func CurrencyChangedTo(currency: Currency)
+	func rateRequired(sender: CurrencyRateUpdatedDelegate)
+	func currencyChangedTo(currency: Currency)
 }
 
 
@@ -36,7 +36,7 @@ class CurrencyDetailCell: UITableViewCell, CurrencyRateUpdatedDelegate {
 			
 			setValue()
 			
-			usdRateDelegate?.CurrencyChangedTo(currentCurrency)
+			usdRateDelegate?.currencyChangedTo(currentCurrency)
 		}
 	}
 	
@@ -71,7 +71,7 @@ class CurrencyDetailCell: UITableViewCell, CurrencyRateUpdatedDelegate {
 					} else {
 						
 						//Rate missing
-						usdRateDelegate?.RateRequired(self)
+						usdRateDelegate?.rateRequired(self)
 					}
 			}
 		}
@@ -138,7 +138,7 @@ class CurrencyDetailCell: UITableViewCell, CurrencyRateUpdatedDelegate {
 			
 			changeToUsdRequested = true
 			
-			usdRateDelegate?.RateRequired(self)
+			usdRateDelegate?.rateRequired(self)
 		}
 		
 		
