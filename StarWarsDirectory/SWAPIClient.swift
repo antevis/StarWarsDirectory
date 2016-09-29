@@ -17,7 +17,6 @@ enum SWEndpoint: Endpoint {
 	case Vehicles(Int)
 	case Films
 	
-	
 	var baseURL: NSURL {
 		
 		return NSURL(string: "http://swapi.co/api/")!

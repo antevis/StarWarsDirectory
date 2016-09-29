@@ -130,9 +130,6 @@ struct Planet: SWCategoryType, SizeProvider {
 		
 	}
 	
-	init?(url: String) {
-		
-		return nil
-	}
+	
 }
 

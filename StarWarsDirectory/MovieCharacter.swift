@@ -12,12 +12,12 @@ import Foundation
 
 
 
-class MovieCharacter: SWCategoryType, SizeProvider {
+struct MovieCharacter: SWCategoryType {
 	
-	let categoryTitle: String = "People"
-	
-	//Required
-	let name: String
+	let eye_color: String // The eye color of this person. Will be "unknown" if not known or "n/a" if the person does not have an eye.
+	let vehicles: [String] // An array of vehicle resource URLs that this person has piloted.
+	let gender: String // The gender of this person. Either "Male", "Female" or "unknown", "n/a" if the person does not have a gender.
+	let hair_color: String // The hair color of this person. Will be "unknown" if not known or "n/a" if the person does not have hair.
 	
 	//height in centimeters
 	var height: DescriptiveInt {
@@ -31,41 +31,66 @@ class MovieCharacter: SWCategoryType, SizeProvider {
 		}
 	}
 	
-	//Query api for planet data only when property accessed.
-	lazy var homePlanet: Planet? = Planet(url: self.homeWorldUrl)
+	let species: [String] // An array of species resource URLs that this person belonds to.
+	let films: [String] // An array of film resource URLs that this person has been in.
+	let birth_year: String // The birth year of the person, using the in-universe standard of BBY or ABY - Before the Battle of Yavin or After the Battle of Yavin. The Battle of Yavin is a battle that occurs at the end of Star Wars episode IV: A New Hope.
+	let mass: DescriptiveInt // The mass of the person in kilograms.
+	let skin_color: String // The skin color of this person.
+	let url: String// the hypermedia URL of this resource.
+	let homeWorldUrl: String // The URL of a planet resource, a planet that this person was born on or inhabits.
+	let starships: [String] // An array of starship resource URLs that this person has piloted.
 	
+	//Query api for planet data only when property accessed.
+	lazy var homePlanet: Planet? = nil// Planet(url: self.homeWorldUrl)
+	
+	
+	//MARK: SWCategory conformance
+	let categoryTitle: String = "People"
+	let name: String
+	
+	var tableData: [(key: String, value: String, scale: ConversionScale?, convertible: Bool)] {
+		
+		get {
+			
+			var data = [(key: String, value: String, scale: ConversionScale?, convertible: Bool)]()
+			
+			data.append(("Born", birth_year, nil, false))
+			data.append(("Home", "", nil, false))
+			data.append(("Height", height.description, ConversionScale.cmToFeetInches, false))
+			data.append(("Eyes", eye_color, nil, false))
+			data.append(("Hair", hair_color, nil, false))
+			data.append(("Gender", gender, nil, false))
+			data.append(("Mass", mass.description, ConversionScale.kgToPounds, false))
+			data.append(("Skin", skin_color, nil, false))
+
+			//			data.append(("Manufacturer", manufacturer, nil, false))
+			//			data.append(("Cost", cost_in_credits.description, nil, true))
+			//			data.append(("Length", length.description, .metersToYards, false))
+			//			data.append(("Max.Atm.Spd", max_atmosphering_speed.description, nil, false))
+			//			data.append(("Crew", crew.description, nil, false))
+			//			data.append(("Passengers", passengers.description, nil, false))
+			//			data.append(("Cargo", cargo_capacity.description, .kgToPounds, false))
+			//			data.append(("Consumables", consumables.description, nil, false))
+			//			data.append(("HyperDrive", hyperdrive_rating, nil, false))
+			//			data.append(("MGLT", MGLT.description, nil, false))
+			//			data.append(("Class", starship_class, nil, false))
+			
+			return data
+		}
+	}
+	
+	//SizeProvider
 	var size: Double? {
 		
 		if let intValue = height.intValue {
 			
 			return Double(intValue)
-		
+			
 		} else {
 			
 			return nil
 		}
 	}
-	
-//	let mass: DescriptiveInt // The mass of the person in kilograms.
-	
-	let hair_color: String // The hair color of this person. Will be "unknown" if not known or "n/a" if the person does not have hair.
-//	let skin_color: String // The skin color of this person.
-	let eye_color: String // The eye color of this person. Will be "unknown" if not known or "n/a" if the person does not have an eye.
-	let birth_year: String // The birth year of the person, using the in-universe standard of BBY or ABY - Before the Battle of Yavin or After the Battle of Yavin. The Battle of Yavin is a battle that occurs at the end of Star Wars episode IV: A New Hope.
-//	let gender: String // The gender of this person. Either "Male", "Female" or "unknown", "n/a" if the person does not have a gender.
-	
-	let homeWorldUrl: String // The URL of a planet resource, a planet that this person was born on or inhabits.
-	
-	//let homeworld: Planet // The URL of a planet resource, a planet that this person was born on or inhabits.
-//	let films: [String] // An array of film resource URLs that this person has been in.
-//	let species: [String] // An array of species resource URLs that this person belonds to.
-//	let vehicles: [String] // An array of vehicle resource URLs that this person has piloted.
-//	let starships: [String] // An array of starship resource URLs that this person has piloted.
-//	let url: String// the hypermedia URL of this resource.
-	
-	//Optional
-//	let created: NSDate? // the ISO 8601 date format of the time that this resource was created.
-//	let edited: NSDate?
 	
 	func sizeIn(measure: MeasureSystem, with scale: ConversionScale) -> String {
 		
@@ -87,39 +112,24 @@ class MovieCharacter: SWCategoryType, SizeProvider {
 		}
 	}
 	
-	var tableData: [(key: String, value: String, scale: ConversionScale?, convertible: Bool)] {
-		
-		get {
-			
-			let data = [(key: String, value: String, scale: ConversionScale?, convertible: Bool)]()
-			
-//			data.append(("Model", model, nil, false))
-//			data.append(("Manufacturer", manufacturer, nil, false))
-//			data.append(("Cost", cost_in_credits.description, nil, true))
-//			data.append(("Length", length.description, .metersToYards, false))
-//			data.append(("Max.Atm.Spd", max_atmosphering_speed.description, nil, false))
-//			data.append(("Crew", crew.description, nil, false))
-//			data.append(("Passengers", passengers.description, nil, false))
-//			data.append(("Cargo", cargo_capacity.description, .kgToPounds, false))
-//			data.append(("Consumables", consumables.description, nil, false))
-//			data.append(("HyperDrive", hyperdrive_rating, nil, false))
-//			data.append(("MGLT", MGLT.description, nil, false))
-//			data.append(("Class", starship_class, nil, false))
-			
-			return data
-		}
-	}
 	
-	required init?(json: JSON) {
+	
+	init?(json: JSON) {
 		
 		guard let
 			name = json["name"] as? String,
 			height = json["height"] as? String,
-			//mass = json["mass"] as? String,
+			mass = json["mass"] as? String,
 			hairColor = json["hair_color"] as? String,
-			//skinColor = json["skin_color"] as? String,
+			skinColor = json["skin_color"] as? String,
 			eyeColor = json["eye_color"] as? String,
 			birthYear = json["birth_year"] as? String,
+			vehicles = json["vehicles"] as? [String],
+			gender = json["gender"] as? String,
+			species = json["species"] as? [String],
+			films = json["films"] as? [String],
+			url = json["url"] as? String,
+			starships = json["starships"] as? [String],
 			planet = json["homeworld"] as? String else {
 				
 				return nil
@@ -131,7 +141,14 @@ class MovieCharacter: SWCategoryType, SizeProvider {
 		self.eye_color = eyeColor
 		self.birth_year = birthYear
 		self.homeWorldUrl = planet
-		
+		self.mass = mass.descriptiveInt
+		self.skin_color = skinColor
+		self.vehicles = vehicles
+		self.gender = gender
+		self.species = species
+		self.films = films
+		self.url = url
+		self.starships = starships
 		
 	}
 }

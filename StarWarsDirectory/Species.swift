@@ -30,7 +30,7 @@ class Species: SWCategoryType, SizeProvider {
 	}
 	
 	//Query api for planet data only when property accessed.
-	lazy var homePlanet: Planet? = Planet(url: self.homeWorldUrl)
+	lazy var homePlanet: Planet? = nil //Planet(url: self.homeWorldUrl)
 	
 	var size: Double? {
 		

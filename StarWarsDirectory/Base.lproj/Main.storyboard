@@ -115,14 +115,14 @@
                                         <color key="textColor" red="0.25490196079999999" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Undefined" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dlz-qP-kuC">
-                                        <rect key="frame" x="89" y="8" width="88" height="22"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Undefined" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="dlz-qP-kuC">
+                                        <rect key="frame" x="89" y="8" width="223" height="22"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Undefined" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1u-kX-NKk">
-                                        <rect key="frame" x="89" y="31" width="88" height="22"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Undefined" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="D1u-kX-NKk">
+                                        <rect key="frame" x="89" y="31" width="223" height="22"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -131,14 +131,16 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="Qth-1n-lgT" firstAttribute="leading" secondItem="ofg-ca-PJl" secondAttribute="leading" constant="8" id="4SI-rF-LRh"/>
+                                    <constraint firstItem="dlz-qP-kuC" firstAttribute="leading" secondItem="ofg-ca-PJl" secondAttribute="leading" constant="89" id="8xT-D6-8Bn"/>
                                     <constraint firstItem="dlz-qP-kuC" firstAttribute="centerY" secondItem="Qth-1n-lgT" secondAttribute="centerY" id="9hZ-Z2-8Dr"/>
+                                    <constraint firstAttribute="trailing" secondItem="dlz-qP-kuC" secondAttribute="trailing" constant="8" id="9n5-Fj-P4Q"/>
                                     <constraint firstItem="l2r-ho-SLc" firstAttribute="leading" secondItem="ofg-ca-PJl" secondAttribute="leading" constant="8" id="Bjg-47-QP2"/>
                                     <constraint firstItem="l2r-ho-SLc" firstAttribute="top" secondItem="ofg-ca-PJl" secondAttribute="top" constant="31" id="COS-yn-zG5"/>
                                     <constraint firstItem="Qth-1n-lgT" firstAttribute="top" secondItem="ofg-ca-PJl" secondAttribute="top" constant="8" id="CtM-TG-CtN"/>
                                     <constraint firstAttribute="height" constant="62" id="FaL-kp-8VL"/>
                                     <constraint firstItem="D1u-kX-NKk" firstAttribute="centerY" secondItem="l2r-ho-SLc" secondAttribute="centerY" id="VqN-5K-BCb"/>
-                                    <constraint firstItem="D1u-kX-NKk" firstAttribute="leading" secondItem="dlz-qP-kuC" secondAttribute="leading" id="pqi-CX-xwx"/>
-                                    <constraint firstItem="dlz-qP-kuC" firstAttribute="leading" secondItem="Qth-1n-lgT" secondAttribute="trailing" constant="8" id="sia-Dy-WO5"/>
+                                    <constraint firstItem="D1u-kX-NKk" firstAttribute="leading" secondItem="ofg-ca-PJl" secondAttribute="leading" constant="89" id="kzJ-Xv-Zns"/>
+                                    <constraint firstAttribute="trailing" secondItem="D1u-kX-NKk" secondAttribute="trailing" constant="8" id="y8T-DX-vMc"/>
                                 </constraints>
                             </view>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8SX-Bz-gA4">
