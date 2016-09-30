@@ -57,7 +57,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		super.viewDidLoad()
 		
 		// Do any additional setup after loading the view.
-		//localeMeasureSystemSetup()
 		
 		// Status bar white font
 		self.navigationController?.navigationBarHidden = false
