@@ -119,7 +119,6 @@ class RootCollectionViewController: UICollectionViewController {
 	// MARK: Aux
 	func getRootItems() -> [RootResource] {
 		
-		
 		var items = [RootResource]()
 		
 		items.append(RootResource(resourceName: "films", resourceUrlString: "http://swapi.co/api/films/"))
@@ -150,127 +149,48 @@ class RootCollectionViewController: UICollectionViewController {
 		collectionView.collectionViewLayout = layout
 	}
 	
-//	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//		if segue.identifier == "showDetail" {
-////			if let indexPath = self.tableView.indexPathForSelectedRow {
-////				//let object = objects[indexPath.row] as! NSDate
-////				let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
-////				//controller.detailItem = object
-////				
-////				let venue = venues[indexPath.row]
-////				
-////				controller.venue = venue
-////				
-////				controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-////				controller.navigationItem.leftItemsSupplementBackButton = true
-////			}
-//			
-//			print(sender?.tag)
-//			
-//			guard let cell = sender else {
-//				
-//				return
-//			}
-//			
-//			switch cell.tag {
-//				
-//				case 4:
-//					
-//					let controller = (segue.destinationViewController as! UINavigationController).topViewController as! UniversalDetailViewController
-//					
-//					controller.endPoint = SWEndpoint.Starships(1)
-//					
-//				default: return
-//			}
-//		}
-//	}
-	
 	// MARK: Event Handlers
-	
 	@IBAction func rootCellButtonTapped(sender: UIButton) {
 		
 		let childController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as? UniversalDetailViewController
-		
-		
 		
 		switch sender.tag {
 			
 			case 0:
 				
 				childController?.endPoint = SWEndpoint.Films
-			
-			
+
 			case 1:
-				
-//				let characterController = MovieCharacterViewController(nibName: "MovieCharacterViewController", bundle: nil)
-//				//childController = characterController
-//			
-//				navigationController?.pushViewController(characterController, animated: true)
 			
 				childController?.endPoint = SWEndpoint.Characters(1)
 				childController?.scale = ConversionScale.cmToFeetInches
 			
 			case 2:
-				
-//				let planetController = PlanetViewController(nibName: "PlanetViewController", bundle: nil)
-//				
-//				
-//				//childController = planetController
-//				navigationController?.pushViewController(planetController, animated: true)
 			
 				childController?.endPoint = SWEndpoint.Planets(1)
-			
 				childController?.scale = ConversionScale.kmToMiles
 			
 			case 3:
-				
-//				let speciesController = SpeciesViewController(nibName: "SpeciesViewController", bundle: nil)
-//				//childController = speciesController
-//			
-//				navigationController?.pushViewController(speciesController, animated: true)
 			
 				childController?.endPoint = SWEndpoint.Species(1)
-			
 				childController?.scale = ConversionScale.cmToFeetInches
 			
 			case 4:
 			
-//				let starshipsController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as! UniversalDetailViewController
-//				
-//				starshipsController.endPoint = SWEndpoint.Starships(1)
-//
-//				self.navigationController?.pushViewController(starshipsController, animated: true)
-			
 				childController?.endPoint = SWEndpoint.Starships(1)
-			
 				childController?.scale = ConversionScale.metersToYards
 			
 			case 5:
-				
-//				let vehiclesController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as! UniversalDetailViewController
-//				
-//				vehiclesController.endPoint = SWEndpoint.Vehicles(1)
-//				
-//				self.navigationController?.pushViewController(vehiclesController, animated: true)
 			
 				childController?.endPoint = SWEndpoint.Vehicles(1)
-			
 				childController?.scale = ConversionScale.metersToYards
-			
 
-				
-			
-			
-		
 			default:
 				let defaultController = DefaultViewController(nibName: "DefaultViewController", bundle: nil)
 			
 				defaultController.zeroLabelText = rootItems[sender.tag].resourceUrlString
-				
-				//childController = defaultController
 			
 				navigationController?.pushViewController(defaultController, animated: true)
-			
 		}
 		
 		if let controller = childController {
@@ -282,8 +202,6 @@ class RootCollectionViewController: UICollectionViewController {
 			let defaultController = DefaultViewController(nibName: "DefaultViewController", bundle: nil)
 			
 			defaultController.zeroLabelText = rootItems[sender.tag].resourceUrlString
-			
-			//childController = defaultController
 			
 			navigationController?.pushViewController(defaultController, animated: true)
 		}
