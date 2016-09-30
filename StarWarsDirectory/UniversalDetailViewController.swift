@@ -542,9 +542,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			case .Species(_):
 				
 				self.currentItem = species?[index]
-			
-//			default:
-//				return
 		}
 	}
 	
@@ -558,59 +555,28 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			switch endPoint {
 				
 				case .Starships(_):
-					
-					//if let starShips = starShips {
-						
-						return starShips?[row].name ?? "Please wait."
-						
-//					} else {
-//						
-//						return "Please wait."
-//					}
-				
+
+					return starShips?[row].name ?? "Please wait."
+
 				case .Vehicles(_):
 					
-//					if let vehicles	= vehicles {
-					
-						return vehicles?[row].name ?? "Please wait."
-						
-//					} else {
-//						
-//						return "Please wait."
-//					}
+					return vehicles?[row].name ?? "Please wait."
 				
 				case .Films:
-					
-					//if let films = films {
 						
-						return films?[row].name ?? "Please wait."
-						
-//					} else {
-//						
-//						return "Please wait."
-//				}
-				
+					return films?[row].name ?? "Please wait."
+
 				case .Characters(_):
-				
-//					if let people = people {
 					
-						return people?[row].name ?? "Please wait."
+					return people?[row].name ?? "Please wait."
 				
-//					} else {
-//						
-//						return "Please wait."
-//					}
-				
-			case .Planets(_):
-				
-				return planets?[row].name ?? "Please wait."
-				
-			case .Species(_):
-				
-				return species?[row].name ?? "Please wait."
-			
-				
-//				default: return "Please wait."
+				case .Planets(_):
+					
+					return planets?[row].name ?? "Please wait."
+					
+				case .Species(_):
+					
+					return species?[row].name ?? "Please wait."
 			}
 			
 		} else { return "Please wait." }
