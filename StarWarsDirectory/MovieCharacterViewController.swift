@@ -124,7 +124,8 @@ class MovieCharacterViewController: DetailViewController, UIPickerViewDelegate, 
 		
 		self.currentCharacter = movieCharacters[currentCharacterIndex]
 		
-		guard let currentCharacter = currentCharacter else {
+		
+		guard var currentCharacter = currentCharacter else {
 			
 			return
 		}

@@ -189,67 +189,77 @@ class RootCollectionViewController: UICollectionViewController {
 	
 	@IBAction func rootCellButtonTapped(sender: UIButton) {
 		
-		var childController: UniversalDetailViewController?
+		let childController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as? UniversalDetailViewController
+		
+		
 		
 		switch sender.tag {
 			
+			case 0:
+				
+				childController?.endPoint = SWEndpoint.Films
+			
+			
 			case 1:
 				
-				let characterController = MovieCharacterViewController(nibName: "MovieCharacterViewController", bundle: nil)
-				//childController = characterController
+//				let characterController = MovieCharacterViewController(nibName: "MovieCharacterViewController", bundle: nil)
+//				//childController = characterController
+//			
+//				navigationController?.pushViewController(characterController, animated: true)
 			
-				navigationController?.pushViewController(characterController, animated: true)
-			
+				childController?.endPoint = SWEndpoint.Characters(1)
+				childController?.scale = ConversionScale.cmToFeetInches
 			
 			case 2:
 				
-				let planetController = PlanetViewController(nibName: "PlanetViewController", bundle: nil)
-				//childController = planetController
-				navigationController?.pushViewController(planetController, animated: true)
+//				let planetController = PlanetViewController(nibName: "PlanetViewController", bundle: nil)
+//				
+//				
+//				//childController = planetController
+//				navigationController?.pushViewController(planetController, animated: true)
+			
+				childController?.endPoint = SWEndpoint.Planets(1)
+			
+				childController?.scale = ConversionScale.kmToMiles
 			
 			case 3:
 				
-				let speciesController = SpeciesViewController(nibName: "SpeciesViewController", bundle: nil)
-				//childController = speciesController
+//				let speciesController = SpeciesViewController(nibName: "SpeciesViewController", bundle: nil)
+//				//childController = speciesController
+//			
+//				navigationController?.pushViewController(speciesController, animated: true)
 			
-				navigationController?.pushViewController(speciesController, animated: true)
+				childController?.endPoint = SWEndpoint.Species(1)
+			
+				childController?.scale = ConversionScale.cmToFeetInches
 			
 			case 4:
 			
-				let starshipsController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as! UniversalDetailViewController
-				
-				starshipsController.endPoint = SWEndpoint.Starships(1)
-
-				self.navigationController?.pushViewController(starshipsController, animated: true)
+//				let starshipsController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as! UniversalDetailViewController
+//				
+//				starshipsController.endPoint = SWEndpoint.Starships(1)
+//
+//				self.navigationController?.pushViewController(starshipsController, animated: true)
+			
+				childController?.endPoint = SWEndpoint.Starships(1)
+			
+				childController?.scale = ConversionScale.metersToYards
 			
 			case 5:
 				
-				let vehiclesController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as! UniversalDetailViewController
-				
-				vehiclesController.endPoint = SWEndpoint.Vehicles(1)
-				
-				self.navigationController?.pushViewController(vehiclesController, animated: true)
+//				let vehiclesController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as! UniversalDetailViewController
+//				
+//				vehiclesController.endPoint = SWEndpoint.Vehicles(1)
+//				
+//				self.navigationController?.pushViewController(vehiclesController, animated: true)
 			
-			case 0:
+				childController?.endPoint = SWEndpoint.Vehicles(1)
+			
+				childController?.scale = ConversionScale.metersToYards
+			
+
 				
-				childController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as? UniversalDetailViewController
-				
-				childController?.endPoint = SWEndpoint.Films
-				
-				if let controller = childController {
-				
-					self.navigationController?.pushViewController(controller, animated: true)
-				
-				} else {
-					
-					let defaultController = DefaultViewController(nibName: "DefaultViewController", bundle: nil)
-					
-					defaultController.zeroLabelText = rootItems[sender.tag].resourceUrlString
-					
-					//childController = defaultController
-					
-					navigationController?.pushViewController(defaultController, animated: true)
-				}
+			
 			
 		
 			default:
@@ -263,10 +273,21 @@ class RootCollectionViewController: UICollectionViewController {
 			
 		}
 		
-//		if let vc = childController {
-//			
-//			navigationController?.pushViewController(vc, animated: true)
-//		}
+		if let controller = childController {
+			
+			self.navigationController?.pushViewController(controller, animated: true)
+			
+		} else {
+			
+			let defaultController = DefaultViewController(nibName: "DefaultViewController", bundle: nil)
+			
+			defaultController.zeroLabelText = rootItems[sender.tag].resourceUrlString
+			
+			//childController = defaultController
+			
+			navigationController?.pushViewController(defaultController, animated: true)
+		}
+		
 	}
 	
 

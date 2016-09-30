@@ -32,14 +32,7 @@ class MeasurableDetailCell: UITableViewCell {
 	
 	func localeMeasureSystemSetup() {
 		
-		if let isMetric = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem) as? Bool {
-			
-			currentMeasureSystem = isMetric ? .Metric : .Imperial
-			
-		} else /*It's extremely unlikely that above binding fails, but still we don't take chances..*/ {
-			
-			currentMeasureSystem = .Metric //Default API measure system
-		}
+		currentMeasureSystem = Aux.localeMeasureSystem()
 	}
 	
 	func handleCurrentMeasureSystem(){

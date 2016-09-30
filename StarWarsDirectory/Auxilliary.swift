@@ -95,6 +95,18 @@ class Auxilliary {
 		}
 	}
 	
+	class func currentLocaleDescriptionOfMetric(value: Double, with scale: ConversionScale?) -> String {
+		
+		if let scale = scale {
+			
+			return Aux.descriptionOfMetric(value, forMeasure: Aux.localeMeasureSystem(), with: scale)
+			
+		} else {
+			
+			return "\(value)"
+		}
+	}
+	
 	class func descriptionOfCredits(value: Double, forCurrency currency: Currency, with rate: Double) -> String {
 		
 		switch currency {
@@ -158,6 +170,18 @@ class Auxilliary {
 		}
 		
 		return (smallestMember, biggestMember)
+	}
+	
+	class func localeMeasureSystem() -> MeasureSystem {
+		
+		if let isMetric = NSLocale.currentLocale().objectForKey(NSLocaleUsesMetricSystem) as? Bool {
+			
+			return isMetric ? .Metric : .Imperial
+			
+		} else /*It's extremely unlikely that above binding fails, but still we don't take chances..*/ {
+			
+			return .Metric //Default API measure system
+		}
 	}
 }
 

@@ -21,7 +21,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	var endPoint: SWEndpoint?
 	
 	let apiClient = SwapiClient()
-
 	
 	@IBOutlet weak var detailsTableView: UITableView!
 	@IBOutlet weak var picker: UIPickerView!
@@ -47,6 +46,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	var planets: [Planet]?
 	var species: [Species]?
 	
+	var scale: ConversionScale?
 	
 	//Credits / USD exchange rate
 	var crdUsd: Double?
@@ -57,7 +57,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		super.viewDidLoad()
 		
 		// Do any additional setup after loading the view.
-		//localeMeasureSystemSetup()
 		
 		// Status bar white font
 		self.navigationController?.navigationBarHidden = false
@@ -86,8 +85,17 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				apiClient.fetchPaginatedResource(endPoint, completion: filmsFetchCompletion)
 			
-			
-			default: break
+			case .Characters(_):
+				
+				apiClient.fetchPaginatedResource(endPoint, completion: peopleFetchCompletion)
+				
+			case .Planets(_):
+				
+				apiClient.fetchPaginatedResource(endPoint, completion: planetFetchCompletion)
+				
+			case .Species(_):
+				
+				apiClient.fetchPaginatedResource(endPoint, completion: speciesFetchCompletion)
 		}
 	}
 	
@@ -112,7 +120,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		self.picker.reloadAllComponents()
 	}
 	
-	//Following 6 completion methods represent an ugly and ambarassing redundancy which I have failed to avoid.
+	//MARK: 6 completion methods represent an ugly and embarassing redundancy which I've failed to avoid.
 	func starShipFetchCompletion(result: APIResult<[Starship]>) -> Void {
 		
 		switch result {
@@ -223,20 +231,48 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		}
 	}
 	
+	func speciesFetchCompletion(result: APIResult<[Species]>) -> Void {
+		
+		switch result {
+			
+			case .Success(let items):
+				
+				let categoryTtitle = items.first?.categoryTitle ?? ""
+				
+				self.navigationController?.navigationBar.topItem?.title = categoryTtitle
+				
+				self.species = items.sort { $0.name < $1.name }
+				
+				self.commonTasks(items)
+				
+			case .Failure(let error as NSError):
+				
+				self.showAlert("Unable to retrieve items.", message: error.localizedDescription)
+				
+			default: break
+		}
+	}
+	
 	
 	
 	func setMinMaxLabels<T: SWCategoryType>(items: [T]?) {
 		
 		if let shortestLongest = Aux.getExtremesWithin(items) {
 			
+			var sizeDescription: String
+			
 			if let shortest = shortestLongest.min, size = shortest.size {
 				
-				self.smallestLabel.text = "\(shortest.name): \(size) m"
+				sizeDescription = Aux.currentLocaleDescriptionOfMetric(size, with: scale)
+				
+				self.smallestLabel.text = "\(shortest.name): \(sizeDescription)"
 			}
 			
 			if let longest = shortestLongest.max, size = longest.size {
 				
-				self.largestLabel.text = "\(longest.name): \(size) m"
+				sizeDescription = Aux.currentLocaleDescriptionOfMetric(size, with: scale)
+				
+				self.largestLabel.text = "\(longest.name): \(sizeDescription)"
 			}
 		}
 	}
@@ -374,9 +410,9 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				let value = currentItem.tableData[indexPath.row].value
 				
-				let doubleValue: Double? = Double(value)
+				//let doubleValue: Double? = Double(value)
 				
-				if let doubleValue = doubleValue {
+				if let doubleValue = Double(value) {
 					
 					cell.metricValue = doubleValue
 					
@@ -400,13 +436,76 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			if let cell = cell {
 				
 				cell.keyLabel.text = currentItem.tableData[indexPath.row].key
-				cell.valueLabel.text = currentItem.tableData[indexPath.row].value
+				
+				guard let endPoint = self.endPoint else {
+					
+					return cell
+				}
+				
+				switch endPoint {
+					
+					case .Characters(_), .Species(_):
+						
+						//A bit stringy, but ok for couple particular cases
+						if cell.keyLabel.text == "Home" {
+						
+							cell.valueLabel.text = planetForCharacterAt(self.picker.selectedRowInComponent(0))
+							
+						} else {
+							
+							cell.valueLabel.text = currentItem.tableData[indexPath.row].value
+						}
+					
+					default: cell.valueLabel.text = currentItem.tableData[indexPath.row].value
+				}
 				
 				return cell
 			}
 		}
 		
 		return UITableViewCell()
+	}
+	
+	//Method performs 2 tasks: sets planet instance for current MovieCharacter and returns planet name
+	func planetForCharacterAt(index: Int) -> String? {
+		
+		if let planet = people?[index].homePlanet ?? species?[index].homePlanet {
+			
+			//If planet has already been pulled before, use it instead of recurrent quering the API
+			return planet.name
+			
+		} else {
+			
+			//extracting planet url from whatever SWCategory being currentyly browsed
+			if let planetUrl = people?[index].homeWorldUrl ?? species?[index].homeWorldUrl {
+				
+				apiClient.fetchPlanet(planetUrl) { result in
+					
+					switch result {
+						
+						case .Success(let planet):
+							
+							//A bit controversial approach to assin planet to whatever SWCategory instance is now being browsed.
+							self.people?[index].homePlanet = planet
+							self.species?[index].homePlanet = planet
+							
+							//If the same character is still selected upon completion
+							if self.picker.selectedRowInComponent(0) == index {
+								
+								self.detailsTableView.reloadData()
+							}
+							
+						default: break
+					}
+				}
+				
+			} else {
+				
+				return nil
+			}
+		}
+		
+		return nil
 	}
 	
 	func setCurrentItemFor(index: Int) {
@@ -416,6 +515,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			return
 		}
 		
+		//Echo of above-mentioned embarassment
 		switch endPoint {
 			
 			case .Starships(_):
@@ -429,9 +529,18 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			case .Films:
 				
 				self.currentItem = films?[index]
+			
+			case .Characters(_):
 				
-			default:
-				return
+				self.currentItem = people?[index]
+				
+			case .Planets(_):
+				
+				self.currentItem = planets?[index]
+				
+			case .Species(_):
+				
+				self.currentItem = species?[index]
 		}
 	}
 	
@@ -441,42 +550,32 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		
 		if let endPoint = endPoint {
 			
+			//Echo of abobe-mentioned embarassment, part 2
 			switch endPoint {
 				
 				case .Starships(_):
-					
-					if let starShips = starShips {
-						
-						return starShips[row].name
-						
-					} else {
-						
-						return "Please wait."
-					}
-				
+
+					return starShips?[row].name ?? "Please wait."
+
 				case .Vehicles(_):
 					
-					if let vehicles	= vehicles {
-						
-						return vehicles[row].name
-						
-					} else {
-						
-						return "Please wait."
-					}
+					return vehicles?[row].name ?? "Please wait."
 				
 				case .Films:
+						
+					return films?[row].name ?? "Please wait."
+
+				case .Characters(_):
 					
-					if let films = films {
-						
-						return films[row].name
-						
-					} else {
-						
-						return "Please wait."
-				}
+					return people?[row].name ?? "Please wait."
 				
-				default: return "Please wait."
+				case .Planets(_):
+					
+					return planets?[row].name ?? "Please wait."
+					
+				case .Species(_):
+					
+					return species?[row].name ?? "Please wait."
 			}
 			
 		} else { return "Please wait." }

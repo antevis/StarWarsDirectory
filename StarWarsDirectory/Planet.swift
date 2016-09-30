@@ -8,12 +8,9 @@
 
 import Foundation
 
-struct Planet: SWCategoryType, SizeProvider {
+struct Planet: SWCategoryType {
 	
-	let categoryTitle: String = "Planets"
-		
-	//Required
-	let name: String // The name of this planet.
+	
 	let rotation_period: DescriptiveDouble // The number of standard hours it takes for this planet to complete a single rotation on its axis.
 	let orbital_period: DescriptiveDouble // The number of standard days it takes for this planet to complete a single orbit of its local star.
 	
@@ -29,16 +26,44 @@ struct Planet: SWCategoryType, SizeProvider {
 		}
 	}
 	
+	
+	
+	let climate: String // The climate of this planet. Comma-seperated if diverse.
+	let gravity: DescriptiveDouble // A number denoting the gravity of this planet, where "1" is normal or 1 standard G. "2" is twice or 2 standard Gs. "0.5" is half or 0.5 standard Gs.
+	let terrain: String // The terrain of this planet. Comma-seperated if diverse.
+	let surface_water: DescriptiveDouble // The percentage of the planet surface that is naturally occuring water or bodies of water.
+	let population: DescriptiveInt // The average population of sentient beings inhabiting this planet.
+	let residents: [String] // An array of People URL Resources that live on this planet.
+	let films: [String] // An array of Film URL Resources that this planet has appeared in.
+	let url: String // the hypermedia URL of this resource.
+
+	
+	//MARK: SWCategory conformance
+	let categoryTitle: String = "Planets"
+	let name: String // The name of this planet.
+	var tableData: [(key: String, value: String, scale: ConversionScale?, convertible: Bool)] {
+		
+		get {
+			
+			var data = [(key: String, value: String, scale: ConversionScale?, convertible: Bool)]()
+			
+			data.append(("Terrain", terrain, nil, false))
+			data.append(("Gravity", gravity.description, nil, false))
+			data.append(("Climate", climate, nil, false))
+			data.append(("Orbital Period", orbital_period.description, nil, false))
+			data.append(("Rotation Period", rotation_period.description, nil, false))
+			data.append(("Diameter", diameter.description, ConversionScale.kmToMiles, false))
+			data.append(("Population", population.description, nil, false))
+			data.append(("Surface Water", surface_water.description, nil, false))
+			
+			return data
+		}
+	}
+	
+	//SizeProvider
 	var size: Double? {
 		
-		//if let doubleValue = diameter.doubleValue {
-			
 		return diameter.doubleValue
-			
-//		} else {
-//			
-//			return nil
-//		}
 	}
 	
 	func sizeIn(measure: MeasureSystem, with scale: ConversionScale) -> String {
@@ -50,52 +75,17 @@ struct Planet: SWCategoryType, SizeProvider {
 		
 		switch measure {
 			
-			case .Imperial:
-				
-				return Aux.convertToImperial(from: Double(doubleValue), scale: scale)
-				
-			case .Metric:
-				
-				return "\(doubleValue) km"
+		case .Imperial:
+			
+			return Aux.convertToImperial(from: Double(doubleValue), scale: scale)
+			
+		case .Metric:
+			
+			return "\(doubleValue) km"
 		}
 	}
 	
-	let climate: String // The climate of this planet. Comma-seperated if diverse.
-	let gravity: DescriptiveDouble // A number denoting the gravity of this planet, where "1" is normal or 1 standard G. "2" is twice or 2 standard Gs. "0.5" is half or 0.5 standard Gs.
-	let terrain: String // The terrain of this planet. Comma-seperated if diverse.
-	let surface_water: DescriptiveDouble // The percentage of the planet surface that is naturally occuring water or bodies of water.
-	let population: DescriptiveInt // The average population of sentient beings inhabiting this planet.
-	let residents: [String] // An array of People URL Resources that live on this planet.
-	let films: [String] // An array of Film URL Resources that this planet has appeared in.
-	let url: String // the hypermedia URL of this resource.
-//	
-//	//Optional (marked required for planets, though. But still)
-	//let created: NSDate?// the ISO 8601 date format of the time that this resource was created.
-	//let edited: NSDate? // the ISO 8601 date format of the time that this resource was edited.
-	
-	var tableData: [(key: String, value: String, scale: ConversionScale?, convertible: Bool)] {
-		
-		get {
-			
-			let data = [(key: String, value: String, scale: ConversionScale?, convertible: Bool)]()
-			
-			//			data.append(("Model", model, nil, false))
-			//			data.append(("Manufacturer", manufacturer, nil, false))
-			//			data.append(("Cost", cost_in_credits.description, nil, true))
-			//			data.append(("Length", length.description, .metersToYards, false))
-			//			data.append(("Max.Atm.Spd", max_atmosphering_speed.description, nil, false))
-			//			data.append(("Crew", crew.description, nil, false))
-			//			data.append(("Passengers", passengers.description, nil, false))
-			//			data.append(("Cargo", cargo_capacity.description, .kgToPounds, false))
-			//			data.append(("Consumables", consumables.description, nil, false))
-			//			data.append(("HyperDrive", hyperdrive_rating, nil, false))
-			//			data.append(("MGLT", MGLT.description, nil, false))
-			//			data.append(("Class", starship_class, nil, false))
-			
-			return data
-		}
-	}
-	
+	//JSONDecodable
 	init?(json: [String: AnyObject]) {
 		
 		guard let
@@ -130,9 +120,6 @@ struct Planet: SWCategoryType, SizeProvider {
 		
 	}
 	
-	init?(url: String) {
-		
-		return nil
-	}
+	
 }
 
