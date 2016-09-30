@@ -62,18 +62,6 @@ struct MovieCharacter: SWCategoryType {
 			data.append(("Gender", gender, nil, false))
 			data.append(("Mass", mass.description, ConversionScale.kgToPounds, false))
 			data.append(("Skin", skin_color, nil, false))
-
-			//			data.append(("Manufacturer", manufacturer, nil, false))
-			//			data.append(("Cost", cost_in_credits.description, nil, true))
-			//			data.append(("Length", length.description, .metersToYards, false))
-			//			data.append(("Max.Atm.Spd", max_atmosphering_speed.description, nil, false))
-			//			data.append(("Crew", crew.description, nil, false))
-			//			data.append(("Passengers", passengers.description, nil, false))
-			//			data.append(("Cargo", cargo_capacity.description, .kgToPounds, false))
-			//			data.append(("Consumables", consumables.description, nil, false))
-			//			data.append(("HyperDrive", hyperdrive_rating, nil, false))
-			//			data.append(("MGLT", MGLT.description, nil, false))
-			//			data.append(("Class", starship_class, nil, false))
 			
 			return data
 		}
@@ -112,8 +100,7 @@ struct MovieCharacter: SWCategoryType {
 		}
 	}
 	
-	
-	
+	//JSONDecodable
 	init?(json: JSON) {
 		
 		guard let
