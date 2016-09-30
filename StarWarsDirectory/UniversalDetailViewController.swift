@@ -445,9 +445,9 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				switch endPoint {
 					
-					case .Characters(_):
+					case .Characters(_), .Species(_):
 						
-						//A bit stringy, but ok for one particular case
+						//A bit stringy, but ok for couple particular cases
 						if cell.keyLabel.text == "Home" {
 						
 							cell.valueLabel.text = planetForCharacterAt(self.picker.selectedRowInComponent(0))
@@ -470,14 +470,15 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	//Method performs 2 tasks: sets planet instance for current MovieCharacter and returns planet name
 	func planetForCharacterAt(index: Int) -> String? {
 		
-		if let planet = people?[index].homePlanet {
+		if let planet = people?[index].homePlanet ?? species?[index].homePlanet {
 			
 			//If planet has already been pulled before, use it instead of recurrent quering the API
 			return planet.name
 			
 		} else {
 			
-			if let planetUrl = people?[index].homeWorldUrl {
+			//extracting planet url from whatever SWCategory being currentyly browsed
+			if let planetUrl = people?[index].homeWorldUrl ?? species?[index].homeWorldUrl {
 				
 				apiClient.fetchPlanet(planetUrl) { result in
 					
@@ -485,8 +486,9 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 						
 						case .Success(let planet):
 							
+							//A bit controversial approach to assin planet to whatever SWCategory instance is now being browsed.
 							self.people?[index].homePlanet = planet
-							
+							self.species?[index].homePlanet = planet
 							
 							//If the same character is still selected upon completion
 							if self.picker.selectedRowInComponent(0) == index {
