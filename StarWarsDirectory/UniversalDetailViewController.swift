@@ -261,14 +261,14 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			
 			var sizeDescription: String
 			
-			if let shortest = shortestLongest.min, size = shortest.size {
+			if let shortest = shortestLongest.min, let size = shortest.size {
 				
 				sizeDescription = Aux.currentLocaleDescriptionOfMetric(size, with: scale)
 				
 				self.smallestLabel.text = "\(shortest.name): \(sizeDescription)"
 			}
 			
-			if let longest = shortestLongest.max, size = longest.size {
+			if let longest = shortestLongest.max, let size = longest.size {
 				
 				sizeDescription = Aux.currentLocaleDescriptionOfMetric(size, with: scale)
 				
@@ -304,7 +304,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		
 		let okAction = UIAlertAction(title: "OK", style: .Default) { _ in
 			
-			if let textField = prompt.textFields?.first, text = textField.text {
+			if let textField = prompt.textFields?.first, let text = textField.text {
 				
 				if let crdUsd = Double(text) {
 					
