@@ -26,8 +26,6 @@ struct Planet: SWCategoryType {
 		}
 	}
 	
-	
-	
 	let climate: String // The climate of this planet. Comma-seperated if diverse.
 	let gravity: DescriptiveDouble // A number denoting the gravity of this planet, where "1" is normal or 1 standard G. "2" is twice or 2 standard Gs. "0.5" is half or 0.5 standard Gs.
 	let terrain: String // The terrain of this planet. Comma-seperated if diverse.
