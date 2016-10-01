@@ -8,6 +8,11 @@
 
 import Foundation
 
+protocol AssociatedUrlsProvider {
+	
+	var urlArraysDictionary: [String: [String]] { get }
+}
+
 struct Film: SWCategoryType {
 	
 	//Required

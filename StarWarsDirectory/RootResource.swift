@@ -9,10 +9,44 @@
 import Foundation
 import UIKit
 
+enum Root: String {
+	
+	case movies
+	case MovieCharacters = "people"
+	case species
+	case starships
+	case vehicles
+	case planets
+	
+	var url: String {
+		
+		get {
+			
+			let baseUrl = "http://swapi.co/api/"
+			
+			return "\(baseUrl)\(self.rawValue)/"
+		}
+	}
+}
+
 struct RootResource {
 	
-	let resourceName: String
-	let resourceUrlString: String
+	let rootResource: Root
+	
+	var resourceName: String {
+		
+		get {
+			return rootResource.rawValue
+		}
+	}
+	
+	var resourceUrlString: String {
+		
+		get {
+			
+			return rootResource.url
+		}
+	}
 	
 	var icon: UIImage? {
 		

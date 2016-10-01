@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StarWarsDirectory/Film.swift"
-            timestampString = "496848279.973627"
+            timestampString = "497030265.513007"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "init(json:)"
             landmarkType = "7">
             <Locations>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StarWarsDirectory/UniversalDetailViewController.swift"
-            timestampString = "497012647.127785"
+            timestampString = "497026329.746654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "482"
-            endingLineNumber = "482"
+            startingLineNumber = "514"
+            endingLineNumber = "514"
             landmarkName = "planetForCharacterAt(index:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StarWarsDirectory/UniversalDetailViewController.swift"
-            timestampString = "497012941.898867"
+            timestampString = "497026329.746654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "617"
-            endingLineNumber = "617"
+            startingLineNumber = "649"
+            endingLineNumber = "649"
             landmarkName = "fetchAssociatedItems(sender:)"
             landmarkType = "7">
          </BreakpointContent>

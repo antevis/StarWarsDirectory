@@ -121,12 +121,12 @@ class RootCollectionViewController: UICollectionViewController {
 		
 		var items = [RootResource]()
 		
-		items.append(RootResource(resourceName: "films", resourceUrlString: "http://swapi.co/api/films/"))
-		items.append(RootResource(resourceName: "people", resourceUrlString: "http://swapi.co/api/people/"))
-		items.append(RootResource(resourceName: "planets", resourceUrlString: "http://swapi.co/api/planets/"))
-		items.append(RootResource(resourceName: "species", resourceUrlString: "http://swapi.co/api/species/"))
-		items.append(RootResource(resourceName: "starships", resourceUrlString: "http://swapi.co/api/starships/"))
-		items.append(RootResource(resourceName: "vehicles", resourceUrlString: "http://swapi.co/api/vehicles/"))
+		items.append(RootResource(rootResource: .movies))
+		items.append(RootResource(rootResource: .MovieCharacters))
+		items.append(RootResource(rootResource: .species))
+		items.append(RootResource(rootResource: .starships))
+		items.append(RootResource(rootResource: .vehicles))
+		items.append(RootResource(rootResource: .planets))
 		
 		return items
 	}
