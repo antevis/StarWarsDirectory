@@ -10,13 +10,11 @@ import Foundation
 
 protocol AssociatedUrlsProvider {
 	
-	var urlArraysDictionary: [String: [String]] { get }
+	var urlArraysDictionary: [RootResource: [String]] { get }
 }
 
-struct Film: SWCategoryType {
+struct Film: SWCategoryType, AssociatedUrlsProvider {
 	
-	//Required
-	//let title: String
 	let episode_id: Int
 	let opening_crawl: String
 	let director: String
@@ -28,6 +26,18 @@ struct Film: SWCategoryType {
 	let vehicles: [String]
 	let species: [String]
 	let url: String
+	
+	//MARK: AssociatedUrlsProvider
+	var urlArraysDictionary: [RootResource : [String]] {
+		
+		return [
+			RootResource(rootResource: .MovieCharacters): characters,
+			RootResource(rootResource: .planets): planets,
+			RootResource(rootResource: .starships): starships,
+			RootResource(rootResource: .vehicles): vehicles,
+			RootResource(rootResource: .species): species
+		]
+	}
 	
 	//MARK: SWCategory conformance
 	let categoryTitle: String = "Films"

@@ -53,6 +53,8 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	var crdUsd: Double?
 	var currentCurrency: Currency = Currency.GCR
 	
+	var associatedUrls: [RootResource: [String]]?
+	
 	override func viewDidLoad() {
 		
 		super.viewDidLoad()
@@ -584,6 +586,14 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			case .Species(_):
 				
 				self.currentItem = species?[index]
+		}
+		
+		if currentItem is AssociatedUrlsProvider {
+			
+			if let itemAsUrlsProvider = currentItem as? AssociatedUrlsProvider {
+			
+				associatedUrls = itemAsUrlsProvider.urlArraysDictionary
+			}
 		}
 	}
 	

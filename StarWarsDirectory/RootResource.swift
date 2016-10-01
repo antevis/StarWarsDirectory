@@ -29,7 +29,7 @@ enum Root: String {
 	}
 }
 
-struct RootResource {
+struct RootResource: Hashable {
 	
 	let rootResource: Root
 	
@@ -68,4 +68,14 @@ struct RootResource {
 		
 		return resourceName.capitalizedString
 	}
+	
+	var hashValue: Int {
+		
+		return rootResource.url.hashValue
+	}
+}
+
+func ==(left: RootResource, right: RootResource) -> Bool {
+	
+	return left.rootResource.rawValue == right.rootResource.rawValue
 }
