@@ -158,7 +158,7 @@ class RootCollectionViewController: UICollectionViewController {
 			
 			case 0:
 				
-				childController?.endPoint = SWEndpoint.Films
+				childController?.endPoint = SWEndpoint.Films(1)
 
 			case 1:
 			

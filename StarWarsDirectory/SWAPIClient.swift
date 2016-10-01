@@ -15,7 +15,7 @@ enum SWEndpoint: Endpoint {
 	case Species(Int)
 	case Starships(Int)
 	case Vehicles(Int)
-	case Films
+	case Films(Int)
 	
 	var baseURL: NSURL {
 		
@@ -46,9 +46,9 @@ enum SWEndpoint: Endpoint {
 				
 				return "vehicles/?page=\(page)"
 			
-			case .Films:
+			case .Films(let page):
 				
-				return "films/" //this is really so, yet there is only one page so far
+				return "films/?page=\(page)" //this is really so, yet there is only one page so far
 			
 		}
 	}
@@ -110,42 +110,42 @@ class SwapiClient: APIClient {
 		fetch(request, parse: fetchCompletion, completion: completion)
 	}
 	
-	func fetchMovieCharacters(completion: APIResult<[MovieCharacter]> -> Void) {
+	func fetchSWCategoryArrayFrom<T: SWCategoryType>(urlArray: [String], completion: APIResult<[T]> -> Void) {
 		
-		let endpoint = SWEndpoint.Characters(1)
+		var resourceResultArray = [T]()
 		
-		fetchPaginatedResource(endpoint, completion: completion)
+		var recursiveCompletion: (JSON -> [T]?)!
+		
+		var i: Int = 0
+		
+		let fetchCompletion = { (json: JSON) -> [T]? in
+			
+			if let candidate = T(json: json) {
+				
+				resourceResultArray.append(candidate)
+			}
+
+			i += 1
+			
+			if i < urlArray.count {
+			
+				let nextRequest = NSURLRequest(URL: NSURL(string: urlArray[i])!)
+				
+				self.fetch(nextRequest, parse: recursiveCompletion, completion: completion)
+				
+			}
+			
+			return resourceResultArray
+		}
+		
+		recursiveCompletion = fetchCompletion
+		
+		let request = NSURLRequest(URL: NSURL(string: urlArray[i])!)
+		
+		fetch(request, parse: fetchCompletion, completion: completion)
+		
+		
 	}
-	
-	func fetchPlanets(completion: APIResult<[Planet]> -> Void) {
-		
-		let endpoint = SWEndpoint.Planets(1)
-		
-		fetchPaginatedResource(endpoint, completion: completion)
-	}
-	
-	func fetchSpecies(completion: APIResult<[Species]> -> Void) {
-		
-		let endpoint = SWEndpoint.Species(1)
-		
-		fetchPaginatedResource(endpoint, completion: completion)
-	}
-	
-	func fetchStarships(endPoint: SWEndpoint, completion: APIResult<[Starship]> -> Void) {
-		
-		//let endPoint = SWEndpoint.Starships(1)
-		
-		fetchPaginatedResource(endPoint, completion: completion)
-	}
-	
-	func fetchVehicles(completion: APIResult<[Vehicle]> -> Void) {
-		
-		let endPoint = SWEndpoint.Vehicles(1)
-		
-		fetchPaginatedResource(endPoint, completion: completion)
-	}
-	
-	
 	
 	func fetchPlanet(url: String, completion: APIResult<Planet> -> Void) {
 		
@@ -157,4 +157,17 @@ class SwapiClient: APIClient {
 			
 		}, completion: completion)
 	}
+	
+//	func fetchSWCategory<T: SWCategoryType>(url: String, completion: APIResult<T> -> Void) {
+//		
+//		let request = NSURLRequest(URL: NSURL(string: url)!)
+//		
+//		fetch(request, parse: { json -> T? in
+//			
+//			return T(json: json)
+//			
+//		}, completion: completion)
+//	}
+	
+	
 }

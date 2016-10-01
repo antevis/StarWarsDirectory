@@ -19,6 +19,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	weak var currencyRateUpdatedDelegate: CurrencyRateUpdatedDelegate?
 	
 	var endPoint: SWEndpoint?
+	var associatedCategoryUrls: [String]?
 	
 	let apiClient = SwapiClient()
 	
@@ -74,28 +75,70 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		switch endPoint {
 			
 			case .Starships(_):
-			
-				apiClient.fetchPaginatedResource(endPoint, completion: starShipFetchCompletion)
+				
+				if let urls = associatedCategoryUrls {
+					
+					apiClient.fetchSWCategoryArrayFrom(urls, completion: starShipFetchCompletion)
+				
+				} else {
+					
+					apiClient.fetchPaginatedResource(endPoint, completion: starShipFetchCompletion)
+				}
 			
 			case .Vehicles(_):
 				
-				apiClient.fetchPaginatedResource(endPoint, completion: vehicleFetchCompletion)
+				if let urls = associatedCategoryUrls {
+					
+					apiClient.fetchSWCategoryArrayFrom(urls, completion: vehicleFetchCompletion)
+				
+				} else {
+				
+					apiClient.fetchPaginatedResource(endPoint, completion: vehicleFetchCompletion)
+				}
 			
 			case .Films:
 				
-				apiClient.fetchPaginatedResource(endPoint, completion: filmsFetchCompletion)
+				if let urls = associatedCategoryUrls {
+					
+					apiClient.fetchSWCategoryArrayFrom(urls, completion: filmsFetchCompletion)
+				
+				} else {
+				
+					apiClient.fetchPaginatedResource(endPoint, completion: filmsFetchCompletion)
+				}
 			
 			case .Characters(_):
 				
-				apiClient.fetchPaginatedResource(endPoint, completion: peopleFetchCompletion)
-				
+				if let urls = associatedCategoryUrls {
+					
+					apiClient.fetchSWCategoryArrayFrom(urls, completion: peopleFetchCompletion)
+					
+				} else {
+					
+					apiClient.fetchPaginatedResource(endPoint, completion: peopleFetchCompletion)
+				}
+			
 			case .Planets(_):
 				
-				apiClient.fetchPaginatedResource(endPoint, completion: planetFetchCompletion)
+				if let urls = associatedCategoryUrls {
+					
+					apiClient.fetchSWCategoryArrayFrom(urls, completion: planetFetchCompletion)
 				
+				} else {
+				
+					apiClient.fetchPaginatedResource(endPoint, completion: planetFetchCompletion)
+				}
+			
 			case .Species(_):
 				
-				apiClient.fetchPaginatedResource(endPoint, completion: speciesFetchCompletion)
+				if let urls = associatedCategoryUrls {
+					
+					apiClient.fetchSWCategoryArrayFrom(urls, completion: speciesFetchCompletion)
+					
+				} else {
+					
+					apiClient.fetchPaginatedResource(endPoint, completion: speciesFetchCompletion)
+				}
 		}
 	}
 	
@@ -485,7 +528,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 						
 						case .Success(let planet):
 							
-							//A bit controversial approach to assin planet to whatever SWCategory instance is now being browsed.
+							//A bit controversial approach to assign planet to whatever SWCategoryType instance is now being browsed.
 							self.people?[index].homePlanet = planet
 							self.species?[index].homePlanet = planet
 							
@@ -601,6 +644,21 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		
 	}
 	
+	@IBAction func fetchAssociatedItems(sender: UIButton) {
+		
+		let childController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as? UniversalDetailViewController
+		
+		childController?.endPoint = SWEndpoint.Starships(1)
+		childController?.associatedCategoryUrls = people![picker.selectedRowInComponent(0)].starships
+		
+		childController?.scale = ConversionScale.metersToYards
+		
+		if let controller = childController {
+			
+			self.navigationController?.pushViewController(controller, animated: true)
+		}
+		
+	}
 	
 
 	
