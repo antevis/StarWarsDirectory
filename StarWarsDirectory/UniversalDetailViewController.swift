@@ -21,6 +21,8 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	var endPoint: SWEndpoint?
 	var associatedUrls: [RootResource: [String]]?
 	var associatedCategoryUrls: [String]?
+	var hostName: String?
+	
 	
 	let apiClient = SwapiClient()
 	
@@ -33,6 +35,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	@IBOutlet weak var tabBar: UITabBar!
 	
 	var itemCount: Int?
+	
 	var currentItem: SWCategoryType? {
 		
 		didSet {
@@ -180,7 +183,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				let categoryTtitle = items.first?.categoryTitle ?? ""
 				
-				self.navigationController?.navigationBar.topItem?.title = categoryTtitle
+				setNavigationTitleTo(categoryTtitle)
 				
 				self.starShips = items.sort { $0.name < $1.name }
 				
@@ -202,7 +205,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				let categoryTtitle = items.first?.categoryTitle ?? ""
 				
-				self.navigationController?.navigationBar.topItem?.title = categoryTtitle
+				setNavigationTitleTo(categoryTtitle)
 				
 				self.vehicles = items.sort { $0.name < $1.name }
 				
@@ -224,7 +227,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				let categoryTtitle = items.first?.categoryTitle ?? ""
 				
-				self.navigationController?.navigationBar.topItem?.title = categoryTtitle
+				setNavigationTitleTo(categoryTtitle)
 				
 				self.films = items.sort { $0.episode_id < $1.episode_id }
 				
@@ -246,7 +249,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				let categoryTtitle = items.first?.categoryTitle ?? ""
 				
-				self.navigationController?.navigationBar.topItem?.title = categoryTtitle
+				setNavigationTitleTo(categoryTtitle)
 				
 				self.people = items.sort { $0.name < $1.name }
 				
@@ -268,7 +271,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				let categoryTtitle = items.first?.categoryTitle ?? ""
 				
-				self.navigationController?.navigationBar.topItem?.title = categoryTtitle
+				setNavigationTitleTo(categoryTtitle)
 				
 				self.planets = items.sort { $0.name < $1.name }
 				
@@ -290,7 +293,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				let categoryTtitle = items.first?.categoryTitle ?? ""
 				
-				self.navigationController?.navigationBar.topItem?.title = categoryTtitle
+				setNavigationTitleTo(categoryTtitle)
 				
 				self.species = items.sort { $0.name < $1.name }
 				
@@ -686,6 +689,22 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		
 	}
 	
+	func setNavigationTitleTo(categoryTitle: String) {
+		
+		var title: String
+		
+		if let hostName = hostName {
+			
+			title = "\(hostName): \(categoryTitle)"
+			
+		} else {
+			
+			title = categoryTitle
+		}
+		
+		self.navigationController?.navigationBar.topItem?.title = title
+	}
+	
 	//MARK: UITabBarDelegate conformance
 	func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
 		
@@ -698,6 +717,8 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		
 		//implicitly forces viewDidload to take the branch where items being loaded through corresponidng url-arrays fetching methods rather than through endpoints
 		childController?.associatedCategoryUrls = Aux.getValueFor(title, within: associatedUrls)
+		
+		childController?.hostName = currentItem?.name
 		
 		switch title {
 			
