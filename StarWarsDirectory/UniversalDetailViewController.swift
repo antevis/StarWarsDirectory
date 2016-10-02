@@ -43,6 +43,8 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		}
 	}
 	
+	var currentItemPlanet: (SWCategoryType?, Planet)?
+	
 	var starShips: [Starship]?
 	var vehicles: [Vehicle]?
 	var films: [Film]?
@@ -162,13 +164,15 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	
 	func commonTasks<T: SWCategoryType>(items: [T]) {
 		
-		self.setCurrentItemFor(self.picker.selectedRowInComponent(0))
+		//self.setCurrentItemFor(self.picker.selectedRowInComponent(0))
 		
 		self.setMinMaxLabels(items)
 		
 		self.itemCount = items.count
 		
 		self.picker.reloadAllComponents()
+		
+		self.setCurrentItemFor(self.picker.selectedRowInComponent(0))
 	}
 	
 	//MARK: 6 completion methods represent an ugly and embarassing redundancy which I've failed to avoid.
@@ -527,14 +531,34 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			
 		} else {
 			
+			//As Characters always being sorted while pagingated recursive fetching, first charactrer may differ or stay the same for each iteration.
+			//If character at index is still the same, no need to retrieve planet for him again, as we keep it stored in the dedicated variable.
+			if let
+				planetCharacter = currentItemPlanet,
+				currentCharacter = people?[index],
+				currrentItemCharacter = planetCharacter.0 as? MovieCharacter where currentCharacter.name == currrentItemCharacter.name {
+				
+				//A bit controversial approach to assign planet to whatever SWCategoryType instance is now being browsed.
+				self.people?[index].homePlanet = planetCharacter.1
+				self.species?[index].homePlanet = planetCharacter.1
+				
+				//It's most likely true always, but who nows..
+				if self.picker.selectedRowInComponent(0) == index {
+					
+					self.detailsTableView.reloadData()
+				}
+			
 			//extracting planet url from whatever SWCategory being currentyly browsed
-			if let planetUrl = people?[index].homeWorldUrl ?? species?[index].homeWorldUrl {
+			} else if let planetUrl = people?[index].homeWorldUrl ?? species?[index].homeWorldUrl {
 				
 				apiClient.fetchPlanet(planetUrl) { result in
 					
 					switch result {
 						
 						case .Success(let planet):
+							
+							//This is to eliminate some accessive API calls
+							self.currentItemPlanet = (self.people?[index] ?? self.species?[index], planet)
 							
 							//A bit controversial approach to assign planet to whatever SWCategoryType instance is now being browsed.
 							self.people?[index].homePlanet = planet
@@ -593,6 +617,8 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				self.currentItem = species?[index]
 		}
+		
+		
 		
 		if currentItem is AssociatedUrlsProvider {
 			
