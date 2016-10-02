@@ -10,7 +10,7 @@ import UIKit
 
 private let reuseIdentifier = "RootDataCell"
 
-private let sideMargin: CGFloat = 8
+private let sideMargin: CGFloat = 32
 private let edgeInset: CGFloat = 8
 private let itemsPerRow: Int = 2
 

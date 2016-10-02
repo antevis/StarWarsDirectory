@@ -19,6 +19,10 @@ class RootDataCollectionViewCell: UICollectionViewCell {
 			
 			rootCellLabel.text = rootItem?.resourceTitle
 			rootCellButton.setImage(rootItem?.icon, forState: .Normal)
+			
+			let insets = rootCellButton.imageEdgeInsets
+			
+			print("top:\(insets.top), right: \(insets.right), bottom: \(insets.bottom), left: \(insets.left)")
 		}
 	}
     
