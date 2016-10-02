@@ -43,8 +43,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		}
 	}
 	
-	var currentItemPlanet: (SWCategoryType?, Planet)?
-	
 	var starShips: [Starship]?
 	var vehicles: [Vehicle]?
 	var films: [Film]?
@@ -56,7 +54,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	
 	//Credits / USD exchange rate
 	var crdUsd: Double?
-	var currentCurrency: Currency = Currency.GCR
+	var currentCurrency: Currency = Currency.Credits
 	
 	
 	
@@ -163,8 +161,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	}
 	
 	func commonTasks<T: SWCategoryType>(items: [T]) {
-		
-		//self.setCurrentItemFor(self.picker.selectedRowInComponent(0))
 		
 		self.setMinMaxLabels(items)
 		
@@ -307,8 +303,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			default: break
 		}
 	}
-	
-	
 	
 	func setMinMaxLabels<T: SWCategoryType>(items: [T]?) {
 		
@@ -465,8 +459,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 				
 				let value = currentItem.tableData[indexPath.row].value
 				
-				//let doubleValue: Double? = Double(value)
-				
 				if let doubleValue = Double(value) {
 					
 					cell.metricValue = doubleValue
@@ -521,7 +513,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		return UITableViewCell()
 	}
 	
-	//Method performs 2 tasks: sets planet instance for current MovieCharacter and returns planet name
+	//Method performs 2 tasks: sets planet instance for current MovieCharacter / Species and returns planet name
 	func planetForCharacterAt(index: Int) -> String? {
 		
 		if let planet = people?[index].homePlanet ?? species?[index].homePlanet {
@@ -531,34 +523,13 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			
 		} else {
 			
-			//As Characters always being sorted while pagingated recursive fetching, first charactrer may differ or stay the same for each iteration.
-			//If character at index is still the same, no need to retrieve planet for him again, as we keep it stored in the dedicated variable.
-			if let
-				planetCharacter = currentItemPlanet,
-				currentCharacter = people?[index],
-				currrentItemCharacter = planetCharacter.0 as? MovieCharacter where currentCharacter.name == currrentItemCharacter.name {
-				
-				//A bit controversial approach to assign planet to whatever SWCategoryType instance is now being browsed.
-				self.people?[index].homePlanet = planetCharacter.1
-				self.species?[index].homePlanet = planetCharacter.1
-				
-				//It's most likely true always, but who nows..
-				if self.picker.selectedRowInComponent(0) == index {
-					
-					self.detailsTableView.reloadData()
-				}
-			
-			//extracting planet url from whatever SWCategory being currentyly browsed
-			} else if let planetUrl = people?[index].homeWorldUrl ?? species?[index].homeWorldUrl {
+			if let planetUrl = people?[index].homeWorldUrl ?? species?[index].homeWorldUrl {
 				
 				apiClient.fetchPlanet(planetUrl) { result in
 					
 					switch result {
 						
 						case .Success(let planet):
-							
-							//This is to eliminate some accessive API calls
-							self.currentItemPlanet = (self.people?[index] ?? self.species?[index], planet)
 							
 							//A bit controversial approach to assign planet to whatever SWCategoryType instance is now being browsed.
 							self.people?[index].homePlanet = planet
@@ -715,22 +686,6 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		
 	}
 	
-	@IBAction func fetchAssociatedItems(sender: UIButton) {
-		
-		let childController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as? UniversalDetailViewController
-		
-		childController?.endPoint = SWEndpoint.Starships(1)
-		childController?.associatedCategoryUrls = people![picker.selectedRowInComponent(0)].starships
-		
-		childController?.scale = ConversionScale.metersToYards
-		
-		if let controller = childController {
-			
-			self.navigationController?.pushViewController(controller, animated: true)
-		}
-		
-	}
-	
 	//MARK: UITabBarDelegate conformance
 	func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
 		
@@ -740,12 +695,15 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		}
 		
 		let childController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as? UniversalDetailViewController
+		
+		//implicitly forces viewDidload to take the branch where items being loaded through corresponidng url-arrays fetching methods rather than through endpoints
 		childController?.associatedCategoryUrls = Aux.getValueFor(title, within: associatedUrls)
 		
 		switch title {
 			
 			case Root.MovieCharacters.title:
 				
+				//endpoint used for futher switching rather than for actual fetching. Which is probably not the best approach and could be re-factored, but feel like it's time to stop.
 				childController?.endPoint = SWEndpoint.Characters(1)
 				childController?.scale = ConversionScale.cmToFeetInches
 			

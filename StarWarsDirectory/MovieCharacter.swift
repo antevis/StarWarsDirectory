@@ -14,17 +14,6 @@ import Foundation
 
 struct MovieCharacter: SWCategoryType, AssociatedUrlsProvider {
 	
-	//MARK: AssociatedUrlsProvider
-	var urlArraysDictionary: [RootResource : [String]] {
-		
-		return [
-			RootResource(rootResource: .movies): films,
-			RootResource(rootResource: .starships): starships,
-			RootResource(rootResource: .vehicles): vehicles,
-			RootResource(rootResource: .species): species
-		]
-	}
-	
 	let eye_color: String // The eye color of this person. Will be "unknown" if not known or "n/a" if the person does not have an eye.
 	let vehicles: [String] // An array of vehicle resource URLs that this person has piloted.
 	let gender: String // The gender of this person. Either "Male", "Female" or "unknown", "n/a" if the person does not have a gender.
@@ -54,7 +43,6 @@ struct MovieCharacter: SWCategoryType, AssociatedUrlsProvider {
 	//Query api for planet data only when property accessed.
 	lazy var homePlanet: Planet? = nil// Planet(url: self.homeWorldUrl)
 	
-	
 	//MARK: SWCategory conformance
 	let categoryTitle: String = "People"
 	let name: String
@@ -78,7 +66,7 @@ struct MovieCharacter: SWCategoryType, AssociatedUrlsProvider {
 		}
 	}
 	
-	//SizeProvider
+	//SizeProvider (Part of SWCategoryType)
 	var size: Double? {
 		
 		if let intValue = height.intValue {
@@ -107,11 +95,10 @@ struct MovieCharacter: SWCategoryType, AssociatedUrlsProvider {
 			case .Metric:
 				
 				return "\(intValue) \(scale.rawValue)"
-		
 		}
 	}
 	
-	//JSONDecodable
+	//JSONDecodable (Part of SWCategoryType)
 	init?(json: JSON) {
 		
 		guard let
@@ -148,6 +135,17 @@ struct MovieCharacter: SWCategoryType, AssociatedUrlsProvider {
 		self.url = url
 		self.starships = starships
 		
+	}
+	
+	//MARK: AssociatedUrlsProvider
+	var urlArraysDictionary: [RootResource : [String]] {
+		
+		return [
+			RootResource(rootResource: .movies): films,
+			RootResource(rootResource: .starships): starships,
+			RootResource(rootResource: .vehicles): vehicles,
+			RootResource(rootResource: .species): species
+		]
 	}
 }
 

@@ -34,29 +34,6 @@ enum APIResult<T> {
 	case Failure(ErrorType)
 }
 
-enum MeasureSystem {
-	
-	case Metric
-	case Imperial
-}
-
-enum Currency: String {
-	
-	case GCR
-	case USD
-}
-
-
-protocol SWCategoryType: JSONDecodable, SizeProvider {
-	
-	var name: String { get }
-	var categoryTitle: String { get }
-	
-	var tableData: [(key: String, value: String, scale: ConversionScale?, convertible: Bool)] { get }
-}
-
-
-
 class APIClient {
 	
 	func JSONTaskWith(request: NSURLRequest, completion: JSONTaskCompletion) -> NSURLSessionDataTask {

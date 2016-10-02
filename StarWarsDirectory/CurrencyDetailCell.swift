@@ -30,7 +30,7 @@ class CurrencyDetailCell: UITableViewCell, CurrencyRateUpdatedDelegate {
 	
 	var changeToUsdRequested: Bool = false
 	
-	var currentCurrency = Currency.GCR {
+	var currentCurrency = Currency.Credits {
 		
 		didSet {
 			
@@ -58,7 +58,7 @@ class CurrencyDetailCell: UITableViewCell, CurrencyRateUpdatedDelegate {
 			
 			switch currentCurrency {
 				
-				case .GCR:
+				case .Credits:
 				
 					valueLabel.text = Aux.descriptionOfCredits(costInCrd, forCurrency: currentCurrency, with: 1)
 				
@@ -82,10 +82,12 @@ class CurrencyDetailCell: UITableViewCell, CurrencyRateUpdatedDelegate {
 	func handleCurrentCurrency() {
 		
 		switch currentCurrency {
-		case .GCR:
-			galacticCreditsSet()
-		default:
-			usDollarsSet()
+			
+			case .Credits:
+				galacticCreditsSet()
+			
+			default:
+				usDollarsSet()
 		}
 	}
 	
@@ -119,7 +121,7 @@ class CurrencyDetailCell: UITableViewCell, CurrencyRateUpdatedDelegate {
 	
 	@IBAction func convertToCrd(sender: UIButton) {
 		
-		currentCurrency = Currency.GCR
+		currentCurrency = Currency.Credits
 		
 		
 	}

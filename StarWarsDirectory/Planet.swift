@@ -11,8 +11,8 @@ import Foundation
 struct Planet: SWCategoryType, AssociatedUrlsProvider {
 	
 	
-	let rotation_period: DescriptiveDouble // The number of standard hours it takes for this planet to complete a single rotation on its axis.
-	let orbital_period: DescriptiveDouble // The number of standard days it takes for this planet to complete a single orbit of its local star.
+	let rotation_period: DescriptiveDouble
+	let orbital_period: DescriptiveDouble
 	
 	// The diameter of this planet in kilometers.
 	var diameter: DescriptiveDouble {
@@ -25,24 +25,14 @@ struct Planet: SWCategoryType, AssociatedUrlsProvider {
 			}
 		}
 	}
-	
-	//MARK: AssociatedUrlsProvider
-	var urlArraysDictionary: [RootResource : [String]] {
-		
-		return [
-			RootResource(rootResource: .MovieCharacters): residents,
-			RootResource(rootResource: .movies): films,
-		]
-	}
-	
-	let climate: String // The climate of this planet. Comma-seperated if diverse.
-	let gravity: DescriptiveDouble // A number denoting the gravity of this planet, where "1" is normal or 1 standard G. "2" is twice or 2 standard Gs. "0.5" is half or 0.5 standard Gs.
-	let terrain: String // The terrain of this planet. Comma-seperated if diverse.
-	let surface_water: DescriptiveDouble // The percentage of the planet surface that is naturally occuring water or bodies of water.
-	let population: DescriptiveInt // The average population of sentient beings inhabiting this planet.
-	let residents: [String] // An array of People URL Resources that live on this planet.
-	let films: [String] // An array of Film URL Resources that this planet has appeared in.
-	let url: String // the hypermedia URL of this resource.
+	let climate: String
+	let gravity: DescriptiveDouble
+	let terrain: String
+	let surface_water: DescriptiveDouble
+	let population: DescriptiveInt
+	let residents: [String]
+	let films: [String]
+	let url: String
 
 	
 	//MARK: SWCategory conformance
@@ -67,7 +57,7 @@ struct Planet: SWCategoryType, AssociatedUrlsProvider {
 		}
 	}
 	
-	//SizeProvider
+	//SizeProvider (Part of SWCategoryType)
 	var size: Double? {
 		
 		return diameter.doubleValue
@@ -92,7 +82,7 @@ struct Planet: SWCategoryType, AssociatedUrlsProvider {
 		}
 	}
 	
-	//JSONDecodable
+	//JSONDecodable (Part of SWCategoryType)
 	init?(json: [String: AnyObject]) {
 		
 		guard let
@@ -124,7 +114,15 @@ struct Planet: SWCategoryType, AssociatedUrlsProvider {
 		self.residents = residents
 		self.films = films
 		self.url = url
+	}
+	
+	//MARK: AssociatedUrlsProvider
+	var urlArraysDictionary: [RootResource : [String]] {
 		
+		return [
+			RootResource(rootResource: .MovieCharacters): residents,
+			RootResource(rootResource: .movies): films,
+		]
 	}
 	
 	

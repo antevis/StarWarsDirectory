@@ -12,9 +12,6 @@ import Foundation
 
 class Species: SWCategoryType, AssociatedUrlsProvider {
 	
-	
-	
-	// The average height of this species in centimeters.
 	var avgHeight: DescriptiveInt {
 		
 		didSet {
@@ -25,35 +22,20 @@ class Species: SWCategoryType, AssociatedUrlsProvider {
 			}
 		}
 	}
-	
-	//MARK: AssociatedUrlsProvider
-	var urlArraysDictionary: [RootResource : [String]] {
-		
-		return [
-			RootResource(rootResource: .movies): films,
-			RootResource(rootResource: .MovieCharacters): people,
-		]
-	}
-	
-	//Query api for planet data only when property accessed.
-	lazy var homePlanet: Planet? = nil //Planet(url: self.homeWorldUrl)
-	
-	
-	
-	let hairColors: String // A comma-seperated: String of common hair colors for this species, "none" if this species does not typically have hair.
-	let skinColors: String // A comma-seperated: String of common skin colors for this species, "none" if this species does not typically have skin.
-	let eyeColors: String // A comma-seperated: String of common eye colors for this species, "none" if this species does not typically have eyes.
-	let homeWorldUrl: String // The URL of a planet resource, a planet that this species originates from.
-	let films: [String] // An array of Film URL Resources that this species has appeared in.
-	let url: String // the hypermedia URL of this resource.
-	
-	let classification: String // The classification of this species, such as "mammal" or "reptile".
-	let designation: String // The designation of this species, such as "sentient".
-	let averageLifespan: DescriptiveInt // The average lifespan of this species in years.
-	let language: String // The language commonly spoken by this species.
-	let people: [String] // An array of People URL Resources that are a part of this species.
-	//let created: NSDate? // the ISO 8601 date format of the time that this resource was created.
-	//let edited: NSDate? // the ISO 8601 date format of the time that this resource was edited.
+
+	//Will query API for planet data only when property accessed.
+	lazy var homePlanet: Planet? = nil
+	let hairColors: String
+	let skinColors: String
+	let eyeColors: String
+	let homeWorldUrl: String
+	let films: [String]
+	let url: String
+	let classification: String
+	let designation: String
+	let averageLifespan: DescriptiveInt
+	let language: String
+	let people: [String]
 	
 	//MARK: SWCategory conformance
 	let categoryTitle: String = "Species"
@@ -78,7 +60,7 @@ class Species: SWCategoryType, AssociatedUrlsProvider {
 		}
 	}
 	
-	//SizeProvider (part of SWCategory
+	//SizeProvider (part of SWCategoryType)
 	var size: Double? {
 		
 		if let intValue = avgHeight.intValue {
@@ -111,7 +93,7 @@ class Species: SWCategoryType, AssociatedUrlsProvider {
 		}
 	}
 	
-	//JSONDecodable (Part of SWCategory)
+	//JSONDecodable (Part of SWCategoryType)
 	required init?(json: JSON) {
 		
 		guard let
@@ -146,8 +128,15 @@ class Species: SWCategoryType, AssociatedUrlsProvider {
 		self.eyeColors = eyeColors
 		self.homeWorldUrl = homeWorld
 		self.skinColors = skinColors
+	}
+	
+	//MARK: AssociatedUrlsProvider
+	var urlArraysDictionary: [RootResource : [String]] {
 		
-		
+		return [
+			RootResource(rootResource: .movies): films,
+			RootResource(rootResource: .MovieCharacters): people,
+		]
 	}
 	
 }

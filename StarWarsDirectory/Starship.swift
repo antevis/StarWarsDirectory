@@ -11,11 +11,10 @@ import Foundation
 struct Starship: SWCategoryType, AssociatedUrlsProvider {
 	
 	//MARK: Starship-specific properties (OK, not ONLY starship-specific eventually)
-	let model: String // The model or official name of this starship. Such as "T-65 X-wing" or "DS-1 Orbital Battle Station".
-	let manufacturer: String // The manufacturer of this starship. Comma seperated if more than one.
-	let cost_in_credits: DescriptiveDouble // The cost of this starship new, in galactic credits.
+	let model: String
+	let manufacturer: String
+	let cost_in_credits: DescriptiveDouble
 	
-	// The length of this starship in meters.
 	var length: DescriptiveDouble {
 		
 		didSet {
@@ -27,27 +26,17 @@ struct Starship: SWCategoryType, AssociatedUrlsProvider {
 		}
 	}
 	
-	//MARK: AssociatedUrlsProvider
-	var urlArraysDictionary: [RootResource : [String]] {
-		
-		return [
-			RootResource(rootResource: .MovieCharacters): pilots,
-			RootResource(rootResource: .movies): films,
-		]
-	}
-	
-	let max_atmosphering_speed: DescriptiveDouble // The maximum speed of this starship in atmosphere. "N/A" if this starship is incapable of atmosphering flight.
-	let crew: DescriptiveInt // The number of personnel needed to run or pilot this starship.
-	let passengers: DescriptiveInt // The number of non-essential people this starship can transport.
-	let cargo_capacity: DescriptiveDouble // The maximum number of kilograms that this starship can transport.
-	let consumables: DescriptiveDouble //The maximum length of time that this starship can provide consumables for its entire crew without having to resupply.
-	let hyperdrive_rating: String // The class of this starships hyperdrive.
-	let MGLT: DescriptiveDouble // The Maximum number of Megalights this starship can travel in a standard hour. We can assume it is similar to AU, the distance between our Sun (Sol) and Earth.
-	let starship_class: String // The class of this starship, such as "Starfighter" or "Deep Space Mobile Battlestation"
-	let pilots: [String] // An array of People URL Resources that this starship has been piloted by.
-	let films: [String] // An array of Film URL Resources that this starship has appeared in.
-	let url: String // the hypermedia URL of this resource.
-	
+	let max_atmosphering_speed: DescriptiveDouble
+	let crew: DescriptiveInt
+	let passengers: DescriptiveInt
+	let cargo_capacity: DescriptiveDouble
+	let consumables: DescriptiveDouble
+	let hyperdrive_rating: String
+	let MGLT: DescriptiveDouble
+	let starship_class: String
+	let pilots: [String]
+	let films: [String]
+	let url: String
 	
 	//MARK: SWCategory conformance
 	let categoryTitle: String = "Starships"
@@ -75,7 +64,7 @@ struct Starship: SWCategoryType, AssociatedUrlsProvider {
 		}
 	}
 	
-	//JSONDecodable
+	//JSONDecodable (Part of SWCategoryType)
 	init?(json: JSON) {
 		
 		guard let
@@ -118,7 +107,7 @@ struct Starship: SWCategoryType, AssociatedUrlsProvider {
 		self.films = films
 	}
 	
-	//SizeProvider
+	//SizeProvider (part of SWCategoryType)
 	var size: Double? {
 		
 		return length.doubleValue
@@ -141,6 +130,15 @@ struct Starship: SWCategoryType, AssociatedUrlsProvider {
 			
 			return "\(doubleValue) \(scale.rawValue)"
 		}
+	}
+	
+	//MARK: AssociatedUrlsProvider
+	var urlArraysDictionary: [RootResource : [String]] {
+		
+		return [
+			RootResource(rootResource: .MovieCharacters): pilots,
+			RootResource(rootResource: .movies): films,
+		]
 	}
 }
 

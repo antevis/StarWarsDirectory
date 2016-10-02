@@ -8,10 +8,7 @@
 
 import Foundation
 
-protocol AssociatedUrlsProvider {
-	
-	var urlArraysDictionary: [RootResource: [String]] { get }
-}
+
 
 struct Film: SWCategoryType, AssociatedUrlsProvider {
 	
@@ -27,17 +24,6 @@ struct Film: SWCategoryType, AssociatedUrlsProvider {
 	let species: [String]
 	let url: String
 	
-	//MARK: AssociatedUrlsProvider
-	var urlArraysDictionary: [RootResource : [String]] {
-		
-		return [
-			RootResource(rootResource: .MovieCharacters): characters,
-			RootResource(rootResource: .planets): planets,
-			RootResource(rootResource: .starships): starships,
-			RootResource(rootResource: .vehicles): vehicles,
-			RootResource(rootResource: .species): species
-		]
-	}
 	
 	//MARK: SWCategory conformance
 	let categoryTitle: String = "Films"
@@ -58,7 +44,7 @@ struct Film: SWCategoryType, AssociatedUrlsProvider {
 		}
 	}
 	
-	//JSONDecodable
+	//JSONDecodable (Part of SWCategoryType)
 	init?(json: JSON) {
 		
 		guard let
@@ -94,7 +80,7 @@ struct Film: SWCategoryType, AssociatedUrlsProvider {
 		
 	}
 	
-	//SizeProvider
+	//SizeProvider (part of SWCategoryType)
 	var size: Double? {
 		
 		return nil
@@ -103,6 +89,18 @@ struct Film: SWCategoryType, AssociatedUrlsProvider {
 	func sizeIn(measure: MeasureSystem, with scale: ConversionScale) -> String {
 		
 		return ""
+	}
+	
+	//MARK: AssociatedUrlsProvider
+	var urlArraysDictionary: [RootResource : [String]] {
+		
+		return [
+			RootResource(rootResource: .MovieCharacters): characters,
+			RootResource(rootResource: .planets): planets,
+			RootResource(rootResource: .starships): starships,
+			RootResource(rootResource: .vehicles): vehicles,
+			RootResource(rootResource: .species): species
+		]
 	}
 	
 }

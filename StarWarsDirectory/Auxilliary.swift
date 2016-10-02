@@ -6,20 +6,7 @@
 //  Copyright © 2016 Antevis UAB. All rights reserved.
 //
 
-import UIKit
-
-typealias DescriptiveInt = (intValue: Int?, description: String)
-typealias DescriptiveDouble = (doubleValue: Double?, description: String)
-typealias Aux = Auxilliary
-
-protocol MeasureSystemDelegate: class {
-	
-	func measureSystemSetTo<T: SizeProvider>(measureSystem: MeasureSystem, item: T)
-	
-	func imperialSystemSet()
-	func metricSystemSet()
-}
-
+import Foundation
 
 class Auxilliary {
 	
@@ -115,7 +102,7 @@ class Auxilliary {
 				
 				return "\(round(100 * value * rate) / 100) \(currency.rawValue)"
 				
-			case .GCR:
+			case .Credits:
 				
 				return "\(value) \(currency.rawValue)"
 			
@@ -202,20 +189,7 @@ class Auxilliary {
 	}
 }
 
-protocol SizeProvider {
-	
-	var size: Double? { get }
-	
-	func sizeIn(measure: MeasureSystem, with scale: ConversionScale) -> String
-}
 
-enum ConversionScale: String {
-	
-	case cmToFeetInches = "cm"
-	case kmToMiles = "km"
-	case metersToYards = "m"
-	case kgToPounds = "kg"
-}
 
 
 

@@ -8,6 +8,58 @@
 
 import Foundation
 
+protocol SWCategoryType: JSONDecodable, SizeProvider {
+	
+	var name: String { get }
+	var categoryTitle: String { get }
+	
+	var tableData: [(key: String, value: String, scale: ConversionScale?, convertible: Bool)] { get }
+}
+
+protocol AssociatedUrlsProvider {
+	
+	var urlArraysDictionary: [RootResource: [String]] { get }
+}
+
+enum MeasureSystem {
+	
+	case Metric
+	case Imperial
+}
+
+enum Currency: String {
+	
+	case Credits //Galacti credits
+	case USD
+}
+
+protocol SizeProvider {
+	
+	var size: Double? { get }
+	
+	func sizeIn(measure: MeasureSystem, with scale: ConversionScale) -> String
+}
+
+enum ConversionScale: String {
+	
+	case cmToFeetInches = "cm"
+	case kmToMiles = "km"
+	case metersToYards = "m"
+	case kgToPounds = "kg"
+}
+
+typealias DescriptiveInt = (intValue: Int?, description: String)
+typealias DescriptiveDouble = (doubleValue: Double?, description: String)
+typealias Aux = Auxilliary
+
+protocol MeasureSystemDelegate: class {
+	
+	func measureSystemSetTo<T: SizeProvider>(measureSystem: MeasureSystem, item: T)
+	
+	func imperialSystemSet()
+	func metricSystemSet()
+}
+
 enum SWEndpoint: Endpoint {
 	
 	case Characters(Int)
