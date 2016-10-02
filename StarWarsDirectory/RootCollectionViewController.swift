@@ -167,25 +167,26 @@ class RootCollectionViewController: UICollectionViewController {
 			
 			case 2:
 			
-				childController?.endPoint = SWEndpoint.Planets(1)
-				childController?.scale = ConversionScale.kmToMiles
-			
-			case 3:
-			
 				childController?.endPoint = SWEndpoint.Species(1)
 				childController?.scale = ConversionScale.cmToFeetInches
 			
+			case 3:
+				
+				childController?.endPoint = SWEndpoint.Starships(1)
+				childController?.scale = ConversionScale.metersToYards
+
 			case 4:
 			
-				childController?.endPoint = SWEndpoint.Starships(1)
+				childController?.endPoint = SWEndpoint.Vehicles(1)
 				childController?.scale = ConversionScale.metersToYards
 			
 			case 5:
 			
-				childController?.endPoint = SWEndpoint.Vehicles(1)
-				childController?.scale = ConversionScale.metersToYards
+				childController?.endPoint = SWEndpoint.Planets(1)
+				childController?.scale = ConversionScale.kmToMiles
 
 			default:
+				
 				let defaultController = DefaultViewController(nibName: "DefaultViewController", bundle: nil)
 			
 				defaultController.zeroLabelText = rootItems[sender.tag].resourceUrlString
