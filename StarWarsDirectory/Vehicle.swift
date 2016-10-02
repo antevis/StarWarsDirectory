@@ -8,7 +8,16 @@
 
 import Foundation
 
-struct Vehicle: SizeProvider, SWCategoryType {
+struct Vehicle: SWCategoryType, AssociatedUrlsProvider {
+	
+	//MARK: AssociatedUrlsProvider
+	var urlArraysDictionary: [RootResource : [String]] {
+		
+		return [
+			RootResource(rootResource: .MovieCharacters): pilots,
+			RootResource(rootResource: .movies): films,
+		]
+	}
 	
 	let categoryTitle: String = "Vehicles"
 	

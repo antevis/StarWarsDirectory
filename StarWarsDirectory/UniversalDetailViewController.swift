@@ -629,7 +629,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			i += 1
 		}
 		
-		tabBar.setItems(tabBarItems, animated: true)
+		tabBar.setItems(tabBarItems, animated: false)
 	}
 	
 	

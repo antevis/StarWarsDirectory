@@ -10,7 +10,7 @@ import Foundation
 
 
 
-class Species: SWCategoryType, SizeProvider {
+class Species: SWCategoryType, AssociatedUrlsProvider {
 	
 	
 	
@@ -24,6 +24,15 @@ class Species: SWCategoryType, SizeProvider {
 				avgHeight.description = "\(doubleValue) cm"
 			}
 		}
+	}
+	
+	//MARK: AssociatedUrlsProvider
+	var urlArraysDictionary: [RootResource : [String]] {
+		
+		return [
+			RootResource(rootResource: .movies): films,
+			RootResource(rootResource: .MovieCharacters): people,
+		]
 	}
 	
 	//Query api for planet data only when property accessed.

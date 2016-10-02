@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Starship: SWCategoryType {
+struct Starship: SWCategoryType, AssociatedUrlsProvider {
 	
 	//MARK: Starship-specific properties (OK, not ONLY starship-specific eventually)
 	let model: String // The model or official name of this starship. Such as "T-65 X-wing" or "DS-1 Orbital Battle Station".
@@ -25,6 +25,15 @@ struct Starship: SWCategoryType {
 				length.description = "\(doubleValue) m"
 			}
 		}
+	}
+	
+	//MARK: AssociatedUrlsProvider
+	var urlArraysDictionary: [RootResource : [String]] {
+		
+		return [
+			RootResource(rootResource: .MovieCharacters): pilots,
+			RootResource(rootResource: .movies): films,
+		]
 	}
 	
 	let max_atmosphering_speed: DescriptiveDouble // The maximum speed of this starship in atmosphere. "N/A" if this starship is incapable of atmosphering flight.

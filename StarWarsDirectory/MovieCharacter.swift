@@ -12,7 +12,18 @@ import Foundation
 
 
 
-struct MovieCharacter: SWCategoryType {
+struct MovieCharacter: SWCategoryType, AssociatedUrlsProvider {
+	
+	//MARK: AssociatedUrlsProvider
+	var urlArraysDictionary: [RootResource : [String]] {
+		
+		return [
+			RootResource(rootResource: .movies): films,
+			RootResource(rootResource: .starships): starships,
+			RootResource(rootResource: .vehicles): vehicles,
+			RootResource(rootResource: .species): species
+		]
+	}
 	
 	let eye_color: String // The eye color of this person. Will be "unknown" if not known or "n/a" if the person does not have an eye.
 	let vehicles: [String] // An array of vehicle resource URLs that this person has piloted.
