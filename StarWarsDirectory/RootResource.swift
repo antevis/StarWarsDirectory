@@ -27,6 +27,14 @@ enum Root: String {
 			return "\(baseUrl)\(self.rawValue)/"
 		}
 	}
+	
+	var title: String {
+		
+		get {
+			
+			return self.rawValue.capitalizedString
+		}
+	}
 }
 
 struct RootResource: Hashable {
@@ -58,6 +66,22 @@ struct RootResource: Hashable {
 			
 			return defaultImage
 		
+		} else {
+			
+			return nil
+		}
+	}
+	
+	var tabIcon: UIImage? {
+		
+		if let icon = UIImage(named: "\(resourceName)Tab") {
+			
+			return icon
+			
+		} else if let defaultImage = UIImage(named: "defaultTab") { //I nerver 100% sure of anything.
+			
+			return defaultImage
+			
 		} else {
 			
 			return nil

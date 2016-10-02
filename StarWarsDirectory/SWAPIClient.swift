@@ -157,17 +157,4 @@ class SwapiClient: APIClient {
 			
 		}, completion: completion)
 	}
-	
-//	func fetchSWCategory<T: SWCategoryType>(url: String, completion: APIResult<T> -> Void) {
-//		
-//		let request = NSURLRequest(URL: NSURL(string: url)!)
-//		
-//		fetch(request, parse: { json -> T? in
-//			
-//			return T(json: json)
-//			
-//		}, completion: completion)
-//	}
-	
-	
 }

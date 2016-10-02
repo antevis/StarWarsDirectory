@@ -14,11 +14,12 @@ protocol CurrencyRateUpdatedDelegate: class {
 }
 
 
-class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UsdRatePrompterDelegate {
+class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource, UsdRatePrompterDelegate, UITabBarDelegate {
 	
 	weak var currencyRateUpdatedDelegate: CurrencyRateUpdatedDelegate?
 	
 	var endPoint: SWEndpoint?
+	var associatedUrls: [RootResource: [String]]?
 	var associatedCategoryUrls: [String]?
 	
 	let apiClient = SwapiClient()
@@ -28,6 +29,8 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	@IBOutlet weak var titleLabel: UILabel!
 	@IBOutlet weak var smallestLabel: UILabel!
 	@IBOutlet weak var largestLabel: UILabel!
+	
+	@IBOutlet weak var tabBar: UITabBar!
 	
 	var itemCount: Int?
 	var currentItem: SWCategoryType? {
@@ -53,7 +56,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 	var crdUsd: Double?
 	var currentCurrency: Currency = Currency.GCR
 	
-	var associatedUrls: [RootResource: [String]]?
+	
 	
 	override func viewDidLoad() {
 		
@@ -73,6 +76,9 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		
 		detailsTableView.dataSource = self
 		picker.delegate = self
+		tabBar.delegate = self
+		
+		tabBar.setItems(nil, animated: false)
 		
 		switch endPoint {
 			
@@ -593,8 +599,37 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			if let itemAsUrlsProvider = currentItem as? AssociatedUrlsProvider {
 			
 				associatedUrls = itemAsUrlsProvider.urlArraysDictionary
+				
+				setupTabBarFor(associatedUrls)
 			}
 		}
+	}
+	
+	func setupTabBarFor(urls: [RootResource: [String]]?) {
+		
+		guard let urls = urls else {
+			
+			tabBar.setItems(nil, animated: false)
+			
+			return
+		}
+		
+		var tabBarItems = [UITabBarItem]()
+		
+		var i: Int = 0
+		
+		for urlArray in urls {
+			
+			let tabBarItem = UITabBarItem(title:urlArray.0.resourceTitle, image: urlArray.0.tabIcon, tag: i)
+			
+			tabBarItem.enabled = urlArray.1.count > 0
+			
+			tabBarItems.append(tabBarItem)
+			
+			i += 1
+		}
+		
+		tabBar.setItems(tabBarItems, animated: false)
 	}
 	
 	
@@ -670,6 +705,57 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		
 	}
 	
-
+	//MARK: UITabBarDelegate conformance
+	func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+		
+		guard let associatedUrls = associatedUrls, title = item.title else {
+			
+			return
+		}
+		
+		let childController = storyboard?.instantiateViewControllerWithIdentifier("UniversalDetailViewController") as? UniversalDetailViewController
+		childController?.associatedCategoryUrls = Aux.getValueFor(title, within: associatedUrls)
+		
+		switch title {
+			
+			case Root.MovieCharacters.title:
+				
+				childController?.endPoint = SWEndpoint.Characters(1)
+				childController?.scale = ConversionScale.cmToFeetInches
+			
+			case Root.movies.title:
+				
+				childController?.endPoint = SWEndpoint.Films(1)
+				
+			case Root.planets.title:
+				
+				childController?.endPoint = SWEndpoint.Planets(1)
+				childController?.scale = ConversionScale.kmToMiles
+				
+			case Root.species.title:
+				
+				childController?.endPoint = SWEndpoint.Species(1)
+				childController?.scale = ConversionScale.cmToFeetInches
+				
+			case Root.starships.title:
+				
+				childController?.endPoint = SWEndpoint.Starships(1)
+				childController?.scale = ConversionScale.metersToYards
+				
+			case Root.vehicles.title:
+				
+				childController?.endPoint = SWEndpoint.Vehicles(1)
+				childController?.scale = ConversionScale.metersToYards
+			
+			default: break
+			
+		}
+		
+		if let controller = childController {
+			
+			self.navigationController?.pushViewController(controller, animated: true)
+		}
+		
+	}
 	
 }

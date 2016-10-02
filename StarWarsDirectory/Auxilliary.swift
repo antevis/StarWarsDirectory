@@ -6,7 +6,7 @@
 //  Copyright © 2016 Antevis UAB. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 typealias DescriptiveInt = (intValue: Int?, description: String)
 typealias DescriptiveDouble = (doubleValue: Double?, description: String)
@@ -183,6 +183,23 @@ class Auxilliary {
 			return .Metric //Default API measure system
 		}
 	}
+	
+	class func getValueFor(rootResourceTitle: String, within dictionary: [RootResource: [String]]) -> [String]? {
+		
+		var result: [String]?
+		
+		for item in dictionary {
+			
+			if item.0.resourceTitle == rootResourceTitle {
+				
+				result = item.1
+				
+				break
+			}
+		}
+		
+		return result
+	}
 }
 
 protocol SizeProvider {
@@ -262,3 +279,4 @@ extension String {
 		return result
 	}
 }
+

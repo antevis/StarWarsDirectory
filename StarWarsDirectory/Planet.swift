@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Planet: SWCategoryType {
+struct Planet: SWCategoryType, AssociatedUrlsProvider {
 	
 	
 	let rotation_period: DescriptiveDouble // The number of standard hours it takes for this planet to complete a single rotation on its axis.
@@ -24,6 +24,15 @@ struct Planet: SWCategoryType {
 				diameter.description = "\(doubleValue) km"
 			}
 		}
+	}
+	
+	//MARK: AssociatedUrlsProvider
+	var urlArraysDictionary: [RootResource : [String]] {
+		
+		return [
+			RootResource(rootResource: .MovieCharacters): residents,
+			RootResource(rootResource: .movies): films,
+		]
 	}
 	
 	let climate: String // The climate of this planet. Comma-seperated if diverse.
