@@ -43,7 +43,7 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 		}
 	}
 	
-	var currentItemPlanet: (SWCategoryType?, Planet)?
+	var currentItemPlanet: (character: SWCategoryType?, planet: Planet)?
 	
 	var starShips: [Starship]?
 	var vehicles: [Vehicle]?
@@ -531,16 +531,27 @@ class UniversalDetailViewController: UIViewController, UITableViewDelegate, UITa
 			
 		} else {
 			
-			//As Characters always being sorted while pagingated recursive fetching, first charactrer may differ or stay the same for each iteration.
-			//If character at index is still the same, no need to retrieve planet for him again, as we keep it stored in the dedicated variable.
-			if let
-				planetCharacter = currentItemPlanet,
-				currentCharacter = people?[index],
-				currrentItemCharacter = planetCharacter.0 as? MovieCharacter where currentCharacter.name == currrentItemCharacter.name {
+			//Since Characters always being sorted while pagingated recursive fetching, first charactrer may differ or stay the same for each iteration.
+			//If character at index is still the same, no need to retrieve planet for him again, as we keep it stored in the dedicated charcter-planet tuple.
+			//Eliminates a lot of accessive API calls and saves a lot of blinking in a planet tableCell
+			if let planetCharacter = currentItemPlanet {
 				
+				if let character = planetCharacter.character as? MovieCharacter, currentCharacter = people?[index] where character.name == currentCharacter.name {
+					
+					self.people?[index].homePlanet = planetCharacter.planet
+					
+					return planetCharacter.planet.name
+				
+				} else if let speciesCharacter = planetCharacter.character as? Species, currentSpecies = species?[index] where speciesCharacter.name == currentSpecies.name {
+					
+					self.species?[index].homePlanet = planetCharacter.planet
+				}
+//				currentCharacter = people?[index] ?? species?[index]
+//				currrentItemCharacter = planetCharacter.movieCharacter as? MovieCharacter where currentCharacter.name == currrentItemCharacter.name {
+			
 				//A bit controversial approach to assign planet to whatever SWCategoryType instance is now being browsed.
-				self.people?[index].homePlanet = planetCharacter.1
-				self.species?[index].homePlanet = planetCharacter.1
+//				self.people?[index].homePlanet = planetCharacter.1
+//				self.species?[index].homePlanet = planetCharacter.1
 				
 				//It's most likely true always, but who nows..
 				if self.picker.selectedRowInComponent(0) == index {
