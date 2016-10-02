@@ -322,14 +322,21 @@
                                     <action selector="fetchAssociatedItems:" destination="1xi-lQ-erV" eventType="touchUpInside" id="Vrw-jf-zGX"/>
                                 </connections>
                             </button>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="srL-BX-1RS">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <items/>
+                            </tabBar>
                         </subviews>
                         <color key="backgroundColor" red="0.050980392156862744" green="0.054901960784313725" blue="0.054901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="leadingMargin" secondItem="25r-Qe-RlF" secondAttribute="leading" id="3Cb-64-uHY"/>
+                            <constraint firstAttribute="trailing" secondItem="srL-BX-1RS" secondAttribute="trailing" id="8ik-Kn-kpj"/>
                             <constraint firstItem="ofg-ca-PJl" firstAttribute="top" secondItem="8SX-Bz-gA4" secondAttribute="bottom" id="Fmd-eq-oYL"/>
                             <constraint firstItem="SY2-I7-Law" firstAttribute="top" secondItem="ofg-ca-PJl" secondAttribute="bottom" constant="100" id="ILR-ks-Bzg"/>
                             <constraint firstItem="OJl-Xs-x6j" firstAttribute="leading" secondItem="HeL-87-c4x" secondAttribute="leadingMargin" constant="20" id="IcX-rW-3S3"/>
+                            <constraint firstItem="SY2-I7-Law" firstAttribute="top" secondItem="srL-BX-1RS" secondAttribute="bottom" id="IyF-Ni-8Zp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="25r-Qe-RlF" secondAttribute="trailing" id="JMF-yP-UUr"/>
+                            <constraint firstItem="srL-BX-1RS" firstAttribute="leading" secondItem="HeL-87-c4x" secondAttribute="leading" id="K7Z-kT-0uf"/>
                             <constraint firstItem="SBZ-G6-tCf" firstAttribute="centerX" secondItem="HeL-87-c4x" secondAttribute="centerX" id="SOi-hq-ReX"/>
                             <constraint firstItem="8SX-Bz-gA4" firstAttribute="leading" secondItem="HeL-87-c4x" secondAttribute="leading" id="TcY-te-Wdk"/>
                             <constraint firstItem="OJl-Xs-x6j" firstAttribute="top" secondItem="b31-1a-g6y" secondAttribute="bottom" constant="8" id="ZON-ti-NLP"/>
@@ -339,7 +346,7 @@
                             <constraint firstItem="8SX-Bz-gA4" firstAttribute="top" secondItem="25r-Qe-RlF" secondAttribute="bottom" constant="8" id="kZG-J1-ApN"/>
                             <constraint firstAttribute="trailing" secondItem="ofg-ca-PJl" secondAttribute="trailing" id="nWt-h4-E7I"/>
                             <constraint firstItem="ofg-ca-PJl" firstAttribute="leading" secondItem="HeL-87-c4x" secondAttribute="leading" id="odA-5R-vkB"/>
-                            <constraint firstItem="SY2-I7-Law" firstAttribute="top" secondItem="SBZ-G6-tCf" secondAttribute="bottom" constant="28" id="ykl-J7-31m"/>
+                            <constraint firstItem="SY2-I7-Law" firstAttribute="top" secondItem="SBZ-G6-tCf" secondAttribute="bottom" constant="62" id="ykl-J7-31m"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="i1M-Kk-DPp"/>
@@ -348,6 +355,7 @@
                         <outlet property="largestLabel" destination="D1u-kX-NKk" id="F8G-0s-3Nv"/>
                         <outlet property="picker" destination="8SX-Bz-gA4" id="YLk-2l-dVp"/>
                         <outlet property="smallestLabel" destination="dlz-qP-kuC" id="dug-Sf-uCO"/>
+                        <outlet property="tabBar" destination="srL-BX-1RS" id="GkN-J9-euy"/>
                         <outlet property="titleLabel" destination="OJl-Xs-x6j" id="J6u-Vc-Pbs"/>
                     </connections>
                 </viewController>
